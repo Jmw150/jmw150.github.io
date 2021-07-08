@@ -1,0 +1,33 @@
+tt {
+  font-size:120%;
+  color:#ccffee;
+}
+pre {
+  font-size:120%;
+  color:#ccffee;
+}
+div {
+  background:#448; 
+  border:groove; 
+  padding:5;
+  color:#FFC
+}
+#inset {
+  padding-left:10;
+}
+#insetem {
+  //padding-left:10;
+  //font-style:italic;
+}
+#highlt {
+    color:FFC;
+}
+#lul, li {
+    //line-height:+2;
+    margin-bottom:+12;
+}
+table, tr, td {
+  border: 1px solid #db9;
+  border-collapse: collapse;
+  padding: 7px;
+}

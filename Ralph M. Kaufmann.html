@@ -1,0 +1,794 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Ralph M. Kaufmann</title>
+    <style type="text/css">
+
+
+
+#dropmenudiv{
+
+position:absolute;
+
+border:1px solid black;
+
+border-bottom-width: 0;
+
+font:normal 12px Verdana;
+
+line-height:18px;
+
+z-index:100;
+
+}
+
+
+
+#dropmenudiv a{
+
+width: 100%;
+
+display: block;
+
+text-indent: 3px;
+
+border-bottom: 1px solid black;
+
+padding: 1px 0;
+
+text-decoration: none;
+
+font-weight: bold;
+
+}
+
+
+
+#dropmenudiv a:hover{/*hover background color*/
+
+background-color: #b1946c;
+
+}
+
+
+
+  </style>
+    <script type="text/javascript">
+
+
+
+//Contents for menu 1
+
+var menu1=new Array()
+
+menu1[0]='<a href="http://www.math.purdue.edu/~rkaufman/cv.pdf"><font color="black">Download full CV as PDF</a>'
+
+
+
+
+
+//Contents for menu 2
+
+var menu2=new Array()
+
+menu2[0]='<a href="#Research" ><font color="black">Areas of Research</a>'
+
+menu2[1]='<a href="http://www.math.purdue.edu/~rkaufman/pubs.html"><font color="black">Publications</a>'
+
+menu2[2]='<a href="http://www.math.purdue.edu/~rkaufman/pubs2.html"><font color="black">Publications with links</a>'
+
+menu2[3]='<a href="http://www.math.purdue.edu/~rkaufman/talks.html"><font color="black">Selected talks</a>'
+
+menu2[4]='<a href="http://www.math.purdue.edu/~rkaufman/students.html"><font color="black">Students and Post-docs</a>'
+
+menu2[5]='<a href="#Activity"><font color="black">Higher Structures</a>'
+
+
+
+
+
+//Contents for menu 3
+
+var menu3=new Array()
+
+menu3[0]='<a href="#Teaching" ><font color="black">Teaching and Mentoring</a>'
+
+menu3[1]='<a href="https://www.math.purdue.edu/~rkaufman/MA553f20/553.html"><font colo2="black">MATH 553</a>'
+menu3[2]='<a href="https://www.math.purdue.edu/~rkaufman/MA598f20/598.html"><font colo2="black">MATH 598</a>'
+menu3[3]='<a href="http://www.math.purdue.edu/~rkaufman/oldclass.html"><font colo2="black">Past Teaching</a>'
+
+menu3[4]='<a href="http://www.math.purdue.edu/~rkaufman/students.html"><font color="black">Students and Post-docs</a>'
+
+
+
+//Contents for menu 4
+
+var menu4=new Array()
+
+menu4[0]='<a href="https://www.math.purdue.edu/~ppatzt/Spring2020TopologySeminar.html"><font color="black">Topology Seminar Schedule Spring 2020</a>'
+
+menu4[1]='<a href="https://www.math.purdue.edu/~ebkaufma/seminar.html"><font colo2="black">Mathematical Physics Seminar Schedule</a>'
+
+
+
+var menuwidth='165px' //default menu width
+
+var menubgcolor='#e0d5c5'  //menu bgcolor
+
+var disappeardelay=250  //menu disappear speed onMouseout (in miliseconds)
+
+var hidemenu_onclick="yes" //hide menu when user clicks within menu?
+
+
+
+/////No further editing needed
+
+
+
+var ie4=document.all
+
+var ns6=document.getElementById&&!document.all
+
+
+
+if (ie4||ns6)
+
+document.write('<div id="dropmenudiv" style="visibility:hidden;width:'+menuwidth+';background-color:'+menubgcolor+'" onMouseover="clearhidemenu()" onMouseout="dynamichide(event)"></div>')
+
+
+
+function getposOffset(what, offsettype){
+
+var totaloffset=(offsettype=="left")? what.offsetLeft : what.offsetTop;
+
+var parentEl=what.offsetParent;
+
+while (parentEl!=null){
+
+totaloffset=(offsettype=="left")? totaloffset+parentEl.offsetLeft : totaloffset+parentEl.offsetTop;
+
+parentEl=parentEl.offsetParent;
+
+}
+
+return totaloffset;
+
+}
+
+
+
+
+
+function showhide(obj, e, visible, hidden, menuwidth){
+
+if (ie4||ns6)
+
+dropmenuobj.style.left=dropmenuobj.style.top="-500px"
+
+if (menuwidth!=""){
+
+dropmenuobj.widthobj=dropmenuobj.style
+
+dropmenuobj.widthobj.width=menuwidth
+
+}
+
+if (e.type=="click" && obj.visibility==hidden || e.type=="mouseover")
+
+obj.visibility=visible
+
+else if (e.type=="click")
+
+obj.visibility=hidden
+
+}
+
+
+
+function iecompattest(){
+
+return (document.compatMode && document.compatMode!="BackCompat")? document.documentElement : document.body
+
+}
+
+
+
+function clearbrowseredge(obj, whichedge){
+
+var edgeoffset=0
+
+if (whichedge=="rightedge"){
+
+var windowedge=ie4 && !window.opera? iecompattest().scrollLeft+iecompattest().clientWidth-15 : window.pageXOffset+window.innerWidth-15
+
+dropmenuobj.contentmeasure=dropmenuobj.offsetWidth
+
+if (windowedge-dropmenuobj.x < dropmenuobj.contentmeasure)
+
+edgeoffset=dropmenuobj.contentmeasure-obj.offsetWidth
+
+}
+
+else{
+
+var topedge=ie4 && !window.opera? iecompattest().scrollTop : window.pageYOffset
+
+var windowedge=ie4 && !window.opera? iecompattest().scrollTop+iecompattest().clientHeight-15 : window.pageYOffset+window.innerHeight-18
+
+dropmenuobj.contentmeasure=dropmenuobj.offsetHeight
+
+if (windowedge-dropmenuobj.y < dropmenuobj.contentmeasure){ //move up?
+
+edgeoffset=dropmenuobj.contentmeasure+obj.offsetHeight
+
+if ((dropmenuobj.y-topedge)<dropmenuobj.contentmeasure) //up no good either?
+
+edgeoffset=dropmenuobj.y+obj.offsetHeight-topedge
+
+}
+
+}
+
+return edgeoffset
+
+}
+
+
+
+function populatemenu(what){
+
+if (ie4||ns6)
+
+dropmenuobj.innerHTML=what.join("")
+
+}
+
+
+
+
+
+function dropdownmenu(obj, e, menucontents, menuwidth){
+
+if (window.event) event.cancelBubble=true
+
+else if (e.stopPropagation) e.stopPropagation()
+
+clearhidemenu()
+
+dropmenuobj=document.getElementById? document.getElementById("dropmenudiv") : dropmenudiv
+
+populatemenu(menucontents)
+
+
+
+if (ie4||ns6){
+
+showhide(dropmenuobj.style, e, "visible", "hidden", menuwidth)
+
+dropmenuobj.x=getposOffset(obj, "left")
+
+dropmenuobj.y=getposOffset(obj, "top")
+
+dropmenuobj.style.left=dropmenuobj.x-clearbrowseredge(obj, "rightedge")+"px"
+
+dropmenuobj.style.top=dropmenuobj.y-clearbrowseredge(obj, "bottomedge")+obj.offsetHeight+"px"
+
+}
+
+
+
+return clickreturnvalue()
+
+}
+
+
+
+function clickreturnvalue(){
+
+if (ie4||ns6) return false
+
+else return true
+
+}
+
+
+
+function contains_ns6(a, b) {
+
+while (b.parentNode)
+
+if ((b = b.parentNode) == a)
+
+return true;
+
+return false;
+
+}
+
+
+
+function dynamichide(e){
+
+if (ie4&&!dropmenuobj.contains(e.toElement))
+
+delayhidemenu()
+
+else if (ns6&&e.currentTarget!= e.relatedTarget&& !contains_ns6(e.currentTarget, e.relatedTarget))
+
+delayhidemenu()
+
+}
+
+
+
+function hidemenu(e){
+
+if (typeof dropmenuobj!="undefined"){
+
+if (ie4||ns6)
+
+dropmenuobj.style.visibility="hidden"
+
+}
+
+}
+
+
+
+function delayhidemenu(){
+
+if (ie4||ns6)
+
+delayhide=setTimeout("hidemenu()",disappeardelay)
+
+}
+
+
+
+function clearhidemenu(){
+
+if (typeof delayhide!="undefined")
+
+clearTimeout(delayhide)
+
+}
+
+
+
+if (hidemenu_onclick=="yes")
+
+document.onclick=hidemenu
+
+
+
+  </script></head><body style=" color: rgb(0, 0, 0); background-color: rgb(255, 255,
+    255); background-image: url(eq_background.jpg);" vlink="#999999" link="#333333" alink="#666666"><div id="dropmenudiv" style="visibility: hidden; width: 25%; background-color: rgb(224, 213, 197); top: 254px; left: 753px;" onmouseover="clearhidemenu()" onmouseout="dynamichide(event)"><a href="#Teaching"><font color="black">Teaching and Mentoring</font></a><font color="black"><a href="https://www.math.purdue.edu/~rkaufman/MA553f20/553.html"><font colo2="black">MATH 553</font></a><font colo2="black"><a href="https://www.math.purdue.edu/~rkaufman/MA598f20/598.html"><font colo2="black">MATH 598</font></a><font colo2="black"><a href="http://www.math.purdue.edu/~rkaufman/oldclass.html"><font colo2="black">Past Teaching</font></a><font colo2="black"><a href="http://www.math.purdue.edu/~rkaufman/students.html"><font color="black">Students and Post-docs</font></a></font></font></font></font></div>
+  
+  
+    <br>
+    <div align="center"> <br>
+      <table class="MsoNormalTable" style="width: 100%;" width="100%" cellspacing="0" cellpadding="0" border="0">
+        <tbody>
+          <tr style="">
+            <td style="padding: 0in;" width="30%" valign="middle" bgcolor="#ffffff" align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+              <a href="http://www.purdue.edu/"><img alt="Purdue
+                  University" src="Ralph%20M.%20Kaufmann_files/purdue_logo.gif" width="124" height="39" border="0" align="middle"> </a> </td>
+            <td style="padding: 0in;" width="40%" valign="middle" align="center">
+              <p class="MsoNormal" style="text-align: center;" align="center"><b><big>Ralph M. Kaufmann<br>
+                    Professor</big><br>
+                  <big><a href="http://www.math.purdue.edu/" style="text-decoration: none;"> <font onmouseover="style.color='#e0d5c5';" onmouseout="style.color='#000000'" color="black">
+                        Department of Mathematics </font></a> <br>
+                    <a href="http://www.physics.purdue.edu/" style="text-decoration: none;"> <font onmouseover="style.color='#e0d5c5';" onmouseout="style.color='#000000'" style="color: rgb(0, 0, 0);" color="black">
+                        Department of Physics &amp; Astronomy (Courtesy)
+                      </font></a><br>
+                    <a href="http://www.purdue.edu/" style="text-decoration: none;"> <font font="" onmouseover="style.color='#e0d5c5';" onmouseout="style.color='#000000'" style="color: rgb(0, 0, 0);" color="black">
+                        Purdue University</font></a></big></b><o:p></o:p></p>
+              <br>
+            </td>
+            <td style="padding: 0in;" width="30%" valign="middle" align="center"> <img src="Ralph%20M.%20Kaufmann_files/belltower_aerial.jpg" alt="belltower_arial" width="300" height="75"> </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <hr style="margin-bottom: 0pt;" width="100%" size="2" color="black">
+    <table style="margin-top: 0pt; margin-bottom: 0pt;" width="100%" cellspacing="0" cellpadding="0" bordercolor="black" border="0" bgcolor="#b1946c">
+      <tbody>
+        <tr>
+          <td border="1" onmouseover="style.backgroundColor='#e0d5c5';" onmouseout="style.backgroundColor='#b1946c'" width="25%" valign="middle" align="center"><a href="#Educational_Background" style="text-decoration: none;"><font onmouseover="dropdownmenu(this, event, menu1, '25%')" onmouseout="del\ ayhidemenu()" color="black"> Bio</font></a><font color="black"><br>
+            </font></td>
+          <td onmouseover="style.backgroundColor='#e0d5c5';" onmouseout="style.backgroundColor='#b1946c'" style="background-color: rgb(177, 148, 108);" width="25%" valign="middle" align="center"><a href="#Research" style="text-decoration: none;" onmouseover="dropdownmenu(this, event, menu2, '20%')" onmouseout="delayhidemenu()"><font color="black">Research</font></a><font color="black"><br>
+            </font></td>
+          <td onmouseover="style.backgroundColor='#e0d5c5';" onmouseout="style.backgroundColor='#b1946c'" style="background-color: rgb(177, 148, 108);" width="25%" valign="middle" align="center"><a href="#Teaching" style="text-decoration: none;" onmouseover="dropdownmenu(this, event, menu3, '25%')" onmouseout="delay\ hidemenu()"><font color="black">Teaching</font></a><font color="black"><br>
+            </font></td>
+          <td onmouseover="style.backgroundColor='#e0d5c5';" onmouseout="style.backgroundColor='#b1946c'" style="background-color: rgb(177, 148, 108);" width="25%" valign="middle" align="center"><a href="#Seminars" style="text-decoration: none;" onmouseover="dropdownmenu(this, event, menu4, '25%')" onmouseout="delay\ hidemenu()"><font color="black">
+                Seminars</font></a><font color="black"><br>
+            </font></td>
+        </tr>
+      </tbody>
+    </table>
+    <hr style="margin-top: 0pt;" width="100%" size="2" color="black">
+    <blockquote style="margin-top: 5pt; margin-bottom: 5pt;"> <br>
+      <table class="MsoNormalTable" style="" nosave="" cellspacing="5" cellpadding="2" border="0">
+        <tbody>
+          <tr style="">
+            <td style="padding: 0in;" valign="top">
+              <p class="MsoNormal">Address &nbsp;&nbsp;&nbsp; &nbsp; <br>
+              </p>
+              <p class="MsoNormal"><o:p></o:p></p>
+            </td>
+            <td style="padding: 0in;" nosave="" valign="top">
+              <p class="MsoNormal"><b>Ralph Kaufmann<br>
+                  Purdue University<br>
+                  Department of Mathematics<br>
+                  <st1:street><st1:address>150 N. University Street</st1:address></st1:street><br>
+                  West Lafayette<st1:place><st1:placetype></st1:placetype></st1:place>
+                  , IN &nbsp;47907-2067<o:p></o:p></b> </p>
+            </td>
+          </tr>
+          <tr style="" nosave="">
+            <td style="padding: 0in;">
+              <p class="MsoNormal">Phone<o:p></o:p></p>
+            </td>
+            <td style="padding: 0in;" nosave="" valign="top">
+              <p class="MsoNormal"><b>(765) 494-1205<o:p></o:p></b></p>
+            </td>
+          </tr>
+          <tr style="" nosave="">
+            <td style="padding: 0in;">
+              <p class="MsoNormal">Fax<o:p></o:p></p>
+            </td>
+            <td style="padding: 0in;" nosave="">
+              <p class="MsoNormal"><b>(765) 494-<span class="leftFoot">0548&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+                  </span><o:p></o:p></b></p>
+            </td>
+          </tr>
+          <tr>
+          </tr>
+          <tr style="">
+            <td style="padding: 0in;">
+              <p class="MsoNormal">Office<o:p></o:p></p>
+            </td>
+            <td style="padding: 0in;">
+              <p class="MsoNormal">Math 730&nbsp; &nbsp;&nbsp; <o:p></o:p></p>
+            </td>
+          </tr>
+          <tr>
+          </tr>
+          <tr style="">
+            <td style="padding: 0in;">
+              <p class="MsoNormal">E-mail<o:p></o:p></p>
+            </td>
+            <td style="padding: 0in;">
+              <p class="MsoNormal"><a href="mailto:rkaufman@math.purdue.edu">rkaufman@math.purdue.edu</a>&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+                <o:p></o:p></p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+    </blockquote>
+    <hr width="100%" size="3" color="#b1946c">
+    <div align="center">
+      <blockquote><big><b><a name="Educational_Background"></a>Bio&nbsp;
+          </b></big><o:p></o:p></blockquote>
+    </div>
+    <blockquote>
+      <table class="MsoNormalTable" style="" nosave="" cellspacing="3" cellpadding="0" border="0">
+        <tbody>
+          <tr style="">
+            <td colspan="3" style="padding: 0in;">
+              <p class="MsoNormal" style="text-align: center;" align="center"><o:p>&nbsp;</o:p></p>
+            </td>
+          </tr>
+          <tr style="">
+            <td style="padding: 0in;">
+              <p class="MsoNormal">Ph.D.<o:p></o:p></p>
+            </td>
+            <td style="padding: 0in;">
+              <p class="MsoNormal">Mathematics&nbsp;<o:p></o:p></p>
+            </td>
+            <td style="padding: 0in;">
+              <p class="MsoNormal">(Bonn, Germany 1997)<o:p></o:p></p>
+            </td>
+          </tr>
+          <tr style="" nosave="">
+            <td style="padding: 0in;">
+              <p class="MsoNormal">M.S.<o:p></o:p></p>
+            </td>
+            <td style="padding: 0in;">
+              <p class="MsoNormal">Physics&nbsp;<o:p></o:p></p>
+            </td>
+            <td style="padding: 0in;" nosave="">
+              <p class="MsoNormal">(Bonn, Germany 1994)<o:p></o:p></p>
+            </td>
+          </tr>
+          <tr style="" nosave="">
+            <td style="padding: 0in;">
+              <p class="MsoNormal">M.A.<o:p></o:p></p>
+            </td>
+            <td style="padding: 0in;">
+              <p class="MsoNormal">Philosophy<o:p></o:p></p>
+            </td>
+            <td style="padding: 0in;" nosave="">
+              <p class="MsoNormal">(Bonn, Germany 1996)<o:p></o:p></p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p> <a href="http://www.math.purdue.edu/%7Erkaufman/cv.pdf">Complete
+          CV</a> as a PDF file. <br>
+      </p>
+    </blockquote>
+    <hr width="100%" size="3" color="#b1946c">
+    <div align="center"><big><b><br>
+          <a name="Publications"></a> Publications and Selected Talks<br>
+          &nbsp;<o:p></o:p></b></big></div>
+    <blockquote><a href="http://www.math.purdue.edu/%7Erkaufman/pubs.html">Publications
+      </a>or <a href="https://www.math.purdue.edu/~rkaufman/pubs2.html">Publications with DOI links</a> or <a href="http://www.math.purdue.edu/%7Erkaufman/pub.pdf">download
+        Publications as pdf</a> <br>
+      <a href="http://www.ams.org/mathscinet/search/publications.html?pg1=IID&amp;s1=360477">Link
+to
+        publications on Mathscinet</a><br>
+      <br>
+      <a href="https://www.math.purdue.edu/~rkaufman/talks.html"> Selected Talks</a><br>
+      <br>
+    </blockquote>
+    <hr width="100%" size="3" color="#b1946c">
+    <div align="center"><big><b><br>
+          <a name="Research and Service"></a> Research<br>
+          &nbsp;<o:p></o:p></b></big></div>
+    <blockquote> <b>Areas of research:</b><o:p></o:p> Algebraic
+      Topology, Algebraic Geometry, Mathematical Physics, Higher
+      Stuctures. <br>
+      <p> In particular:<br>
+      </p>
+      <ul>
+        <li>Feynman Categories</li>
+        <li>String Topology and Related Operations such as Deligne
+          Conjectures</li>
+        <li>Hopf Algebras</li>
+        <li>Quantum Cohomology and Mirror Symmetry</li>
+        <li>Stringy Phenomena for Stacks/Orbifolds</li>
+        <li>Geometry of Moduli and Teichmueller Spaces<br>
+        </li>
+        <li>Noncommutative Geometry&nbsp;&nbsp;</li>
+        <li>Nano Wire Networks and Topological Insulators<br>
+        </li>
+        <li>2+1 dim TQFT and its Extensions<br>
+        </li>
+      </ul>
+      <hr width="100%" size="3" color="#b1946c">
+      <div align="left"><br>
+        <p> <b> Member </b> of the <a href="https://www.purdue.edu/discoverypark/quantum/"> Purdue
+            Quantum Science and Engineering Institute</a> <br>
+        </p>
+        <p> <b> Co-Chief Editor </b> for <a href="http://web.science.mq.edu.au/%7Eweber/HS.html">Higher
+            Structures </a><br>
+        </p>
+        <div id="header">
+          <h1 align="center"><a href="https://journals.mq.edu.au/index.php/higher_structures"><img src="Ralph%20M.%20Kaufmann_files/HSLogo.gif" alt="Higher Structures" style="width:250px;height:100px;" width="199" height="109" border="0"></a></h1>
+        </div>
+        <b> Area Editor </b> the <a href="http://www.ejpam.com/index.php/ejpam/about/editorialTeam">European
+
+
+
+
+
+          Journal of Pure and Applied Mathematics</a><br>
+        <p></p>
+      </div>
+    </blockquote>
+    <!--  <hr size="3" width="100%" color="#b1946c">
+    <div align="center"><big><b><a name="Activity"></a> Jornal "Higher
+          Structures"<br>
+          <br>
+        </b></big>
+      <blockquote>
+        <div align="left">&nbsp;I am a one of the chief editors of the
+          journal:<big> <a
+              href="https://journals.mq.edu.au/index.php/higher_structures">Higher
+
+
+
+
+              Structures</a></big>
+       
+        </div>
+      </blockquote>
+    </div>
+-->
+    <hr width="100%" size="3" color="#b1946c"> <big><b><br>
+      </b></big><br>
+    <div align="center"> <big><b><a name="Teaching"></a>Teaching and
+          Mentoring<br>
+        </b></big></div>
+    <div style="margin-left: 40px;"> <b>Teaching Fall 2020</b> <br>
+    </div>
+    <blockquote style="margin-left: 40px;">
+      <blockquote>MA 55300-002 <strong>Abstract Algebra</strong><br>
+        &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; MWF&nbsp;
+        10:30-11:20 pm&nbsp; REC 113<br>
+        <div style="margin-left: 40px;"> <a href="https://www.math.purdue.edu/%7Erkaufman/MA553f20/553.html">
+            Course Webpage</a> &nbsp; (contains syllabus and all other
+          information)<br>
+        </div>
+      </blockquote>
+      <div style="margin-left: 40px;">MA 59800-227 <strong>Topology and
+          its Applications</strong><br>
+      </div>
+      <div style="margin-left: 40px;"> &nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp; MWF&nbsp; 9:30-10:20 pm&nbsp; REC 113 </div>
+      <div style="margin-left: 40px;">
+        <div style="margin-left: 40px;"> <a href="https://www.math.purdue.edu/%7Erkaufman/MA598f20/598.html">
+            Course Webpage</a> &nbsp; (contains syllabus and all other
+          information)</div>
+      </div>
+      <blockquote>
+        <div style="margin-left: 40px;"> <br>
+        </div>
+        <div style="margin-left: 40px;"><br>
+          Office hour: M 3:00-3:50<i> </i>and by appointment. (Subject
+          to change). </div>
+      </blockquote>
+    </blockquote>
+    <blockquote>
+      <hr width="100%" size="3" color="#e0d5c5">
+      <p><b>Past Teaching: </b>A webpage with <a href="https://www.math.purdue.edu/~rkaufman/oldclass.html">links
+
+
+
+          to old class pages</a>.<br>
+      </p>
+      <hr width="100%" size="3" color="#e0d5c5"> <span style="font-weight: bold;">Current and Former Students and
+        Post-Docs: </span><a href="https://www.math.purdue.edu/~rkaufman/students.html">list</a>
+      <blockquote> </blockquote>
+    </blockquote>
+    <hr width="100%" size="3" color="#b1946c"><big><b><br>
+      </b></big><big><b> </b></big>
+    <div style="text-align: center;" align="center"><big><b> </b></big><br>
+    </div>
+    <big><b> </b></big>
+    <div style="text-align: center;" align="center"><big><b> <a name="Seminars"></a> Seminars and Conferences</b></big><br>
+    </div>
+    <br>
+    <blockquote><b>Seminars at Purdue</b><br>
+      <blockquote>For several semesters I was the organizer of the<b>
+          Topology Seminar</b>. <br>
+        The schedule of those semesters can be found <a href="http://www.math.purdue.edu/%7Erkaufman/topsem/index.html">here</a>.
+        <br>
+        The current schedule is on the <a href="http://www.math.purdue.edu/calendar/">department
+          calendar</a> and <a href="https://www.math.purdue.edu/%7Eppatzt/Fall2019TopologySeminar.html">here</a>.<br>
+        <br>
+        The schedule for the<b> Mathematical Physics Seminar</b> can be
+        found on the <a href="http://www.math.purdue.edu/calendar/">department
+
+
+
+          calendar</a> and <a href="https://www.math.purdue.edu/%7Eebkaufma/seminar.html">here</a>.
+        <br>
+      </blockquote>
+      <div align="left"><b>AMS Sectional Meeting </b><br>
+        <blockquote> Member of local organizing committee for <a ams="" spring="" central="" sectional="" meeting="" at="" purdue="" href="http://www.math.purdue.edu/%7Erkaufman/midwest12/"></a>
+          April 2020 <br>
+        </blockquote>
+        <div align="left"><b>Midwest at Purdue</b><br>
+          <blockquote> We co-organized the <a href="http://www.math.purdue.edu/%7Erkaufman/midwest12/">Midwest
+
+Topology
+
+
+
+
+
+              Seminar Spring 2012</a> and the <a href="https://sites.google.com/site/jeremykennethmiller/midwestfall2016">Midwest
+
+Topology
+
+
+
+
+
+              Seminar Fall 2016</a><br>
+          </blockquote>
+          <br>
+          <b>Quantum Science &amp; Technology</b> <br>
+          <blockquote>Co--organizer and Session Chair at the <a href="https://engineering.purdue.edu/ECE/Events/2019/20190421-international-symposium-of-quantum-science-and-technology">
+              International Symposium of Quantum Science &amp;
+              Technology</a> at Purdue </blockquote>
+          <br>
+          <b>Recent AMS special Sessions</b><br>
+          <blockquote> Together with Sasha Voronov, we organized <a name="Topology and Physics" href="http://www.ams.org/meetings/sectional/2239_program_ss12.html#title"><em>Special
+
+
+
+
+
+                Session on Topology and Physics</em></a> at the AMS
+            meeting at the Minnesota Fall 2016 meeting.<br>
+            <br>
+            With Emil Prodan and Birgit Kaufmann, we organized&nbsp; <a name="Topological Mathematical Physics" href="http://www.ams.org/meetings/sectional/2233_program_ss17.html#title"><em>Special
+
+
+                Session on Topological Mathematical Physics</em></a> at
+            the Bloomington, Spring 2017 meeting.<br>
+            <br>
+            Together with Martin Markl and Sasha Voronov, we are
+            organing <a name="Topology and Physics" href="http://www.ams.org/meetings/sectional/2280_program_ss24.html#title"><em>Special
+
+                Session on Higher Structures in Topology, Geometry and
+                Physics</em></a> at the AMS meeting at the Purdue Spring
+            2020 meeting.<br>
+          </blockquote>
+          <b><br>
+            Trimester Program on Higher Structures in Geometry and
+            Physics. </b><br>
+        </div>
+      </div>
+    </blockquote>
+    <blockquote>
+      <blockquote>
+        <div align="left">From Jan-Mar 2016, I co-organized the&nbsp; <a href="http://www.mpim-bonn.mpg.de/node/5883">Program on
+            Higher Structures in Geometry and Physics</a> at the
+          Max-Planck Institute for Mathematics in Bonn. This also
+          comprised several conferences:<a href="http://www.mpim-bonn.mpg.de/node/6356"> </a><br>
+          <a href="http://www.mpim-bonn.mpg.de/node/6356">Opening
+            Conference,&nbsp;</a><a href="http://www.mpim-bonn.mpg.de/node/6459"> HTT workshop
+            with lectures by Vladimir Voevodsky</a> and <a href="http://www.mpim-bonn.mpg.de/node/6477"> Closing
+            Conference</a><br>
+        </div>
+      </blockquote>
+    </blockquote>
+    <blockquote>
+      <div align="left"> <br>
+      </div>
+      <a href="https://www.math.purdue.edu/~rkaufman/midwest12/index.html" style="text-decoration: none;"><big><span style="font-weight: bold;"></span></big></a></blockquote>
+    <hr width="100%" size="3" color="#b1946c">
+    <div style="text-align: center;" align="center"> <big><b><br>
+          <a name="Links_"></a> Links </b></big><br>
+    </div>
+    <blockquote>
+      <p>Link to <a href="http://www.math.purdue.edu/%7Eebkaufma/">Birgit
+
+
+
+
+          Kaufmann's webpage.</a><br>
+      </p>
+      <p>Links&nbsp;to <a href="http://www.mpim-bonn.mpg.de/">Max-Planck
+
+
+
+
+          Institute for Mathematics Bonn</a> , <a href="http://www.ihes.fr/">IHES</a> , <a href="http://www.msri.org/">MSRI</a> and <a href="http://www.mittag-leffler.se/">Institute Mittag-Leffler </a><o:p></o:p></p>
+    </blockquote>
+    <div>
+      <hr width="100%" size="3" color="#b1946c"></div>
+    <div class="MsoNormal" style="text-align: center; margin-top: 2px;" align="center">
+      <hr width="100%" size="3" color="black"></div>
+    <br>
+    <br>
+    <br>
+    <br>
+  
+
+</body></html>

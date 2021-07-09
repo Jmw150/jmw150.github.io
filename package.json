@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Jmw150/jmw150.github.io#readme",
   "dependencies": {
+    "http-server": "^0.12.3",
     "jscoq": "^0.13.0"
   }
 }

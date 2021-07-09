@@ -4,8 +4,6 @@
     <meta http-equiv="content-type" content="text/html;charset=utf-8" />
     <title>Using jsCoq with NPM (a template)</title>
 
-    <!-- important: this will not work from *within* the jsCoq package dir; -->
-    <!-- this template is meant to be copied to your project dir and edited -->
     <script src="node_modules/jscoq/ui-js/jscoq-loader.js"></script>
   </head>
 
@@ -13,15 +11,11 @@
   <div id="ide-wrapper" class="toggled">
     <div id="code-wrapper">
       <div id="document">
-              <h1>Coq and Javascript</h1>
+              <h1>Coq with Javascript </h1>
+              <h3>So close, yet so far away from user friendly</h3>
         <p>
-        To start, JSCoq may have been written, and now maintained, poorly. No other verification software seems to be going for webstuff either. And this may be why it is uncommon to see verification software on the internet.
-        <br>
-        <br>
-            JSCoq more less should just work, but does not. The standard Coq compiler outputs json code. There is some irony that some programmers of sophisticated type systems cannot create functional internet code. Hopefully someone with more competence will do a proper portable translation someday.
-            <br>
-            <br>
-            Coqdoc, on the other hand, is a pretty reasonable compiler that outputs static html from Coq code. So there is no shortage of functional tutorials of Coq online. That is at least good.
+<br>
+            JsCoq does not work well. Take for example, this default script shipped with npm:
         </p>
         <textarea id="coq-code">
 
@@ -34,6 +28,12 @@ Inductive day : Type :=
   | saturday
   | sunday.
         </textarea>
+        <br>
+        <br>
+And nothing.. (works, with some elbow grease, in theory) I may be just some random guy from the internet, but software written and tested for more than a year, should not have such trivial bugs. 
+<br>
+<br>
+Luckily Coq outputs json code, so making some trivial JavaScript output may not be too hard.
       </div>
     </div>
   </div>

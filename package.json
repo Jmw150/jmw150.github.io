@@ -1,0 +1,22 @@
+{
+  "name": "my-website",
+  "version": "1.0.0",
+  "description": "",
+  "main": "blog_coq.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jmw150/jmw150.github.io.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jmw150/jmw150.github.io/issues"
+  },
+  "homepage": "https://github.com/Jmw150/jmw150.github.io#readme",
+  "dependencies": {
+    "jscoq": "^0.13.0"
+  }
+}

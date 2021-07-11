@@ -14,27 +14,35 @@
  </head>
 <body vlink="#FFCCFF" text="#EEEFFF" link="#FFFFAA" bgcolor="#191970" alink="#FFCCCC">
         
-<b>
-Chapter 1: Mathematical Language
-</b>
+<h4> Chapter 1: Mathematical Language </h4>
+Differential Geometry (vectors, derivatives, integrals, coordinate systems, fields)
 <br>
+<br>
+The potentially easiest way to digest the contents of undergraduate electrodynamics
+teaching is via tensors on complex numbers.
+<br>
+<br>
+There are a few levels to think about tensors
+<br>
+- as defined in the book (physical)
+<br>
+- via the common category definition (common in algebra)
+<br>
+- as a model (the fullest definition that allows automated reasoning)
+<br>
+<br>
+In the book a tensor is n x m x o product of numbers. The design is to carry physical information along calculus like transformations. Tensors in this definition also work to make sure type information (units with some measure) carries. They are tedious to write. (and they make you sound uncultured math-wise). Instead these can be typed into python under the differential geometry library in sympy.
 
-Math objects mentioned so far are basically:
 <br>
-- lists with special operators and functors
+Odd Definitions (Dirac delta, Tensors, etc...)
 <br>
--- Dirac delta as an incompatible cheat function (1d, 3d),
 <br>
--- dot, cross, (gradient, div, curl),
+Dirac delta exists as a function in the modern definition. But the textbook definition is to make integral equations easier to bypass.
 <br>
--- line integral, base-change, tensors
 <br>
-
+The topological definition of continuity is kind of different than the physical one. I think on the discrete topology all elements are continuous. 
 
 Discussion points:
-<br>
-- Topological definition of continuity is kind of different than the physical
-  one. I think on the discrete topology all elements are continuous.
 <br>
 <br>
 
@@ -42,12 +50,6 @@ Discussion points:
   Maxwell was thinking of? What was the experiment used to demonstrate it? What
 other properties does it predict? I am guessing push and pull of magnets led to
 the idea.
-<br>
-<br>
-
-- Physical and mathematical definitions of vectors and tensors are in fact
-  different it seems.
-
 <br>
 <br>
 - Is it really true that A dot B = 0 if A and B are perpendicular? Without

@@ -29,7 +29,7 @@ def get_file(filename) :
 
 
 def get_blogs(path) :
-    bloglist = os.popen('ls -tr '+path).read().split('\n')[:-1]
+    bloglist = os.popen('ls -t '+path).read().split('\n')[:-1]
     #ls = os.listdir
     #bloglist = ls(path)
     blogs = []

@@ -52,8 +52,9 @@ nav_bar = lambda css, home, research, courses, blog : """
 <html>
  <head>
    <title>Jordan Winkler</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" type="text/css" href="""+'"'+css+'"'+""">
-    <meta name="viewport" content="width=device-width, user-scalable=no">
  </head>
 
 <body>

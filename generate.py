@@ -36,10 +36,10 @@ class Page :
 # {{{
 css = Page('bluestyle.css')
 data = Page('data')
-home_path = Page('index.html','Home')
-research_path = Page('research/research.html','Research')
-course_path = Page('courses/courses.html','Courses')
-blog_path = Page('blog/blog.html','Blog')
+home_path = Page('index.html',nickname='Home')
+research_path = Page('research/research.html',nickname='Research')
+course_path = Page('courses/courses.html',nickname='Courses')
+blog_path = Page('blog/blog.html',nickname='Blog')
 blogs_source = '../../blog/'
 # }}}
 
@@ -74,6 +74,8 @@ def nav_bar (css, *args) :
 <!DOCTYPE html PUBLIC "-//w3c//dtd html 5.0 transitional//en">
 <html>
  <head>
+   <meta name="viewport" content="width=device-width">
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <title>Jordan Winkler</title>
    <link rel="stylesheet" type="text/css" href="""+'"'+css+'"'+""">
  </head>
@@ -104,10 +106,11 @@ def nav_bar (css, *args) :
 # {{{
 update = Page('update',"""
   <div id=update_bar> 
-
-    <p align="center"> <font size="-1">
+   <p align="center">
+    <font size="-1">
      Compiled: """ + os.popen('date').read() + """
-        </font> </p>
+    </font>
+   </p>
   </div>    
  </body>
 </html>
@@ -683,10 +686,12 @@ ECE 595 Intro to Compilers
 # {{{
 research = Page('research',"""
  <h2>Research Interests</h2>
-  <p>
-Logic; the <a href="https://en.wikipedia.org/wiki/Language_game_(philosophy)">language-game</a> of precision, consistency, and world building. Working in logic can mean working in such fields as: philosophy, mathematics, computer science, and linguistics.
-  </p>
-
+ <p>
+Logic; the <a href="https://en.wikipedia.org/wiki/Language_game_(philosophy)">language-game</a>
+of precision, consistency, and world building. Working in logic can mean
+working in such fields as: philosophy, mathematics, computer science, and
+linguistics.  
+ </p>
   <p>In particular:</p>
    <ul>
     <li><b>Type Theory</b>: A grand unified theory of computation. Types classify constructions.
@@ -805,7 +810,7 @@ home = Page('index',"""
 <div id="upper_square">
  <br>
  <center>
-    <img src="data/JordanWinkler.jpg" height="270" align="middle">
+  <img src="data/JordanWinkler.jpg" height="270" align="middle">
  </center>
 </div>
 <div id="lower_square">
@@ -824,8 +829,6 @@ home = Page('index',"""
 #}}}
 
 def write_file(file, content):
-    print(file)
-    print(content)
     f = open(file+'.html', "w")
     f.write(content.name) # poorly used class, should be data or nothing
     f.close()

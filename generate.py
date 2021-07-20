@@ -5,12 +5,24 @@
 import time 
 import os
 
+# Paths
+# {{{
+css = 'bluestyle.css'
+data = 'data'
+home_path = 'index.html'
+research_path = 'research/research.html'
+course_path = 'courses/courses.html'
+blog_path = 'blog/blog.html'
+blogs_source = '../../blog/'
+# }}}
+
 lname = link_name = lambda name, link : '<a href='+link+'>'+name+'</a>'
 listlink = lambda name, link : '<br><a href='+link+'>'+name+'</a>'
 
 ## all websites are a minimal of {name, data} 
 class Page :
-    def __init__(self, name, data, next=None, prev=None, up=None) :
+    "A website page"
+    def __init__(self, name, data=' ', next=None, prev=None, up=None):
         self.name = name
         self.data = data
 
@@ -18,6 +30,7 @@ class Page :
         self.next = next
         self.prev = prev
         self.up   = up
+
 
 def get_file(filename) :
     File = ""
@@ -27,11 +40,8 @@ def get_file(filename) :
 
     return File
 
-
 def get_blogs(path) :
     bloglist = os.popen('ls -t '+path).read().split('\n')[:-1]
-    #ls = os.listdir
-    #bloglist = ls(path)
     blogs = []
     # add title to work, and clump together
     for i in bloglist :
@@ -40,7 +50,6 @@ def get_blogs(path) :
         blogs.append(Page(i,file))
     
     return blogs
-
 
 # website data
 # {{{
@@ -107,21 +116,21 @@ def note_bar (css, home, name, back, nexts, up) :
         bar += """
    <div id="nav_bar_li">
     <div id="nav_bar_li_a">
-     <a href="""+'"'+back['name']+'.html"'+""">Back: """+back['name']+"""</a>
+     <a href="""+'"'+back.name+'.html"'+""">Back: """+back.name+"""</a>
     </div>
    </div>"""
     if nexts != None :
         bar += """
    <div id="nav_bar_li">
     <div id="nav_bar_li_a">
-     <a href="""+'"'+nexts['name']+'.html"'+""">Next: """+nexts['name']+"""</a></li>
+     <a href="""+'"'+nexts.name+'.html"'+""">Next: """+nexts.name+"""</a></li>
     </div>
    </div>"""
     if up != None :
         bar += """
    <div id="nav_bar_li">
     <div id="nav_bar_li_a">
-     <a href="""+'"'+up['name']+'.html"'+""">Up: """+up['name']+"""</a>
+     <a href="""+'"'+up.name+'.html"'+""">Up: """+up.name+"""</a>
     </div>
    </div>
   </div>
@@ -189,56 +198,53 @@ http://danfleisch.com/maxwell//
 </a>
 """, next={})
 #}}}
+
+# griffiths (in construction)
 griffiths = Page('Griffiths','Under construction')
-
 # {{{
-# {{{
-#griffiths.data = """
-#<h3> Electrodynamics Griffiths 4th ed </h3>
-#<a href="Griffiths/Preface.html">Preface</a>"""
-#for i in range(1,13) :
-#    griffiths.data += ("<br><a href="
-#            +griffiths.name+'/'
-#            +griffiths[i]['name']+".html>"
-#            +griffiths[i]['name']+"</a>\n")
-#griffiths.data += '</div>'
-##}}}
-#griffiths = em['next']
-
-## book head
-#griffiths['up'] = em
-### Make chapters
-#for i in range(0,13) :
-#    griffiths[i] = {}
-#griffiths['next'] = griffiths[0]
-### Make chapter names
-#griffiths[0]['name'] = 'Preface'
-#for i in range(1,13) :
-#    griffiths[i]['name'] = 'Chapter_'+str(i)
-
-## create tree links
-#griffiths[0]['prev'] = None
-#for i in range(1,13) :
-#    griffiths[i]['prev'] = griffiths[i-1]
-#griffiths[12]['next'] = None
-#for i in range(1,13) :
-#    griffiths[12-i]['next'] = griffiths[12-(i-1)]
-#for i in range(0,13) :
-#    griffiths[i]['up'] = em
-
-## create data
-#for i in range(0,13) :
-#    griffiths[i]['data'] = ''
-#griffiths[0]['data'] = 
-"""
-<b>Preface</b>
-<br>
-<br>
-<b>Note to the reader</b>: The first chapter is meant to be a review of the language used to explain electrodynamics, not an explanation of foundations. Attention should be paid to how words are defined, but any metaphysical or logical arguments should be observed with a critical mind. Griffiths is unconnected with work outside of electromagnetism and particle physics, and consumed uncritically the teachings of his predecessors. No offense was meant to professionals of adjacent fields, probably.
-"""
-#griffiths[1]['data'] = 
-"""
-<h4> Chapter 1: Mathematical Language </h4>
+def make_book() :
+    gr = [Page('grif')] * 20
+    griffiths.data = """
+    <h3> Electrodynamics Griffiths 4th ed </h3>
+    <a href="Griffiths/Preface.html">Preface</a>"""
+    for i in range(1,13) :
+        griffiths.data += ("<br><a href="
+                +griffiths.name+'/'
+                +gr[i].name+".html>"
+                +gr[i].name+"</a>\n")
+    griffiths.data += '</div>'
+    griffiths = em.next
+    
+    # book head
+    griffiths.up = em
+    ## Make chapters
+    for i in range(0,13) :
+        gr[i] = {}
+    griffiths.next = gr[0]
+    ## Make chapter names
+    gr[0].name = 'Preface'
+    for i in range(1,13) :
+        gr[i].name = 'Chapter_'+str(i)
+        
+        # create tree links
+    for i in range(1,13) :
+        gr[i].prev = gr[i-1]
+    for i in range(1,13) :
+        gr[12-i].next = gr[12-(i-1)]
+    for i in range(0,13) :
+        gr[i].up = em
+    
+    # create data
+    for i in range(0,13) :
+        gr[i].data = ''
+    gr[0].data = """
+    <b>Preface</b>
+    <br>
+    <br>
+    <b>Note to the reader</b>: The first chapter is meant to be a review of the language used to explain electrodynamics, not an explanation of foundations. Attention should be paid to how words are defined, but any metaphysical or logical arguments should be observed with a critical mind. Griffiths is unconnected with work outside of electromagnetism and particle physics, and consumed uncritically the teachings of his predecessors. No offense was meant to professionals of adjacent fields, probably.
+    """
+    gr[1].data = """
+    <h4> Chapter 1: Mathematical Language </h4>
 Differential Geometry (vectors, derivatives, integrals, coordinate systems, fields)
 <br>
 <br>
@@ -364,7 +370,7 @@ Line integrals are surprisingly deep. Ch 1.5 and 1.6 look interesting and new to
 Overall, I have a feeling only a fraction of the math used in the intro is actually needed to work with EM. And the math is a bit dated.
 <br>
 <br>
-"""
+    """
 #}}}
 
 # summer_of_logic
@@ -404,14 +410,14 @@ Notes:
           topology.html
          "
     target="_top">
- </a>
         Topology
+ </a>
 <br>
  <a href="
           Electromagnetism/Electromagnetism.html
          "
     target="_top">
-        Eletromagnetic force
+        Electromagnetic force
  </a>
 
 
@@ -620,11 +626,19 @@ https://arxiv.org/about/reports/submission_category_by_year
 """)
 # }}}
 
+topology = Page('topology',"""
+
+I found a bunch of books on the subject. But what really stands out is this formalization in calculus of inductive constructions.
+
+<br>
+<a href="../../data/topology">coq topology</a>
+        """)
+
 # blogs, these should be generated from files
 # {{{
 
 # started (Jul 12 2021)
-blogs = get_blogs('data/blogs')
+blogs = get_blogs(blogs_source)
 # blog
 # {{{
 blog = Page('blog',"""
@@ -844,17 +858,8 @@ home = Page('index',"""
 # }}}
 
 #}}}
-#}}}
 
-# Paths
-# {{{
-css = 'bluestyle.css'
-data = 'data'
-home_path = home.name+'.html'
-research_path = 'research/'+research.name+'.html'
-course_path = 'courses/'+courses.name+'.html'
-blog_path = 'blog/'+blog.name+'.html'
-# }}}
+#}}}
 
 def write_file(file, content):
     f = open(file+'.html', "w")
@@ -934,6 +939,8 @@ def build_site() :
    
     build_page(em,'courses/summer_of_logic/'+em.name+'/')
     build_page(griffiths,'courses/summer_of_logic/'+em.name+'/'+griffiths.name+'/')
+
+    build_page(topology,'courses/summer_of_logic/'+topology.name+'/')
 
     build_page(blog,'blog/')
     for i in range(len(blogs)) :

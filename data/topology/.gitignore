@@ -1,0 +1,16 @@
+\#*\#
+*~
+*.aux
+*.glob
+*.v.d
+*.vo
+*.vok
+*.vos
+.Makefile.coq.d
+.coqdeps.d
+.coq-native
+Makefile.conf
+Makefile.coq
+Makefile.coq.conf
+.lia.cache
+_build

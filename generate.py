@@ -5,31 +5,47 @@
 import time 
 import os
 
-# Paths
-# {{{
-css = 'bluestyle.css'
-data = 'data'
-home_path = 'index.html'
-research_path = 'research/research.html'
-course_path = 'courses/courses.html'
-blog_path = 'blog/blog.html'
-blogs_source = '../../blog/'
-# }}}
-
-lname = link_name = lambda name, link : '<a href='+link+'>'+name+'</a>'
-listlink = lambda name, link : '<br><a href='+link+'>'+name+'</a>'
-
-## all websites are a minimal of {name, data} 
 class Page :
     "A website page"
-    def __init__(self, name, data=' ', next=None, prev=None, up=None):
+    def __init__(self, name, data=' ', nickname= '', next=None, prev=None, up=None):
         self.name = name
+        if nickname == '':
+            self.nickname = name
+        else:
+            self.nickname = nickname
         self.data = data
 
         # extra possible metadata
         self.next = next
         self.prev = prev
         self.up   = up
+
+    def __add__(self, y) :
+        return Page(str(self.name) + str(y), 
+                self.data , self.nickname, self.next, self.prev, self.up)
+    def __radd__(self,y) :
+        return Page(str(y) + str(self.name), 
+                self.data , self.nickname, self.next, self.prev, self.up)
+
+    def __str__(self):
+        return str(self.name)
+    def __repr__(self):
+        return str(self.name)
+
+# Paths
+# {{{
+css = Page('bluestyle.css')
+data = Page('data')
+home_path = Page('index.html','Home')
+research_path = Page('research/research.html','Research')
+course_path = Page('courses/courses.html','Courses')
+blog_path = Page('blog/blog.html','Blog')
+blogs_source = '../../blog/'
+# }}}
+
+lname = link_name = lambda name, link : '<a href='+link+'>'+name+'</a>'
+listlink = lambda name, link : '<br><a href='+link+'>'+name+'</a>'
+
 
 
 def get_file(filename) :
@@ -51,51 +67,9 @@ def get_blogs(path) :
     
     return blogs
 
-# website data
+# navigation bar (nav_bar)
 # {{{
-
-# nav_bar
-# {{{
-nav_bar = lambda css, home, research, courses, blog : """
-<!DOCTYPE html PUBLIC "-//w3c//dtd html 5.0 transitional//en">
-<html>
- <head>
-   <title>Jordan Winkler</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="stylesheet" type="text/css" href="""+'"'+css+'"'+""">
- </head>
-
-<body>
- <div id="nav_bar">
-  <div id="nav_bar_ul">
-   <div id="nav_bar_li">
-    <div id="nav_bar_li_a">
-     <a href="""+'"'+home+'"'+""">Home</a>
-    </div>
-   </div>
-   <div id="nav_bar_li">
-    <div id="nav_bar_li_a">
-     <a href="""+'"'+research+'"'+""">Research</a>
-    </div>
-   </div>
-   <div id="nav_bar_li">
-    <div id="nav_bar_li_a">
-     <a href="""+'"'+courses+'"'+""">Course Notes</a></li>
-    </div>
-   </div>
-   <div id="nav_bar_li">
-    <div id="nav_bar_li_a">
-     <a href="""+'"'+blog+'"'+""">Blog</a>
-    </div>
-   </div>
-  </div>
- </div>
-"""
-# }}}
-# note_bar
-# {{{
-def note_bar (css, home, name, back, nexts, up) : 
+def nav_bar (css, *args) :
     bar = """
 <!DOCTYPE html PUBLIC "-//w3c//dtd html 5.0 transitional//en">
 <html>
@@ -106,41 +80,29 @@ def note_bar (css, home, name, back, nexts, up) :
 
 <body>
  <div id="nav_bar">
-  <div id="nav_bar_ul">
-   <div id="nav_bar_li">
-    <div id="nav_bar_li_a">
-     <a href="""+'"'+home+'"'+""">"""+name+"""</a>
-    </div>
-   </div>"""
-    if back != None :
+  <div id="nav_bar_ul">"""
+    for i in args :
+        if type(i) == str :
+            i = Page(i)
         bar += """
    <div id="nav_bar_li">
     <div id="nav_bar_li_a">
-     <a href="""+'"'+back.name+'.html"'+""">Back: """+back.name+"""</a>
+     <a href="""+'"'+i.name+'"'+""">"""+i.nickname+"""</a>
     </div>
    </div>"""
-    if nexts != None :
-        bar += """
-   <div id="nav_bar_li">
-    <div id="nav_bar_li_a">
-     <a href="""+'"'+nexts.name+'.html"'+""">Next: """+nexts.name+"""</a></li>
-    </div>
-   </div>"""
-    if up != None :
-        bar += """
-   <div id="nav_bar_li">
-    <div id="nav_bar_li_a">
-     <a href="""+'"'+up.name+'.html"'+""">Up: """+up.name+"""</a>
-    </div>
-   </div>
+    bar += """
   </div>
  </div>
 """
     return bar
 # }}}
+
+# website data
+# {{{
+
 # update
 # {{{
-update = """
+update = Page('update',"""
   <div id=update_bar> 
 
     <p align="center"> <font size="-1">
@@ -149,7 +111,7 @@ update = """
   </div>    
  </body>
 </html>
-"""
+""")
 # }}}
 
 # em
@@ -862,8 +824,10 @@ home = Page('index',"""
 #}}}
 
 def write_file(file, content):
+    print(file)
+    print(content)
     f = open(file+'.html', "w")
-    f.write(content)
+    f.write(content.name) # poorly used class, should be data or nothing
     f.close()
 
 def build_page(content,path='') :
@@ -895,41 +859,8 @@ def build_page(content,path='') :
                 +'<div id="content">'
                 +content.data
                 +'</div>'
-                +update))
+                +update.data))
 
-# wiki book style
-def build_book(level:int, chapter:int, file_base:str, content:dict) :
-
-    # exit base case
-    if content == None :
-        return 
-
-    # recursion case
-    ab = '../'*level
-    write_file(file_base+'/'+content['name']+'.html',
-            (note_bar(
-                ab+css,
-                ab+home_path,
-                content['name'],
-                content['prev'],
-                content['next'],
-                content['up'])
-                +'<div id="content">'
-                +content['data']
-                +'</div>'
-                +update))
-
-    # and then recursion
-    ## across
-    if chapter >= 0 :
-        build_book(level,chapter-1,file_base,content['next'])
-    else:
-    ## down
-        build_book(
-                level+1, 
-                12, # for example
-                file_base+'/'+content['name'], 
-                content['next'])
 
 def build_site() :
     build_page(home)

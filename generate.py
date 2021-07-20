@@ -407,7 +407,7 @@ Notes:
         Type theory
 <br>
  <a href="
-          topology.html
+          topology/topology.html
          "
     target="_top">
         Topology
@@ -631,7 +631,7 @@ topology = Page('topology',"""
 I found a bunch of books on the subject. But what really stands out is this formalization in calculus of inductive constructions.
 
 <br>
-<a href="../../data/topology">coq topology</a>
+<a href="../../../data/topology">coq topology</a>
         """)
 
 # blogs, these should be generated from files

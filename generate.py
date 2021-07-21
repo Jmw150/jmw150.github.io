@@ -1,7 +1,6 @@
 # A python script to generate websites
 # Jordan Winkler
 
-
 import time 
 import os
 
@@ -118,227 +117,6 @@ update = Page('update',"""
 """)
 #}}}
 
-# em
-#{{{
-# topic head
-#{{{
-em = Page('Electromagnetism', """
-<br>
-<b>Books</b>
-<br><a href="Griffiths/Griffiths.html">Griffiths</a>
- <br>
- <br>
- <br>
-<a href="
-https://raw.githubusercontent.com/meatyhams/Eel/main/jordans-notes.txt
-         ">
-  git form of these notes
-</a>
-<br>
-<a href="
-https://colab.research.google.com/drive/1xnftEDtCWRNzep3NTsGI1UcFvopYw75o#scrollTo=IBS1-c8nAbnL
-         "
-  >
-  colab python simulation
-</a>
-<br>
-<a href="
-https://github.com/meatyhams/Eel
-         "
-  >
-  github
-</a>
-<br>
-<a href="
-https://www.maxwells-equations.com/
-         "
-  >
-  Maxwell's equations, the website
-</a>
-<br>
-<a href="
-http://danfleisch.com/maxwell//
-         "
-  >
-  Maxwell's equations, a guide by students
-</a>
-""", next={})
-#}}}
-
-# griffiths (in construction)
-griffiths = Page('Griffiths','Under construction')
-#{{{
-def make_book() :
-    gr = [Page('grif')] * 20
-    griffiths.data = """
-    <h3> Electrodynamics Griffiths 4th ed </h3>
-    <a href="Griffiths/Preface.html">Preface</a>"""
-    for i in range(1,13) :
-        griffiths.data += ("<br><a href="
-                +griffiths.name+'/'
-                +gr[i].name+".html>"
-                +gr[i].name+"</a>\n")
-    griffiths.data += '</div>'
-    griffiths = em.next
-    
-    # book head
-    griffiths.up = em
-    ## Make chapters
-    for i in range(0,13) :
-        gr[i] = {}
-    griffiths.next = gr[0]
-    ## Make chapter names
-    gr[0].name = 'Preface'
-    for i in range(1,13) :
-        gr[i].name = 'Chapter_'+str(i)
-        
-        # create tree links
-    for i in range(1,13) :
-        gr[i].prev = gr[i-1]
-    for i in range(1,13) :
-        gr[12-i].next = gr[12-(i-1)]
-    for i in range(0,13) :
-        gr[i].up = em
-    
-    # create data
-    for i in range(0,13) :
-        gr[i].data = ''
-    gr[0].data = """
-    <b>Preface</b>
-    <br>
-    <br>
-    <b>Note to the reader</b>: The first chapter is meant to be a review of the language used to explain electrodynamics, not an explanation of foundations. Attention should be paid to how words are defined, but any metaphysical or logical arguments should be observed with a critical mind. Griffiths is unconnected with work outside of electromagnetism and particle physics, and consumed uncritically the teachings of his predecessors. No offense was meant to professionals of adjacent fields, probably.
-    """
-    gr[1].data = """
-    <h4> Chapter 1: Mathematical Language </h4>
-Differential Geometry (vectors, derivatives, integrals, coordinate systems, fields)
-<br>
-<br>
-The potentially easiest way to digest the contents of undergraduate electrodynamics
-teaching is via tensors on complex numbers.
-<br>
-<br>
-There are a few levels to think about tensors
-<br>
-- as defined in the book (physical)
-<br>
-- via the common category definition (common in algebra)
-<br>
-- as a model (the fullest definition that allows automated reasoning)
-<br>
-<br>
-In the book a tensor is n x m x o product of numbers. The design is to carry physical information along calculus like transformations. Tensors in this definition also work to make sure type information (units with some measure) carries. They are tedious to write. (and they make you sound uncultured math-wise). Instead these can be typed into python under the differential geometry library in sympy.
-
-<br>
-Odd Definitions (Dirac delta, Tensors, etc...)
-<br>
-<br>
-Dirac delta exists as a function in the modern definition. But the textbook definition is to make integral equations easier to bypass.
-<br>
-<br>
-The topological definition of continuity is kind of different than the physical one. I think on the discrete topology all elements are continuous. 
-
-Discussion points:
-<br>
-<br>
-
-- What is the idea behind electric charge? Was it part of the field theory that
-  Maxwell was thinking of? What was the experiment used to demonstrate it? What
-other properties does it predict? I am guessing push and pull of magnets led to
-the idea.
-<br>
-<br>
-- Is it really true that A dot B = 0 if A and B are perpendicular? Without
-  |A||B|cos(theta), it would need some more work to show this to be true. Seems
-like a complex analysis thing.
-<br>
-<br>
-
-- Dot and cross product are kind of physical too. Like do these equations hold
-  in a different metric space? Would they hold without a metric? They do not
-hold on general vectors, only really on 2d and 3d ones.
-<br>
-<br>
-
-- Dot and cross products have a nice set up of
-  A dot B = |A||B|cos(theta), A cross B = |A||B|sin(theta) n
-  Is this part of the design of the two operators?
-<br>
-<br>
-
-- The cross product is not associative, but the composition of functions is.
-  Why? Seems like composition is not defined for 2-arity functions. This has
-kind of an odd property to it.
-<br>
-<br>
-
-- A . (B x C) is the volume of a parallelpiped. BAC-CAB rule exists. Lots of
-  computational shorthand. It kind of reminds me of old statistics books before
-computers were invented. I can see it being a nice shorthand for being a
-chalkboard-bounded physicist. But it seems like a bit much to mentally maintain
-as a computational physicist, right?
-<br>
-<br>
-
-- 1.31 is verbose. But the notation is nice and concise for describing 3d
-  rotation. Quaternions could also work here I think.  b = Ax would have been
-much less tedious too. In computing I would have just wrote out a function
-definition for this special case though. And in higher level math that is also
-what you would do,
-<br>
-<br>
-
-- Differential geometry is a weird subject. It takes many of these unusual
-  operators and runs with it. I think this is due to how interesting these
-operators are geometrically. How did your general relativity class merge math
-and physics versions of these objects?
-<br>
-<br>
-
-- Why does the gradient point towards greatest descent? Looks like component
-  derivatives. So it is going for the taxi metric sum of velocity.
-<br>
-<br>
-
-- gradient, divergence, and curl are just functors. There is a more essential definition under them I think.
-<br>
-<br>
-
-- gradient seems like it was thrown together. I don't get its design. But
-  divergence and curl are actually kind of interesting. They split derivatives
-on vectors into two familiar components seen in complex analysis: scale and
-rotation of a+bi.
-<br>
-<br>
-
-- Most of the 1.2.6 identities directly follow from elementary algebra
-  identities. Seems kind of excessive to mention them.
-<br>
-<br>
-
-- page 23 has the Laplacian. 
-<br>
-<br>
-
-
-I am really curious how this stuff works in complex analysis, and a little in
-differential geometry. DG is kind of a foil for physics, so it is probably
-going to look a lot like its physical counterpart. But CA could give some weird
-extra information about what is being said in this book. Possible computational
-speedups because it is so polynomial-based.
-<br>
-<br>
-
-Line integrals are surprisingly deep. Ch 1.5 and 1.6 look interesting and new to me. 
-<br>
-<br>
-
-Overall, I have a feeling only a fraction of the math used in the intro is actually needed to work with EM. And the math is a bit dated.
-<br>
-<br>
-    """
-#}}}
-#}}}
 
 # blog
 #{{{
@@ -504,13 +282,15 @@ def build_page(content,path='') :
                 +update.data))
 
 
-
+# forward declare web pages, so they can link to each other
 home = Page('index',nickname='Home')
 
 summer_of_logic = Page('summer_of_logic',nickname='Summer of Logic')
 pl = Page('programming_languages',nickname='Programming Language Theory')
 tt = Page('type_theory',nickname='Type Theory')
 topology = Page('topology',nickname='Topology')
+em = Page('Electromagnetism',nickname='Electromagnetic Force')
+griffiths = Page('Griffiths')
 
 ml = Page('machine_learning',nickname='ECE 595 Machine Learning')
 probability = Page('probability',nickname="ECE 600 Random Variables and Signals")
@@ -557,6 +337,14 @@ home.data = """
 summer_of_logic.data = """
 <p><b>Summer of Logic</b></p>
 
+<a href="
+https://www.cambridge.org/core/journals/journal-of-symbolic-logic/listing?q=&searchWithinIds=56ED3BA46977662562A26BC04DD604FD&aggs[productTypes][filters]=JOURNAL_ARTICLE
+"
+   target="_blank">
+<img src="../../data/ASL_logo.png" height="50">
+</a>
+<br>
+<br>
 All things logic 10 hours a day for 100 days.
 
 Reading research papers, coding in dependent type theories, and reviewing logic books.
@@ -565,31 +353,156 @@ Reading research papers, coding in dependent type theories, and reviewing logic 
 I also took some time doing random things: trying to start a workshop on
 symbolic AI, learning about the electromagnetic force.
 
-</td></tr></tbody></table> </p> </p> </center> <hr>
+"""+bar()+"""
 Notes:
 <br>"""+(
 link(pl) +
 link(tt) +
-link(topology)) + """
-<br>
- <a href="
-          Electromagnetism/Electromagnetism.html
-         "
-    target="_top">
-        Electromagnetic force
- </a>
+link(topology) +
+link(em)) + """
 
-
-</td></tr></tbody></table></p></p></center><hr>
+"""+bar()+"""
 
 Stuff I found:
 <br>
 <br>
-Programming language theory/practice
+<b> Mathematical Logic </b>
 <br>
  <a href="
-https://www.amazon.com/dp/012088478X/
+https://www.amazon.com/Introduction-Mathematical-Discrete-Mathematics-Applications/dp/1482237725/
          "
+    target="_top">
+Mathematical Logic (book)
+ </a>
+<br>
+ <a href="
+https://www.amazon.com/Philosophy-Model-Theory-Tim-Button/dp/0198790406/
+         "
+    target="_top">
+         philosophy of model theory (book)
+ </a>
+<br>
+ <a href="
+https://www.amazon.com/Combinatorial-Set-Theory-Introduction-Mathematics/dp/1447121724
+         "
+    target="_top">
+Combinatorial Set Theory (book)
+ </a>
+        <br>
+        <br>
+<b>How it all combines</b>
+        <br>
+        <a href="
+        https://ncatlab.org/nlab/show/computational+trilogy
+        ">
+                proofs = programs = spaces
+        </a>
+<br>
+<br>
+<b>
+Journals and other
+</b>
+<br>
+ <a href="
+https://engineering.purdue.edu/~xqiu/ece663/references/References.html
+         "
+    target="_top">
+formal methods books and papers
+ </a>
+<br> 
+<a href=" http://csrankings.org/#/index?&plan&log&world "
+   target="_blank"
+        >source of research papers (CS: language+logic)</a>
+<br> 
+<a href="
+https://www.cambridge.org/core/journals/journal-of-symbolic-logic/listing?q=&searchWithinIds=56ED3BA46977662562A26BC04DD604FD&aggs[productTypes][filters]=JOURNAL_ARTICLE
+"
+   target="_blank"
+   >Journal of Symbolic Logic
+</a>
+
+<br>
+<br>
+<b>
+Cool logic groups
+</b>
+<br>
+<a href="
+http://www.logic.cmu.edu/index.html
+">
+        pure and applied logic (CMU)
+</a>
+<br>
+<a href="
+https://github.com/coq-community/manifesto
+">
+Coq community
+</a>
+<a href="
+https://arxiv.org/about/reports/submission_category_by_year
+">
+</a>
+"""
+#}}}
+
+tt.data = """
+
+<b> Type Theory </b>
+
+<br>
+<br>
+So far the major source of effort has been in using Coq with HoTT, and using Coq in general.
+<br>
+<br>
+I found some stuff
+<br>
+<br>
+ <a href="
+https://ncatlab.org/nlab/show/type+theory
+         "
+    target="_top">
+         nlab type theory
+ </a>
+<br>
+ <a href= "
+Programming-in-Martin-Löfs-Type-Theory.pdf
+    "
+    target="_top">
+        Classic intuinistic type theory (free book)
+ </a>
+<br>
+ <a href= "
+    https://www.youtube.com/playlist?list=PL1-2D_rCQBarjdqnM21sOsx09CtFSVO6Z
+    "
+    target="_top">
+        Homotopy Type Theory (course)
+ </a>
+<br>
+ <a href= "
+hott-online-1287-g1ac9408.pdf
+    "
+    target="_top">
+        Homotopy Type Theory (free book)
+ </a>
+<br>
+ <a href="
+https://favonia.org/courses/hdtt2020/
+         "
+    target="_top">
+         Cubical Type Theory (course)
+ </a>
+
+"""
+
+pl.data = """
+
+<b>Programming language theory/practice</b>
+<br>
+<br>
+So far, lots and lots of compiler theory. But also basic Coq can be found here.
+<br>
+<br>
+ <a href=" https://www.amazon.com/dp/012088478X/ "
     target="_top">
 Art of compiler making stuff (book)
  </a>
@@ -636,47 +549,21 @@ Program Logics for Verified Compilers
  </a>
 <br>
 <br>
-Type Theory
-<br>
- <a href="
-https://ncatlab.org/nlab/show/type+theory
-         "
-    target="_top">
-         nlab type theory
- </a>
-<br>
- <a href= "
-Programming-in-Martin-Löfs-Type-Theory.pdf
-    "
-    target="_top">
-        Classic intuinistic type theory (free book)
- </a>
-<br>
- <a href= "
-    https://www.youtube.com/playlist?list=PL1-2D_rCQBarjdqnM21sOsx09CtFSVO6Z
-    "
-    target="_top">
-        Homotopy Type Theory (course)
- </a>
-<br>
- <a href= "
-hott-online-1287-g1ac9408.pdf
-    "
-    target="_top">
-        Homotopy Type Theory (free book)
- </a>
-<br>
- <a href="
-https://favonia.org/courses/hdtt2020/
-         "
-    target="_top">
-         Cubical Type Theory (course)
- </a>
+
+"""
+topology.data="""
+
+I found a bunch of books on the subject. But what really stands out is this formalization in calculus of inductive constructions.
 
 <br>
+<a href="../../../data/topology">coq topology</a>
 <br>
+<br>
+Aside from that, the meat of topology that is interesting from a logic perspective is algebraic logic. So this is what I found. 
+<br>
+<br><b>
 Algebraic Topology 
-<br>
+</b><br>
  <a href="
           https://ncatlab.org/nlab/show/Introduction+to+Topology
          "
@@ -706,94 +593,8 @@ https://youtube.com/playlist?list=PLpRLWqLFLVTCL15U6N3o35g4uhMSBVA2b
          Purdue Topology (research lectures)
  </a>
 
-<br>
-<br>
-Mathematical Logic
-<br>
- <a href="
-https://www.amazon.com/Introduction-Mathematical-Discrete-Mathematics-Applications/dp/1482237725/
-         "
-    target="_top">
-Mathematical Logic (book)
- </a>
-<br>
- <a href="
-https://www.amazon.com/Philosophy-Model-Theory-Tim-Button/dp/0198790406/
-         "
-    target="_top">
-         philosophy of model theory (book)
- </a>
-<br>
- <a href="
-https://www.amazon.com/Combinatorial-Set-Theory-Introduction-Mathematics/dp/1447121724
-         "
-    target="_top">
-Combinatorial Set Theory (book)
- </a>
-        <br>
-        <br>
-<b>How it all combines</b>
-        <br>
-        <a href="
-        https://ncatlab.org/nlab/show/computational+trilogy
-        ">
-                proofs = programs = spaces
-        </a>
-        <br>
-        <br>
-<br>
-<br>
-Journals and other
-<br>
- <a href="
-https://engineering.purdue.edu/~xqiu/ece663/references/References.html
-         "
-    target="_top">
-formal methods books and papers
- </a>
-<br> 
-<a href=" http://csrankings.org/#/index?&plan&log&world "
-   target="_blank"
-        >source of research papers (CS: language+logic)</a>
-<br> 
-<a href="
-https://www.cambridge.org/core/journals/journal-of-symbolic-logic/listing?q=&searchWithinIds=56ED3BA46977662562A26BC04DD604FD&aggs[productTypes][filters]=JOURNAL_ARTICLE
-"
-   target="_blank"
-   >Journal of Symbolic Logic
-</a>
 
-<br>
-<br>
-Cool logic groups
-<br>
-<a href="
-http://www.logic.cmu.edu/index.html
-">
-        pure and applied logic (CMU)
-</a>
-<br>
-<a href="
-https://github.com/coq-community/manifesto
-">
-Coq community
-</a>
-<a href="
-https://arxiv.org/about/reports/submission_category_by_year
-">
-</a>
-"""
-#}}}
-
-topology.data="""
-
-I found a bunch of books on the subject. But what really stands out is this formalization in calculus of inductive constructions.
-
-<br>
-<a href="../../../data/topology">coq topology</a>
         """
-
-
 adv_compilers.data = """
     What an amazing, life changing, course. Before this course I was unaware that there was money to be made in logic. Formal methods, solvers, and program synthesis uses a lot of advanced results in logic.
 <br>
@@ -859,6 +660,209 @@ The second is that a fairly common construct in set theory is different kinds of
 <br>
 <br>
 Another cool thing I found is set theory classically has some nice computational elements to it. Unlike naive computability these elements are almost always some high level infinity. It was proven that at least with ZF sets, not doing so would end up with elements that work like regular numbers, and that realistically any set theory would be excessive if it were not large.
+"""
+
+griffiths.data = """
+
+    <h3> Electrodynamics Griffiths 4th ed </h3>
+    <a href="Griffiths/Preface.html"></a>
+    <b>Preface</b>
+    <br>
+    <br>
+    <b>Note to the reader</b>: The first chapter is meant to be a review of the language used to explain electrodynamics, not an explanation of foundations. Attention should be paid to how words are defined, but any metaphysical or logical arguments should be observed with a critical mind. Griffiths is unconnected with work outside of electromagnetism and particle physics, and consumed uncritically the teachings of his predecessors. No offense was meant to professionals of adjacent fields, probably.
+    
+
+
+    <h4> Chapter 1: Mathematical Language </h4>
+Differential Geometry (vectors, derivatives, integrals, coordinate systems, fields)
+<br>
+<br>
+The potentially easiest way to digest the contents of undergraduate electrodynamics
+teaching is via tensors on complex numbers.
+<br>
+<br>
+There are a few levels to think about tensors
+<br>
+- as defined in the book (physical)
+<br>
+- via the common category definition (common in algebra)
+<br>
+- as a model (the fullest definition that allows automated reasoning)
+<br>
+<br>
+In the book a tensor is n x m x o product of numbers. The design is to carry physical information along calculus like transformations. Tensors in this definition also work to make sure type information (units with some measure) carries. They are tedious to write. (and they make you sound uncultured math-wise). Instead these can be typed into python under the differential geometry library in sympy.
+
+<br>
+Odd Definitions (Dirac delta, Tensors, etc...)
+<br>
+<br>
+Dirac delta exists as a function in the modern definition. But the textbook definition is to make integral equations easier to bypass.
+<br>
+<br>
+The topological definition of continuity is kind of different than the physical one. I think on the discrete topology all elements are continuous. 
+
+Discussion points:
+<br>
+<br>
+
+- What is the idea behind electric charge? Was it part of the field theory that
+  Maxwell was thinking of? What was the experiment used to demonstrate it? What
+other properties does it predict? I am guessing push and pull of magnets led to
+the idea.
+<br>
+<br>
+- Is it really true that A dot B = 0 if A and B are perpendicular? Without
+  |A||B|cos(theta), it would need some more work to show this to be true. Seems
+like a complex analysis thing.
+<br>
+<br>
+
+- Dot and cross product are kind of physical too. Like do these equations hold
+  in a different metric space? Would they hold without a metric? They do not
+hold on general vectors, only really on 2d and 3d ones.
+<br>
+<br>
+
+- Dot and cross products have a nice set up of
+  A dot B = |A||B|cos(theta), A cross B = |A||B|sin(theta) n
+  Is this part of the design of the two operators?
+<br>
+<br>
+
+- The cross product is not associative, but the composition of functions is.
+  Why? Seems like composition is not defined for 2-arity functions. This has
+kind of an odd property to it.
+<br>
+<br>
+
+- A . (B x C) is the volume of a parallelpiped. BAC-CAB rule exists. Lots of
+  computational shorthand. It kind of reminds me of old statistics books before
+computers were invented. I can see it being a nice shorthand for being a
+chalkboard-bounded physicist. But it seems like a bit much to mentally maintain
+as a computational physicist, right?
+<br>
+<br>
+
+- 1.31 is verbose. But the notation is nice and concise for describing 3d
+  rotation. Quaternions could also work here I think.  b = Ax would have been
+much less tedious too. In computing I would have just wrote out a function
+definition for this special case though. And in higher level math that is also
+what you would do,
+<br>
+<br>
+
+- Differential geometry is a weird subject. It takes many of these unusual
+  operators and runs with it. I think this is due to how interesting these
+operators are geometrically. How did your general relativity class merge math
+and physics versions of these objects?
+<br>
+<br>
+
+- Why does the gradient point towards greatest descent? Looks like component
+  derivatives. So it is going for the taxi metric sum of velocity.
+<br>
+<br>
+
+- gradient, divergence, and curl are just functors. There is a more essential definition under them I think.
+<br>
+<br>
+
+- gradient seems like it was thrown together. I don't get its design. But
+  divergence and curl are actually kind of interesting. They split derivatives
+on vectors into two familiar components seen in complex analysis: scale and
+rotation of a+bi.
+<br>
+<br>
+
+- Most of the 1.2.6 identities directly follow from elementary algebra
+  identities. Seems kind of excessive to mention them.
+<br>
+<br>
+
+- page 23 has the Laplacian. 
+<br>
+<br>
+
+
+I am really curious how this stuff works in complex analysis, and a little in
+differential geometry. DG is kind of a foil for physics, so it is probably
+going to look a lot like its physical counterpart. But CA could give some weird
+extra information about what is being said in this book. Possible computational
+speedups because it is so polynomial-based.
+<br>
+<br>
+
+Line integrals are surprisingly deep. Ch 1.5 and 1.6 look interesting and new to me. 
+<br>
+<br>
+
+Overall, I have a feeling only a fraction of the math used in the intro is actually needed to work with EM. And the math is a bit dated.
+<br>
+<br>
+"""
+
+intro_compilers.data = """
+
+<h2>Compilers</h2>
+About time I got to take a compilers course. I have been wanting to get into programming languages since sophomore year of undergrad. 
+<br>
+<br>
+We made a C compiler to the Risc-V assembly language. The core insight I gained
+from this: Many of the design features of C are so it will compile quickly on
+the computers of the 1970s. But as a language it is annoying to build a
+compiler for. It would be significantly easier to make compilers from lisp to
+assembly as it would turn out.
+<br>
+<br>
+Also, with modern compiler tools and maybe a month, anybody can make a good chunk of the C language into machine level instructions. That is pretty much what the Arduino people do. There are languages that it would simpler to do this with (forth, lisp, some near-assembly lang) though. AT&T really left behind a legacy with their language.
+<br>
+<br>
+My enthusiasm for C programming kind of died in this class. C is old and standard. Embedded systems are so messy. 
+<br>
+<br>
+
+"""
+
+em.data = """
+<br>
+<b>Books</b>
+<br><a href="Griffiths/Griffiths.html">Griffiths</a>
+ <br>
+ <br>
+ <br>
+<a href="
+https://raw.githubusercontent.com/meatyhams/Eel/main/jordans-notes.txt
+         ">
+  git form of these notes
+</a>
+<br>
+<a href="
+https://colab.research.google.com/drive/1xnftEDtCWRNzep3NTsGI1UcFvopYw75o#scrollTo=IBS1-c8nAbnL
+         "
+  >
+  colab python simulation
+</a>
+<br>
+<a href="
+https://github.com/meatyhams/Eel
+         "
+  >
+  github
+</a>
+<br>
+<a href="
+https://www.maxwells-equations.com/
+         "
+  >
+  Maxwell's equations, the website
+</a>
+<br>
+<a href="
+http://danfleisch.com/maxwell//
+         "
+  >
+  Maxwell's equations, a guide by students
+</a>
 """
 
 # courses

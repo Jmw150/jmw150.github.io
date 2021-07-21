@@ -33,11 +33,148 @@
    </div>
   </div>
  </div>
-<div id="content">Under construction</div>
+<div id="content">
+
+    <h3> Electrodynamics Griffiths 4th ed </h3>
+    <a href="Griffiths/Preface.html"></a>
+    <b>Preface</b>
+    <br>
+    <br>
+    <b>Note to the reader</b>: The first chapter is meant to be a review of the language used to explain electrodynamics, not an explanation of foundations. Attention should be paid to how words are defined, but any metaphysical or logical arguments should be observed with a critical mind. Griffiths is unconnected with work outside of electromagnetism and particle physics, and consumed uncritically the teachings of his predecessors. No offense was meant to professionals of adjacent fields, probably.
+    
+
+
+    <h4> Chapter 1: Mathematical Language </h4>
+Differential Geometry (vectors, derivatives, integrals, coordinate systems, fields)
+<br>
+<br>
+The potentially easiest way to digest the contents of undergraduate electrodynamics
+teaching is via tensors on complex numbers.
+<br>
+<br>
+There are a few levels to think about tensors
+<br>
+- as defined in the book (physical)
+<br>
+- via the common category definition (common in algebra)
+<br>
+- as a model (the fullest definition that allows automated reasoning)
+<br>
+<br>
+In the book a tensor is n x m x o product of numbers. The design is to carry physical information along calculus like transformations. Tensors in this definition also work to make sure type information (units with some measure) carries. They are tedious to write. (and they make you sound uncultured math-wise). Instead these can be typed into python under the differential geometry library in sympy.
+
+<br>
+Odd Definitions (Dirac delta, Tensors, etc...)
+<br>
+<br>
+Dirac delta exists as a function in the modern definition. But the textbook definition is to make integral equations easier to bypass.
+<br>
+<br>
+The topological definition of continuity is kind of different than the physical one. I think on the discrete topology all elements are continuous. 
+
+Discussion points:
+<br>
+<br>
+
+- What is the idea behind electric charge? Was it part of the field theory that
+  Maxwell was thinking of? What was the experiment used to demonstrate it? What
+other properties does it predict? I am guessing push and pull of magnets led to
+the idea.
+<br>
+<br>
+- Is it really true that A dot B = 0 if A and B are perpendicular? Without
+  |A||B|cos(theta), it would need some more work to show this to be true. Seems
+like a complex analysis thing.
+<br>
+<br>
+
+- Dot and cross product are kind of physical too. Like do these equations hold
+  in a different metric space? Would they hold without a metric? They do not
+hold on general vectors, only really on 2d and 3d ones.
+<br>
+<br>
+
+- Dot and cross products have a nice set up of
+  A dot B = |A||B|cos(theta), A cross B = |A||B|sin(theta) n
+  Is this part of the design of the two operators?
+<br>
+<br>
+
+- The cross product is not associative, but the composition of functions is.
+  Why? Seems like composition is not defined for 2-arity functions. This has
+kind of an odd property to it.
+<br>
+<br>
+
+- A . (B x C) is the volume of a parallelpiped. BAC-CAB rule exists. Lots of
+  computational shorthand. It kind of reminds me of old statistics books before
+computers were invented. I can see it being a nice shorthand for being a
+chalkboard-bounded physicist. But it seems like a bit much to mentally maintain
+as a computational physicist, right?
+<br>
+<br>
+
+- 1.31 is verbose. But the notation is nice and concise for describing 3d
+  rotation. Quaternions could also work here I think.  b = Ax would have been
+much less tedious too. In computing I would have just wrote out a function
+definition for this special case though. And in higher level math that is also
+what you would do,
+<br>
+<br>
+
+- Differential geometry is a weird subject. It takes many of these unusual
+  operators and runs with it. I think this is due to how interesting these
+operators are geometrically. How did your general relativity class merge math
+and physics versions of these objects?
+<br>
+<br>
+
+- Why does the gradient point towards greatest descent? Looks like component
+  derivatives. So it is going for the taxi metric sum of velocity.
+<br>
+<br>
+
+- gradient, divergence, and curl are just functors. There is a more essential definition under them I think.
+<br>
+<br>
+
+- gradient seems like it was thrown together. I don't get its design. But
+  divergence and curl are actually kind of interesting. They split derivatives
+on vectors into two familiar components seen in complex analysis: scale and
+rotation of a+bi.
+<br>
+<br>
+
+- Most of the 1.2.6 identities directly follow from elementary algebra
+  identities. Seems kind of excessive to mention them.
+<br>
+<br>
+
+- page 23 has the Laplacian. 
+<br>
+<br>
+
+
+I am really curious how this stuff works in complex analysis, and a little in
+differential geometry. DG is kind of a foil for physics, so it is probably
+going to look a lot like its physical counterpart. But CA could give some weird
+extra information about what is being said in this book. Possible computational
+speedups because it is so polynomial-based.
+<br>
+<br>
+
+Line integrals are surprisingly deep. Ch 1.5 and 1.6 look interesting and new to me. 
+<br>
+<br>
+
+Overall, I have a feeling only a fraction of the math used in the intro is actually needed to work with EM. And the math is a bit dated.
+<br>
+<br>
+</div>
   <div id=update_bar> 
    <p align="center">
     <font size="-1">
-     Compiled: Wed 21 Jul 2021 04:21:35 AM EDT
+     Compiled: Wed 21 Jul 2021 05:43:22 AM EDT
 
     </font>
    </p>

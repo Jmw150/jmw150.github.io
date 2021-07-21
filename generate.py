@@ -334,6 +334,68 @@ home.data = """
 """
 #}}}
 
+
+ml.data = """
+<h2>Machine Learning</h2>
+
+As of writing this, I am a machine learning scientist. I hope I get Chan for this. His course covers convex optimization and a bunch of more mathematical aspects of machine learning. Having a healthy career in a topic means building a good foundation.
+
+https://engineering.purdue.edu/ChanGroup/ECE595/
+"""
+
+probability.data = """
+Random variables and signals, is really just a probability class. I already took mathematical probability (at a wimpy Riemann integral level, but still). This will be like one of those courses. The signals part looks like it could be interesting. Signals and systems is yet another interesting bit of engineering I would love to make more time for. Combine it with electrodynamics, and you have physical computation on almost anything.
+<br>
+<br>
+This course is not an elective. It is the most interesting of the core subjects I could take though.
+"""
+
+
+stat_pattern.data = """
+If I can replace this course with something else I might, like programming language theory. Statistics feels like it is mostly about patterns from data already. This course seems kind of on-the-nose.
+"""
+
+compilers.data = """
+    Compilers, after taking intro compilers, and advanced compilers, will be a cake walk. It will be more C->asm, but with optimization and code generation. Optimization is a field I find kind of interesting. But it does not really move me. It seems like you have to work in a large team to get all of the tricks of the trade in optimization mapped to a compiler. And undefined behavior is very useful for many methods. And it is just a mess of techniques.
+    <br>
+    <br>
+    But it would be good to be at least exposed to it.
+"""
+
+ccl.data = """
+I am taking this course because all of the other courses I am taking this semester look dead simple, and I don't want to be bored.
+<br>
+<br>
+<a href="
+https://engineering.purdue.edu/kak/ComputabilityComplexityLanguages/Index.html
+">Course Content</a>
+<br>
+<br>
+He talks smack about digital computers versus human creativity. So, this could be tons of fun.
+"""
+
+algorithms.data = """
+Graduate level algorithm analysis from the classic book on algorithms. I don't
+really like algorithm analysis in itself, or mathematical analysis as a field that much. 
+So amazing prose on this might not happen. 
+<br>
+<br>
+I would like to get topology settled mentally, before doing this analytic number theory based song and dance.
+<br>
+<br>
+<a href="
+https://engineering.purdue.edu/~pomeranz/ECE608/ECE608_distance.pdf
+">Syllabus</a> 
+<br>
+<br>
+Book
+https://www.amazon.com/Introduction-Algorithms-3rd-MIT-Press/dp/0262033844/
+<br>
+<br>
+
+"""
+
+
 summer_of_logic.data = """
 <p><b>Summer of Logic</b></p>
 
@@ -587,6 +649,13 @@ https://youtube.com/playlist?list=PLpRLWqLFLVTCL15U6N3o35g4uhMSBVA2b
  </a>
 <br>
  <a href="
+ https://math.ucr.edu/home/baez/algebraic_topology/
+         "
+    target="_top">
+         algebraic topology (course notes)
+ </a>
+<br>
+ <a href="
           https://www.youtube.com/channel/UCLJWRcHW-mjDSbpkIX6B-cw
          "
     target="_top">
@@ -596,6 +665,9 @@ https://youtube.com/playlist?list=PLpRLWqLFLVTCL15U6N3o35g4uhMSBVA2b
 
         """
 adv_compilers.data = """
+<b>Note</b>: Admittedly, my notes for this entire year are terrible. Everything was online. So I just rewatched parts of lectures if I forgot about something. And the course materials are copyrighted. So I am not allowed to share the main content of what was said or done. Sorry.
+<br>
+<br>
     What an amazing, life changing, course. Before this course I was unaware that there was money to be made in logic. Formal methods, solvers, and program synthesis uses a lot of advanced results in logic.
 <br>
 <br>
@@ -603,6 +675,9 @@ adv_compilers.data = """
         """
 
 se.data = """
+<b>Note</b>: Admittedly, my notes for this entire year are terrible. Everything was online. So I just rewatched parts of lectures if I forgot about something. And the course materials are copyrighted. So I am not allowed to share the main content of what was said or done. Sorry.
+<br>
+<br>
     I learned that software engineering is a subset of system engineering. System engineering is actually novel. Software engineering before this class seemed to be all about middle management of the actual programmers, and using mathematical techniques to manage projects better.
 <br>
 <br>
@@ -613,21 +688,29 @@ se.data = """
     """
 
 math_logic.data = """
-The online offering of Mathematical Logic is why I decided to go to main campus Purdue for the pandemic of 2020. Purdue often ranking in the single digits in the US, for engineering disciplines, was cool. But I am only a practical person to pay the bills.
+<b>Note</b>: Admittedly, my notes for this entire year are terrible. Everything was online. So I just rewatched parts of lectures if I forgot about something. And the course materials are copyrighted. So I am not allowed to share the main content of what was said or done. Sorry.
 <br>
 <br>
-I have already taken a philosophical logic (pure-blooded logic) course. So I may leave out some details, as those are trivial to me.
+I have already taken a philosophical logic (pure-blooded logic) course. So I
+may leave out some details, as those are trivial to me.
+<br>
+<br>
+The online offering of Mathematical Logic is why I decided to go to main campus
+Purdue for the pandemic of 2020. Purdue often ranking in the single digits in
+the US, for engineering disciplines, was cool. But I am only a practical person
+to pay the bills.
 <br>
 <br>
 We covered propositional logic for about a week, and the dived into predicate
 logic based model theory for 70% of the semester, finally finishing up with
-formal number theory and the classic Godel theorems.
+formal number theory and the classic Gödel theorems.
 <br>
 <br>
 Model are an amazing way to talk about mathematics. It is heavy. But this kind
 of weight of tools is a good investment when working with high infinity objects
 with concreteness. In the class models were treated as sacred and real thing.
-But it is really just a design. A model can be pulled out of a logic. Stuff like separation algebra exists as a model for separation logic.
+But it is really just a design. A model can be pulled out of a logic. Stuff
+like separation algebra exists as a model for separation logic.
 <br>
 <br>
 Models are a lot like universal algebra and
@@ -636,30 +719,53 @@ which, from my understanding have a lot of connections to some types of
 algebraic geometry.  
 <br>
 <br>
-Almost everybody is too gullible to work through Godel's theorems before
-talking about them. They are really very specific theorems. They kick Hilbert's
-attempt at converting all of math to classical number theory. That much I am
-even grateful for. Elementary number theory has a just big enough infinity in it to
-be an inconsistent (or incomplete) pain in the ass. Going down to finite
-systems, everything is provable and consistent, if it was made to be. There are no surprises there. And, simply taking off the + or *
-operators is also enough to make a natural number level system complete. So it is not even that
-the use of infinity is at fault. The problem is really in recursion. Pretty all
-paradoxes are about self reference problems.
-
+It seems like almost everybody is too gullible to read through Gödel's theorems
+before talking about them. So it was nice to have these theorems given full
+attention, and understanding of them taken for a grade. They are really very
+specific theorems. They kick Hilbert's attempt at converting all of math to
+classical number theory. That much I am even grateful for. Elementary number
+theory has a just big enough infinity in it to be an inconsistent (or
+incomplete) pain in the ass. Going down to finite systems, everything is
+provable and consistent, if it was made to be. There are no surprises there.
+And, simply taking off the + or * operators is also enough to make a natural
+number level system complete. So it is not even that the use of infinity is at
+fault. The problem is really in recursion. Pretty much all paradoxes are about self
+reference problems. Recursion is one of the 4 big classical fields of
+mathematical logic, somewhat due to this I think.
+<br>
+<br>
+Mathematical logic is a giant field. We did not have time for Recursion Theory
+or Set Theory. Luckily I took a separate course on at least <a
+href="../set_theory/set_theory.html">Set Theory</a> this semester.  
 """
 
 set_theory.data = """
+<b>Note</b>: Admittedly, my notes for this entire year are terrible. Everything was online. So I just rewatched parts of lectures if I forgot about something. And the course materials are copyrighted. So I am not allowed to share the main content of what was said or done. Sorry.
+<br>
+<br>
 This class started from the foundations of set theory as they were talked about historically. 
 <br>
 <br>
-The main insight I gathered from set theory is that of the classical mathematical logic subjects, set theory is the study of infinity. This is the main use of modern set theory it would seem. 
-It <b>can</b> be referred to as a foundation of mathematics. But there are many foundations in the modern age of mathematics. And to be fair, many mathematicians are not focussed enough on methods and reliability of proofs. So concerns on methods and foundations are left to the less gullible in the field.
+The main insight I gathered from set theory is that of the classical
+mathematical logic subjects, set theory is the study of infinity. This is the
+main use of modern set theory it would seem.  It <b>can</b> be referred to as a
+foundation of mathematics. But there are many foundations in the modern age of
+mathematics. And to be fair, many mathematicians are not focussed enough on
+methods and reliability of proofs. So concerns on methods and foundations are
+left to the less gullible in the field.
 <br>
 <br>
-The second is that a fairly common construct in set theory is different kinds of numbers. But this second part may be more historical than realistic. This is a valuable property for model theory, as model theory needs larger and larger infinities of elements to toss around.
+The second is that a fairly common construct in set theory is different kinds
+of numbers. But this second part may be more historical than realistic. This is
+a valuable property for model theory, as model theory needs larger and larger
+infinities of elements to toss around.
 <br>
 <br>
-Another cool thing I found is set theory classically has some nice computational elements to it. Unlike naive computability these elements are almost always some high level infinity. It was proven that at least with ZF sets, not doing so would end up with elements that work like regular numbers, and that realistically any set theory would be excessive if it were not large.
+Another cool thing I found is set theory classically has some nice
+computational elements to it. Unlike naive computability these elements are
+almost always some high level infinity. It was proven that at least with ZF
+sets, not doing so would end up with elements that work like regular numbers,
+and that realistically any set theory would be excessive if it were not large.
 """
 
 griffiths.data = """
@@ -671,8 +777,6 @@ griffiths.data = """
     <br>
     <b>Note to the reader</b>: The first chapter is meant to be a review of the language used to explain electrodynamics, not an explanation of foundations. Attention should be paid to how words are defined, but any metaphysical or logical arguments should be observed with a critical mind. Griffiths is unconnected with work outside of electromagnetism and particle physics, and consumed uncritically the teachings of his predecessors. No offense was meant to professionals of adjacent fields, probably.
     
-
-
     <h4> Chapter 1: Mathematical Language </h4>
 Differential Geometry (vectors, derivatives, integrals, coordinate systems, fields)
 <br>
@@ -690,7 +794,12 @@ There are a few levels to think about tensors
 - as a model (the fullest definition that allows automated reasoning)
 <br>
 <br>
-In the book a tensor is n x m x o product of numbers. The design is to carry physical information along calculus like transformations. Tensors in this definition also work to make sure type information (units with some measure) carries. They are tedious to write. (and they make you sound uncultured math-wise). Instead these can be typed into python under the differential geometry library in sympy.
+In the book a tensor is n x m x o product of numbers. The design is to carry
+physical information along calculus like transformations. Tensors in this
+definition also work to make sure type information (units with some measure)
+carries. They are tedious to write. (and they make you sound uncultured
+math-wise). Instead these can be typed into python under the differential
+geometry library in sympy.
 
 <br>
 Odd Definitions (Dirac delta, Tensors, etc...)
@@ -804,6 +913,10 @@ Overall, I have a feeling only a fraction of the math used in the intro is actua
 intro_compilers.data = """
 
 <h2>Compilers</h2>
+
+<b>Note</b>: Admittedly, my notes for this entire year are terrible. Everything was online. So I just rewatched parts of lectures if I forgot about something. And the course materials are copyrighted. So I am not allowed to share the main content of what was said or done. Sorry.
+<br>
+<br>
 About time I got to take a compilers course. I have been wanting to get into programming languages since sophomore year of undergrad. 
 <br>
 <br>

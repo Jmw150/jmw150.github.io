@@ -513,6 +513,13 @@ http://www.logic.cmu.edu/index.html
 </a>
 <br>
 <a href="
+https://www.cs.purdue.edu/homes/roopsha/purform/projects.html
+">
+        Purdue formal methods (PurForm)
+</a>
+
+<br>
+<a href="
 https://github.com/coq-community/manifesto
 ">
 Coq community
@@ -803,6 +810,9 @@ griffiths.data = """
     <br>
     <br>
     <b>Note to the reader</b>: The first chapter is meant to be a review of the language used to explain electrodynamics, not an explanation of foundations. Attention should be paid to how words are defined, but any metaphysical or logical arguments should be observed with a critical mind. Griffiths is unconnected with work outside of electromagnetism and particle physics, and consumed uncritically the teachings of his predecessors. No offense was meant to professionals of adjacent fields, probably.
+    <br>
+    <br>
+    "The connection between light and electricity is now established . . . In every flame, in every luminous particle, we see an electrical process . . . Thus, the domain of electricity extends over the whole of nature. It even affects ourselves intimately: we perceive that we possess . . . an electrical organ—the eye."
     
     <h4> Chapter 1: Mathematical Language </h4>
 Differential Geometry (vectors, derivatives, integrals, coordinate systems, fields)

@@ -201,7 +201,7 @@ for i in range(len(blogs)) :
 research = Page('research',"""
  <h2>Research Interests</h2>
  <p>
-Logic; the <a href="https://en.wikipedia.org/wiki/Language_game_(philosophy)">language-game</a>
+<b>Logic</b>: the <a href="https://en.wikipedia.org/wiki/Language_game_(philosophy)">language-game</a>
 of precision, consistency, and world building. Working in logic can mean
 working in such fields as: philosophy, mathematics, computer science, and
 linguistics.  
@@ -289,7 +289,7 @@ based on its specification.
  <li><a href="
 https://github.com/PurdueDualityLab/deepbugs-jr
     "
-    target="_top">
+    target="_blank">
 Reproduction of ``DeepBugs: A Learning Approach to Name-based Bug Detection''
  </a> (May 2021)
  </li>
@@ -297,7 +297,7 @@ Reproduction of ``DeepBugs: A Learning Approach to Name-based Bug Detection''
 <li> <a href="
               https://github.com/Jmw150/Brain-Generator
     "
-    target="_top">
+    target="_blank">
 BrainGan: A brain (deep neural net) that makes pictures of brains
  </a> (Dec 2019)
     </li>
@@ -341,14 +341,24 @@ home.data = """
 ml.data = """
 <h2>Machine Learning</h2>
 
-As of writing this, I am a machine learning scientist. I hope I get Chan for this topic though. His course covers convex optimization and a bunch of more mathematical aspects of machine learning. Having a healthy career in a topic means building a good foundation.
+As of writing this, I am a machine learning scientist. (yay) 
+<br>
+<br>
+I hope I get Chan for this topic though. His course covers convex optimization
+and a bunch of more mathematical aspects of machine learning. Having a healthy
+career in a topic means building a good foundation.  
 <br>
 <br>
 https://engineering.purdue.edu/ChanGroup/ECE595/
 """
 
 probability.data = """
-Random variables and signals, is really just a probability class. I already took mathematical probability (at a wimpy Riemann integral level, but still). This will be like one of those courses. The signals part looks like it could be interesting. Signals and systems is yet another interesting bit of engineering I would love to make more time for. Combine it with electrodynamics, and you have physical computation on almost anything.
+Random variables and signals, is really just a probability class. I already
+took mathematical probability (at a wimpy Riemann integral level, but still).
+This will be like one of those courses. The signals part looks like it could be
+interesting. Signals and systems is yet another interesting bit of engineering
+I would love to make more time for. Combine it with electrodynamics, and you
+have physical computation on almost anything.
 <br>
 <br>
 This course is not an elective. It is the most interesting of the core subjects I could take though.
@@ -371,11 +381,12 @@ I am taking this course because all of the other courses I am taking this semest
 <br>
 <br>
 <a href="
-https://engineering.purdue.edu/kak/ComputabilityComplexityLanguages/Index.html
-">Course Content</a>
+https://engineering.purdue.edu/kak/ComputabilityComplexityLanguages/Index.html"
+   target="_blank"
+>Course Content</a>
 <br>
 <br>
-He talks smack about digital computers versus human creativity. So, this could be tons of fun.
+He talks smack about digital computers versus human creativity. So, this could be fun.
 """
 
 algorithms.data = """
@@ -388,8 +399,9 @@ I would like to get topology settled mentally, before doing this analytic number
 <br>
 <br>
 <a href="
-https://engineering.purdue.edu/~pomeranz/ECE608/ECE608_distance.pdf
-">Syllabus</a> 
+https://engineering.purdue.edu/~pomeranz/ECE608/ECE608_distance.pdf"
+   target="_blank"
+>Syllabus</a> 
 <br>
 <br>
 Book
@@ -417,7 +429,8 @@ Reading research papers, coding in dependent type theories, and reviewing logic 
 <br>
 <br>
 I also took some time doing random things: trying to start a workshop on
-symbolic AI, learning about the electromagnetic force.
+symbolic AI, learning about the electromagnetic force, trying to get my fairly
+derivative research published, and making this website.
 
 """+bar()+"""
 Notes:
@@ -437,21 +450,21 @@ Stuff I found:
  <a href="
 https://www.amazon.com/Introduction-Mathematical-Discrete-Mathematics-Applications/dp/1482237725/
          "
-    target="_top">
+    target="_blank">
 Mathematical Logic (book)
  </a>
 <br>
  <a href="
 https://www.amazon.com/Philosophy-Model-Theory-Tim-Button/dp/0198790406/
          "
-    target="_top">
+    target="_blank">
          philosophy of model theory (book)
  </a>
 <br>
  <a href="
 https://www.amazon.com/Combinatorial-Set-Theory-Introduction-Mathematics/dp/1447121724
          "
-    target="_top">
+    target="_blank">
 Combinatorial Set Theory (book)
  </a>
         <br>
@@ -472,7 +485,7 @@ Journals and other
  <a href="
 https://engineering.purdue.edu/~xqiu/ece663/references/References.html
          "
-    target="_top">
+    target="_blank">
 formal methods books and papers
  </a>
 <br> 
@@ -526,35 +539,35 @@ I found some stuff
  <a href="
 https://ncatlab.org/nlab/show/type+theory
          "
-    target="_top">
+    target="_blank">
          nlab type theory
  </a>
 <br>
  <a href= "
 Programming-in-Martin-Löfs-Type-Theory.pdf
     "
-    target="_top">
+    target="_blank">
         Classic intuinistic type theory (free book)
  </a>
 <br>
  <a href= "
     https://www.youtube.com/playlist?list=PL1-2D_rCQBarjdqnM21sOsx09CtFSVO6Z
     "
-    target="_top">
+    target="_blank">
         Homotopy Type Theory (course)
  </a>
 <br>
  <a href= "
 hott-online-1287-g1ac9408.pdf
     "
-    target="_top">
+    target="_blank">
         Homotopy Type Theory (free book)
  </a>
 <br>
  <a href="
 https://favonia.org/courses/hdtt2020/
          "
-    target="_top">
+    target="_blank">
          Cubical Type Theory (course)
  </a>
 
@@ -569,35 +582,35 @@ So far, lots and lots of compiler theory. But also basic Coq can be found here.
 <br>
 <br>
  <a href=" https://www.amazon.com/dp/012088478X/ "
-    target="_top">
+    target="_blank">
 Art of compiler making stuff (book)
  </a>
 <br>
  <a href="
 https://www.cs.purdue.edu/homes/bendy/cs565/fall20/index.html#logistics
          "
-    target="_top">
+    target="_blank">
 CS 565 Programming Languages (fall)
  </a>
 <br>
  <a href="
 cs565-spring2020/index.html
          "
-    target="_top">
+    target="_blank">
 CS 565 Programming Languages (spring)
  </a>
 <br>
  <a href="
 https://6826.csail.mit.edu/2020/
          "
-    target="_top">
+    target="_blank">
 Coq course (MIT: based on Upenn)
  </a>
 <br>
  <a href="
 https://softwarefoundations.cis.upenn.edu/
          "
-    target="_top">
+    target="_blank">
         Software Foundations
  </a>
 <br>
@@ -610,7 +623,7 @@ Practical foundations to programming languages (type theory+PL)
  <a href="
 https://www.cs.princeton.edu/~appel/papers/plcc.pdf
          "
-    target="_top">
+    target="_blank">
 Program Logics for Verified Compilers
  </a>
 <br>
@@ -633,7 +646,7 @@ Algebraic Topology
  <a href="
           https://ncatlab.org/nlab/show/Introduction+to+Topology
          "
-    target="_top">
+    target="_blank">
 algebraic topology (nlab book)
  </a>
 
@@ -641,28 +654,28 @@ algebraic topology (nlab book)
  <a href="
 https://www.amazon.com/dp/0521795400/
          "
-    target="_top">
+    target="_blank">
 algebraic topology (book)
  </a>
 <br>
  <a href="
 https://youtube.com/playlist?list=PLpRLWqLFLVTCL15U6N3o35g4uhMSBVA2b
          "
-    target="_top">
+    target="_blank">
          algebraic topology (course lectures)
  </a>
 <br>
  <a href="
- https://math.ucr.edu/home/baez/algebraic_topology/
+ https://math.ucr.edu/home/baez/algebraic_blankology/
          "
-    target="_top">
+    target="_blank">
          algebraic topology (course notes)
  </a>
 <br>
  <a href="
           https://www.youtube.com/channel/UCLJWRcHW-mjDSbpkIX6B-cw
          "
-    target="_top">
+    target="_blank">
          Purdue Topology (research lectures)
  </a>
 

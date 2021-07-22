@@ -1,6 +1,8 @@
 # A python script to generate websites
 # Jordan Winkler
 
+# algs
+#{{{
 import time 
 import os
 
@@ -70,6 +72,71 @@ def get_blogs(path) :
     
     return blogs
 
+def write_file(file, content):
+    f = open(file+'.html', "w")
+    f.write(content.name) # poorly used class, should be data or nothing
+    f.close()
+
+def build_page(content,path='') :
+
+    ln = path.split('/')
+    level = len(ln)-1
+    file = content.name
+
+    # handle file generation of content
+    if level > 0 :
+        ls = ln[0]
+        if not os.path.exists(ls) :
+            os.mkdir(ls)
+        for i in range(1,level) : # skip last 
+            ls += '/'+ln[i]
+            if not os.path.exists(ls) :
+                os.mkdir(ls)
+        file = ls +'/'+ content.name
+
+    ab = '../'*level
+
+    write_file(file,
+            (nav_bar(
+                ab+css,
+                ab+home_path,
+                ab+research_path,
+                ab+course_path,
+                ab+blog_path)
+                +'<div id="content">'
+                +content.data
+                +'</div>'
+                +update.data))
+
+#}}}
+
+# forward declare web pages, so they can link to each other
+#{{{
+home = Page('index',nickname='Home')
+
+summer_of_logic = Page('summer_of_logic',nickname='Summer of Logic')
+pl = Page('programming_languages',nickname='Programming Language Theory')
+tt = Page('type_theory',nickname='Type Theory')
+topology = Page('topology',nickname='Topology')
+em = Page('Electromagnetism',nickname='Electromagnetic Force')
+griffiths = Page('Griffiths')
+
+ml = Page('machine_learning',nickname='ECE 595 Machine Learning')
+probability = Page('probability',nickname="ECE 600 Random Variables and Signals")
+stat_pattern = Page('stat_pattern', nickname='ECE 662 Pattern Recognition and Decision Making')
+
+ccl = Page('ccl', nickname='ECE 664 Computability, Complexity, and Languages')
+algorithms = Page('algorithms', nickname='ECE 608 Computational Models and Methods')
+compilers = Page('compilers', nickname='ECE 595 Compilers: optimization, code generation')
+
+adv_compilers = Page('adv_compilers',nickname='ECE 663 Advanced compilers')
+se = Page('software_engineering',nickname='ECE 595 Advanced Software Engineering')
+
+set_theory = Page('set_theory',nickname='MA  598 Set Theory')
+math_logic = Page('mathemetical_logic',nickname='MA  585 Mathematical Logic')
+intro_compilers = Page('intro_compilers',nickname='ECE 595 Intro to Compilers')
+#}}}
+
 # navigation bar (nav_bar)
 #{{{
 def nav_bar (css, *args) :
@@ -117,12 +184,11 @@ update = Page('update',"""
 """)
 #}}}
 
-
 # blog
 #{{{
 blogs = get_blogs(blogs_source) # started (Jul 12 2021)
 blog = Page('blog',"""
- <b>Advice an old me needed, and a newer me might find foolish</b>
+ <b>I drink and I know things</b>
 <br>
 <br>
 """)
@@ -245,68 +311,6 @@ See <a href="https://github.com/jmw150" target="_blank" >github</a>.
 """)
 #}}}
 
-def write_file(file, content):
-    f = open(file+'.html', "w")
-    f.write(content.name) # poorly used class, should be data or nothing
-    f.close()
-
-def build_page(content,path='') :
-
-    ln = path.split('/')
-    level = len(ln)-1
-    file = content.name
-
-    # handle file generation of content
-    if level > 0 :
-        ls = ln[0]
-        if not os.path.exists(ls) :
-            os.mkdir(ls)
-        for i in range(1,level) : # skip last 
-            ls += '/'+ln[i]
-            if not os.path.exists(ls) :
-                os.mkdir(ls)
-        file = ls +'/'+ content.name
-
-    ab = '../'*level
-
-    write_file(file,
-            (nav_bar(
-                ab+css,
-                ab+home_path,
-                ab+research_path,
-                ab+course_path,
-                ab+blog_path)
-                +'<div id="content">'
-                +content.data
-                +'</div>'
-                +update.data))
-
-
-# forward declare web pages, so they can link to each other
-home = Page('index',nickname='Home')
-
-summer_of_logic = Page('summer_of_logic',nickname='Summer of Logic')
-pl = Page('programming_languages',nickname='Programming Language Theory')
-tt = Page('type_theory',nickname='Type Theory')
-topology = Page('topology',nickname='Topology')
-em = Page('Electromagnetism',nickname='Electromagnetic Force')
-griffiths = Page('Griffiths')
-
-ml = Page('machine_learning',nickname='ECE 595 Machine Learning')
-probability = Page('probability',nickname="ECE 600 Random Variables and Signals")
-stat_pattern = Page('stat_pattern', nickname='ECE 662 Pattern Recognition and Decision Making')
-
-ccl = Page('ccl', nickname='ECE 664 Computability, Complexity, and Languages')
-algorithms = Page('algorithms', nickname='ECE 608 Computational Models and Methods')
-compilers = Page('compilers', nickname='ECE 595 Compilers: optimization, code generation')
-
-adv_compilers = Page('adv_compilers',nickname='ECE 663 Advanced compilers')
-se = Page('software_engineering',nickname='ECE 595 Advanced Software Engineering')
-
-set_theory = Page('set_theory',nickname='MA  598 Set Theory')
-math_logic = Page('mathemetical_logic',nickname='MA  585 Mathematical Logic')
-intro_compilers = Page('intro_compilers',nickname='ECE 595 Intro to Compilers')
-
 # home (index)
 #{{{
 home.data = """
@@ -334,12 +338,12 @@ home.data = """
 """
 #}}}
 
-
 ml.data = """
 <h2>Machine Learning</h2>
 
-As of writing this, I am a machine learning scientist. I hope I get Chan for this. His course covers convex optimization and a bunch of more mathematical aspects of machine learning. Having a healthy career in a topic means building a good foundation.
-
+As of writing this, I am a machine learning scientist. I hope I get Chan for this topic though. His course covers convex optimization and a bunch of more mathematical aspects of machine learning. Having a healthy career in a topic means building a good foundation.
+<br>
+<br>
 https://engineering.purdue.edu/ChanGroup/ECE595/
 """
 
@@ -668,7 +672,12 @@ adv_compilers.data = """
 <b>Note</b>: Admittedly, my notes for this entire year are terrible. Everything was online. So I just rewatched parts of lectures if I forgot about something. And the course materials are copyrighted. So I am not allowed to share the main content of what was said or done. Sorry.
 <br>
 <br>
-    What an amazing, life changing, course. Before this course I was unaware that there was money to be made in logic. Formal methods, solvers, and program synthesis uses a lot of advanced results in logic.
+    What an amazing, life changing, course. Before this course I was unaware
+    that there was money to be made in logic. Formal methods, solvers, and
+    program synthesis uses a lot of advanced results in logic.
+<br>
+<br>
+    
 <br>
 <br>
         "https://engineering.purdue.edu/~xqiu/ece663/"
@@ -678,10 +687,15 @@ se.data = """
 <b>Note</b>: Admittedly, my notes for this entire year are terrible. Everything was online. So I just rewatched parts of lectures if I forgot about something. And the course materials are copyrighted. So I am not allowed to share the main content of what was said or done. Sorry.
 <br>
 <br>
-    I learned that software engineering is a subset of system engineering. System engineering is actually novel. Software engineering before this class seemed to be all about middle management of the actual programmers, and using mathematical techniques to manage projects better.
+    I learned that software engineering is a subset of system engineering.
+    System engineering is actually novel. Software engineering before this
+    class seemed to be all about middle management of the actual programmers,
+    and using mathematical techniques to manage projects better.
 <br>
 <br>
-    This was also a good course in the sense that we read current software engineering research articles and I was able to finish some actual scientific research in it.
+    This was also a good course in the sense that we read current software
+    engineering research articles and I was able to finish some actual
+    scientific research in it.
 <br>
 <br>
         "https://engineering.purdue.edu/ECE/Academics/Online/Courses/advanced-software-engineering"
@@ -917,7 +931,8 @@ intro_compilers.data = """
 <b>Note</b>: Admittedly, my notes for this entire year are terrible. Everything was online. So I just rewatched parts of lectures if I forgot about something. And the course materials are copyrighted. So I am not allowed to share the main content of what was said or done. Sorry.
 <br>
 <br>
-About time I got to take a compilers course. I have been wanting to get into programming languages since sophomore year of undergrad. 
+About time I got to take a compilers course. I have been wanting to get into
+programming languages since sophomore year of undergrad. 
 <br>
 <br>
 We made a C compiler to the Risc-V assembly language. The core insight I gained
@@ -927,13 +942,15 @@ compiler for. It would be significantly easier to make compilers from lisp to
 assembly as it would turn out.
 <br>
 <br>
-Also, with modern compiler tools and maybe a month, anybody can make a good chunk of the C language into machine level instructions. That is pretty much what the Arduino people do. There are languages that it would simpler to do this with (forth, lisp, some near-assembly lang) though. AT&T really left behind a legacy with their language.
+Also, with modern compiler tools and maybe a month, anybody can make a good
+chunk of the C language into machine level instructions. That is pretty much
+what the Arduino people do. There are languages that it would simpler to do
+this with (forth, lisp, some near-assembly lang) though. AT&T really left
+behind a legacy with their language.
 <br>
 <br>
-My enthusiasm for C programming kind of died in this class. C is old and standard. Embedded systems are so messy. 
-<br>
-<br>
-
+My enthusiasm for C programming kind of died in this class. C is old and
+standard. Embedded systems are messy. 
 """
 
 em.data = """

@@ -9,7 +9,7 @@ import os
 class Page :
     #{{{
     "A website page"
-    def __init__(self, name, data=' ', nickname= '', next=None, prev=None, up=None):
+    def __init__(self, name, data=' ', nickname= '', next=None, prev=None, up=None, level=0):
         self.name = name
         if nickname == '':
             self.nickname = name
@@ -18,9 +18,10 @@ class Page :
         self.data = data
 
         # extra possible metadata
-        self.next = next
-        self.prev = prev
-        self.up   = up
+        self.next  = next
+        self.prev  = prev
+        self.up    = up
+        self.level = level
 
     def __add__(self, y) :
         return Page(str(self.name) + str(y), 

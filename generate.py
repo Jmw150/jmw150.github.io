@@ -354,20 +354,19 @@ career in a topic means building a good foundation.
 https://engineering.purdue.edu/ChanGroup/ECE595/
 """
 
-probability.data = """
-<h2>Random Variables and Signals</h2>
-
-<b>motivation:</b> Signals are an interesting aspect of system engineering. Combine it with electrodynamics, and you have physical computation on almost anything.
-<br>
-<br>
-"""
-
-
 stat_pattern.data = """
 <h2>Statistical Patterns
 </h2>
 <b>motivation:</b> Statistical patterns is a topic categorized along with
 computer vision in research 
+<br>
+<br>
+"""
+
+probability.data = """
+<h2>Random Variables and Signals</h2>
+
+<b>motivation:</b> Signals are an interesting aspect of system engineering. Combine it with electrodynamics, and you have physical computation on almost anything.
 <br>
 <br>
 """
@@ -385,8 +384,8 @@ compilers.data = """
 ccl.data = """
 <h2>Computability, Complexity, Languages
 </h2>
-<b>motivation:</b><br>
-I am taking this course because all of the other courses I am taking this semester look dead simple, and I don't want to be bored. <br>
+<b>Motivation:</b><br>
+I am taking this course because all of the other courses I am taking this semester look dead simple, and I don't want to be bored. This <br>
 - Computability: In this case naive computability. For computer scientists it is the limitations of Turing machines (f : Nat -> Nat), which is arguably not as useful as it sounds. For mathematicians it is called recursion theory and it is more about paradoxes.
 <br>
 - Complexity: In this case probably classical complexity. Complexity is about search spaces of (f : Nat -> Nat) phrased as problems. "Machine Learning" deals in functions on higher dimension, larger search spaces. So, despite what the professor for this class says, classical complexity is less relevant (if not incorrectly applied) on algorithms that handle larger spaces.
@@ -400,7 +399,8 @@ https://engineering.purdue.edu/kak/ComputabilityComplexityLanguages/Index.html"
 >Course Content</a>
 <br>
 <br>
-Ch1 why learn this?
+- Why Study Computability, Complexity, and Languages?
+<br>
 Ch2 math background
 """
 

@@ -342,9 +342,10 @@ home.data = """
 ml.data = """
 <h2>Machine Learning</h2>
 
-As of writing this, I am a machine learning scientist. (yay) 
+<b>motivation:</b> Its one of the cooler parts of AI
 <br>
 <br>
+<b>personal note:</b> As of writing this, I am a machine learning scientist. (yay) 
 I hope I get Chan for this topic though. His course covers convex optimization
 and a bunch of more mathematical aspects of machine learning. Having a healthy
 career in a topic means building a good foundation.  
@@ -354,31 +355,43 @@ https://engineering.purdue.edu/ChanGroup/ECE595/
 """
 
 probability.data = """
-Random variables and signals, is really just a probability class. I already
-took mathematical probability (at a wimpy Riemann integral level, but still).
-This will be like one of those courses. The signals part looks like it could be
-interesting. Signals and systems is yet another interesting bit of engineering
-I would love to make more time for. Combine it with electrodynamics, and you
-have physical computation on almost anything.
+<h2>Random Variables and Signals</h2>
+
+<b>motivation:</b> Signals are an interesting aspect of system engineering. Combine it with electrodynamics, and you have physical computation on almost anything.
 <br>
 <br>
-This course is not an elective. It is the most interesting of the core subjects I could take though.
 """
 
 
 stat_pattern.data = """
-If I can replace this course with something else I might, like programming language theory. Statistics feels like it is mostly about patterns from data already. This course seems kind of on-the-nose.
+<h2>Statistical Patterns
+</h2>
+<b>motivation:</b> Statistical patterns is a topic categorized along with
+computer vision in research 
+<br>
+<br>
 """
 
 compilers.data = """
-    Compilers, after taking intro compilers, and advanced compilers, will be a cake walk. It will be more C->asm, but with optimization and code generation. Optimization is a field I find kind of interesting. But it does not really move me. It seems like you have to work in a large team to get all of the tricks of the trade in optimization mapped to a compiler. And undefined behavior is very useful for many methods. And it is just a mess of techniques.
-    <br>
-    <br>
-    But it would be good to be at least exposed to it.
+<h2>Compilers: optimization, code generation
+</h2>
+<b>motivation:</b><br>
+- Optimization in compilers technology is where most practical use of algorithms is found. Algorithms is <br>
+- Code Generation in compiler tech leads into the far more impressive field of program synthesis
+<br>
+<br>
 """
 
 ccl.data = """
-I am taking this course because all of the other courses I am taking this semester look dead simple, and I don't want to be bored.
+<h2>Computability, Complexity, Languages
+</h2>
+<b>motivation:</b><br>
+I am taking this course because all of the other courses I am taking this semester look dead simple, and I don't want to be bored. <br>
+- Computability: In this case naive computability. For computer scientists it is the limitations of Turing machines (f : Nat -> Nat), which is arguably not as useful as it sounds. For mathematicians it is called recursion theory and it is more about paradoxes.
+<br>
+- Complexity: In this case probably classical complexity. Complexity is about search spaces of (f : Nat -> Nat) phrased as problems. "Machine Learning" deals in functions on higher dimension, larger search spaces. So, despite what the professor for this class says, classical complexity is less relevant (if not incorrectly applied) on algorithms that handle larger spaces.
+<br>
+- Languages: an area of programming all cs people should learn, because it unlocks the real potential in programming.
 <br>
 <br>
 <a href="
@@ -387,14 +400,15 @@ https://engineering.purdue.edu/kak/ComputabilityComplexityLanguages/Index.html"
 >Course Content</a>
 <br>
 <br>
-He talks smack about digital computers versus human creativity. So, this could be fun.
+Ch1 why learn this?
+Ch2 math background
 """
 
 algorithms.data = """
-Graduate level algorithm analysis from the classic book on algorithms. I don't
-really like algorithm analysis in itself, or mathematical analysis as a field that much. 
-So amazing prose on this might not happen. 
-<br>
+<h2>Algorithms
+</h2>
+<b>motivation:</b><br>
+Graduate level algorithm analysis from the classic book on algorithms. I don't really like algorithm analysis in itself, or mathematical analysis as a field that much.  So amazing prose on this might not happen.  <br>
 <br>
 I would like to get topology settled mentally, before doing this analytic number theory based song and dance.
 <br>

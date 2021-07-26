@@ -1,56 +1,99 @@
 # A python script to generate websites
 # Jordan Winkler
+# should only be 2 objects: Page, and location
 
 # algs
 #{{{
 import time 
 import os
+from typing import * # List, etc..
 
-class Page :
+# subclass of Page
+class Tag:
+    def __init__(self, name, nickname='') :
+
+        # name is the location
+        self.name = name
+        if nickname == '':
+            self.nickname = name
+        else:
+            self.nickname = nickname
+
+    # for adding path elements (../) and file types (.html)
+    def __add__(self, y) :
+        return Tag(str(self.name) + str(y), self.nickname)
+    def __radd__(self,y) :
+        return Tag(str(y) + str(self.name), self.nickname)
+
+    def __str__(self):
+        return str(self.name)
+    def __repr__(self):
+        return str(self.name)
+
+# Paths
+#{{{
+blogs_source = '../../blog'
+## for defaults in Page
+css = Tag('bluestyle.css')
+data = Tag('data')
+#}}}
+
+class Page (Tag):
     #{{{
     "A website page"
-    def __init__(self, name, data=' ', nickname= '', next=None, prev=None, up=None, level=0):
+    def __init__(self, name, data=' ', nickname= '', nav=[], cleanable=True):
         self.name = name
         if nickname == '':
             self.nickname = name
         else:
             self.nickname = nickname
         self.data = data
+        self.cleanable = cleanable
+
+        # default stuff
+        home = Tag('index', nickname='Home')
+        research = Tag('research/research',nickname='Research')
+        courses = Tag('courses/courses', nickname='Courses')
+        blog = Tag('blog/blog', nickname='Blog')
 
         # extra possible metadata
-        self.next  = next
-        self.prev  = prev
-        self.up    = up
-        self.level = level
+        if nav == [] : 
+            self.nav = [home,research,courses,blog]
+        else :
+            self.nav = []
 
+    # this is odd design, Python
     def __add__(self, y) :
         return Page(str(self.name) + str(y), 
-                self.data , self.nickname, self.next, self.prev, self.up)
+                self.data , self.nickname, self.nav, self.cleanable)
     def __radd__(self,y) :
         return Page(str(y) + str(self.name), 
-                self.data , self.nickname, self.next, self.prev, self.up)
+                self.data , self.nickname, self.nav, self.cleanable)
+    
+    # get data, also process data
+    def dat(page, size=2) : # size might be another property to add
+        
+        if page.cleanable == True :
+            # double enter -> html 
+            data = page.data.replace('\n\n','<br><br>\n') 
+        
+            s = str(size)
+    
+            # add title
+            page.data = '\n<h'+s+'>'+page.nickname.replace('_',' ').title()+'</h'+s+'>\n'
+            page.data += data
+    
+            # TODO: evaluate links in data
 
-    def __str__(self):
-        return str(self.name)
-    def __repr__(self):
-        return str(self.name)
-    #}}}
+        return page.data
 
-# Paths
-#{{{
-css = Page('bluestyle.css')
-data = Page('data')
-home_path = Page('index.html',nickname='Home')
-research_path = Page('research/research.html',nickname='Research')
-course_path = Page('courses/courses.html',nickname='Courses')
-blog_path = Page('blog/blog.html',nickname='Blog')
-blogs_source = '../../blog/'
 #}}}
 
-lname = link_name = lambda name, link : '<a href='+link+'>'+name+'</a>'
-listlink = lambda name, link : '<br><a href='+link+'>'+name+'</a>'
+# html macros
 link = lambda page : '<br><a href='+page.name+'/'+page.name+'.html>'+page.nickname+'</a>'
 inlink = lambda page : '<a href='+page.name+'/'+page.name+'.html>'+page.nickname+'</a>'
+exlink = lambda page : '<br><a target="_blank" href='+page.name+'>'+page.nickname+'</a>'
+link_here = lambda page : '<br><a href='+page.name+'.html>'+page.nickname+'</a>'
 bar = lambda : '</td></tr></tbody></table></p></p></center><hr>'
 
 def get_file(filename) :
@@ -61,15 +104,14 @@ def get_file(filename) :
 
     return File
 
-def get_blogs(path) :
+def get_blogs(path) -> List[Page]:
     bloglist = os.popen('ls -t '+path).read().split('\n')[:-1]
     blogs = []
     # add title to work, and clump together
     for i in bloglist :
-        file = ('\n  <h2>'+i.replace('_',' ')+'</h2>\n'
-                +get_file(path+'/'+i)) # add dates later?
-        file = file.replace('\n\n','<br><br>\n') # double enter -> html 
-        blogs.append(Page(i,file))
+        file = get_file(path+'/'+i)
+        file = str(Page(i,file).dat())
+        blogs.append(Page(i,file,cleanable=False))
     
     return blogs
 
@@ -97,25 +139,29 @@ def build_page(content,path='') :
 
     ab = '../'*level
 
+    # set absolute path to nav
+    for i in range(len(content.nav)) :
+        content.nav[i].name = ab+content.nav[i].name
+
     write_file(file,
-            (nav_bar(
-                ab+css,
-                ab+home_path,
-                ab+research_path,
-                ab+course_path,
-                ab+blog_path)
+                nav_bar(ab+css, content.nav)
                 +'<div id="content">'
-                +content.data
+                +content.dat()
                 +'</div>'
-                +update.data))
+                +update.data)
 
 #}}}
 
 # forward declare web pages, so they can link to each other
 #{{{
-home = Page('index',nickname='Home')
+css = Page('bluestyle.css', cleanable=False)
+data = Page('data', cleanable=False)
+home = Page('index', nickname='Home', cleanable=False)
+#research = Page('research',nickname='Research')
+#courses = Page('courses', nickname='Courses')
+#blog = Page('blog', nickname='Blog')
 
-summer_of_logic = Page('summer_of_logic',nickname='Summer of Logic')
+summer_of_logic = Page('summer_of_logic',nickname='Summer of Logic',cleanable=False)
 pl = Page('programming_languages',nickname='Programming Language Theory')
 tt = Page('type_theory',nickname='Type Theory')
 topology = Page('topology',nickname='Topology')
@@ -138,9 +184,16 @@ math_logic = Page('mathemetical_logic',nickname='MA  585 Mathematical Logic')
 intro_compilers = Page('intro_compilers',nickname='ECE 595 Intro to Compilers')
 #}}}
 
+# meta parameters
+#{{{
+pl.nav.append(Page('courses/summer_of_logic/summer_of_logic',nickname='SoL'))
+tt.nav.append(Page('courses/summer_of_logic/summer_of_logic',nickname='SoL'))
+topology.nav.append(Page('courses/summer_of_logic/summer_of_logic',nickname='SoL'))
+#}}}
+
 # navigation bar (nav_bar)
 #{{{
-def nav_bar (css, *args) :
+def nav_bar (css, args) :
     bar = """
 <!DOCTYPE html PUBLIC "-//w3c//dtd html 5.0 transitional//en">
 <html>
@@ -160,7 +213,7 @@ def nav_bar (css, *args) :
         bar += """
    <div id="nav_bar_li">
     <div id="nav_bar_li_a">
-     <a href="""+'"'+i.name+'"'+""">"""+i.nickname+"""</a>
+     <a href="""+'"'+i.name+'.html"'+""">"""+i.nickname+"""</a>
     </div>
    </div>"""
     bar += """
@@ -194,7 +247,7 @@ blog = Page('blog',"""
 <br>
 """)
 for i in range(len(blogs)) :
-    blog.data += listlink(blogs[i].name.replace('_',' '), blogs[i].name+'.html')
+    blog.data += link_here(blogs[i])
 #}}}
 
 # research
@@ -309,7 +362,7 @@ BrainGan: A brain (deep neural net) that makes pictures of brains
 <h2>Projects</h2>
 
 See <a href="https://github.com/jmw150" target="_blank" >github</a>.
-""")
+""", cleanable=False)
 #}}}
 
 # home (index)
@@ -340,35 +393,23 @@ home.data = """
 #}}}
 
 ml.data = """
-<h2>Machine Learning</h2>
-
 <b>motivation:</b> Its one of the cooler parts of AI
-<br>
-<br>
+
 <b>personal note:</b> As of writing this, I am a machine learning scientist. (yay) 
 I hope I get Chan for this topic though. His course covers convex optimization
 and a bunch of more mathematical aspects of machine learning. Having a healthy
 career in a topic means building a good foundation.  
-<br>
-<br>
+
 https://engineering.purdue.edu/ChanGroup/ECE595/
 """
 
 stat_pattern.data = """
-<h2>Statistical Patterns
-</h2>
 <b>motivation:</b> Statistical patterns is a topic categorized along with
 computer vision in research 
-<br>
-<br>
 """
 
 probability.data = """
-<h2>Random Variables and Signals</h2>
-
 <b>motivation:</b> Signals are an interesting aspect of system engineering. Combine it with electrodynamics, and you have physical computation on almost anything.
-<br>
-<br>
 """
 
 compilers.data = """
@@ -382,50 +423,43 @@ compilers.data = """
 """
 
 ccl.data = """
-<h2>Computability, Complexity, Languages
-</h2>
-<b>Motivation:</b><br>
-I am taking this course because all of the other courses I am taking this semester look dead simple, and I don't want to be bored. This <br>
+<b>Motivation:</b> <br>
 - Computability: In this case naive computability. For computer scientists it is the limitations of Turing machines (f : Nat -> Nat), which is arguably not as useful as it sounds. For mathematicians it is called recursion theory and it is more about paradoxes.
-<br>
+
 - Complexity: In this case probably classical complexity. Complexity is about search spaces of (f : Nat -> Nat) phrased as problems. "Machine Learning" deals in functions on higher dimension, larger search spaces. So, despite what the professor for this class says, classical complexity is less relevant (if not incorrectly applied) on algorithms that handle larger spaces.
-<br>
+
 - Languages: an area of programming all cs people should learn, because it unlocks the real potential in programming.
-<br>
-<br>
+
 <a href="
 https://engineering.purdue.edu/kak/ComputabilityComplexityLanguages/Index.html"
    target="_blank"
 >Course Content</a>
-<br>
-<br>
+"""+bar()+"""
 - Why Study Computability, Complexity, and Languages?
 <br>
-Ch2 math background
+This section is on motivating topics of the course. It is easy to sell me on most of his points, as I do not find being well-read to be a major crime against professional productivity.
+
+But I need some more evidence on some assertions made in this chapter.
+- computability limitations versus type theory lack of limitations. (probably representation misnomer) <br>
+- robot intelligence will not exceed human intelligence <br>
+
 """
 
 algorithms.data = """
-<h2>Algorithms
-</h2>
 <b>motivation:</b><br>
-Graduate level algorithm analysis from the classic book on algorithms. I don't really like algorithm analysis in itself, or mathematical analysis as a field that much.  So amazing prose on this might not happen.  <br>
-<br>
+Graduate level algorithm analysis from the classic book on algorithms. I don't really like algorithm analysis in itself, or mathematical analysis as a field that much.  So amazing prose on this might not happen.  
+
 I would like to get topology settled mentally, before doing this analytic number theory based song and dance.
-<br>
-<br>
+
 <a href="
 https://engineering.purdue.edu/~pomeranz/ECE608/ECE608_distance.pdf"
    target="_blank"
 >Syllabus</a> 
-<br>
-<br>
+
 Book
 https://www.amazon.com/Introduction-Algorithms-3rd-MIT-Press/dp/0262033844/
-<br>
-<br>
 
 """
-
 
 summer_of_logic.data = """
 <p><b>Summer of Logic</b></p>
@@ -547,17 +581,10 @@ https://arxiv.org/about/reports/submission_category_by_year
 #}}}
 
 tt.data = """
-
-<b> Type Theory </b>
-
-<br>
-<br>
 So far the major source of effort has been in using Coq with HoTT, and using Coq in general.
-<br>
-<br>
+
 I found some stuff
-<br>
-<br>
+
  <a href="
 https://ncatlab.org/nlab/show/type+theory
          "
@@ -592,17 +619,12 @@ https://favonia.org/courses/hdtt2020/
     target="_blank">
          Cubical Type Theory (course)
  </a>
-
 """
 
 pl.data = """
 
-<b>Programming language theory/practice</b>
-<br>
-<br>
 So far, lots and lots of compiler theory. But also basic Coq can be found here.
-<br>
-<br>
+
  <a href=" https://www.amazon.com/dp/012088478X/ "
     target="_blank">
 Art of compiler making stuff (book)
@@ -652,26 +674,22 @@ Program Logics for Verified Compilers
 <br>
 
 """
-topology.data="""
 
+topology.data="""
 I found a bunch of books on the subject. But what really stands out is this formalization in calculus of inductive constructions.
 
-<br>
 <a href="../../../data/topology">coq topology</a>
-<br>
-<br>
-Aside from that, the meat of topology that is interesting from a logic perspective is algebraic logic. So this is what I found. 
-<br>
-<br><b>
-Algebraic Topology 
-</b><br>
+
+Aside from that, the meat of topology that is interesting from a logic
+perspective is algebraic logic. So this is what I found.  
+
+<b> Algebraic Topology </b><br>
  <a href="
           https://ncatlab.org/nlab/show/Introduction+to+Topology
          "
     target="_blank">
 algebraic topology (nlab book)
  </a>
-
 <br>
  <a href="
 https://www.amazon.com/dp/0521795400/
@@ -703,18 +721,14 @@ https://youtube.com/playlist?list=PLpRLWqLFLVTCL15U6N3o35g4uhMSBVA2b
 
 
         """
+
 adv_compilers.data = """
 <b>Note</b>: Admittedly, my notes for this entire year are terrible. Everything was online. So I just rewatched parts of lectures if I forgot about something. And the course materials are copyrighted. So I am not allowed to share the main content of what was said or done. Sorry.
-<br>
-<br>
+
     What an amazing, life changing, course. Before this course I was unaware
     that there was money to be made in logic. Formal methods, solvers, and
     program synthesis uses a lot of advanced results in logic.
-<br>
-<br>
-    
-<br>
-<br>
+
         "https://engineering.purdue.edu/~xqiu/ece663/"
         """
 
@@ -818,7 +832,6 @@ and that realistically any set theory would be excessive if it were not large.
 """
 
 griffiths.data = """
-
     <h3> Electrodynamics Griffiths 4th ed </h3>
     <a href="Griffiths/Preface.html"></a>
     <b>Preface</b>
@@ -963,9 +976,6 @@ Overall, I have a feeling only a fraction of the math used in the intro is actua
 """
 
 intro_compilers.data = """
-
-<h2>Compilers</h2>
-
 <b>Note</b>: Admittedly, my notes for this entire year are terrible. Everything was online. So I just rewatched parts of lectures if I forgot about something. And the course materials are copyrighted. So I am not allowed to share the main content of what was said or done. Sorry.
 <br>
 <br>
@@ -1049,7 +1059,7 @@ link(compilers)+
 bar())+"""
 
 <p><b>Summer 2021</b></p>"""+(
-lname('Summer of Logic', 'summer_of_logic/summer_of_logic.html')+
+inlink(summer_of_logic)+
 
 bar())+"""
 
@@ -1062,6 +1072,8 @@ inlink(set_theory)+
 link(math_logic)+
 link(intro_compilers)))
 #}}}
+courses.cleanable=False
+blog.cleanable=False
 
 def build_site() :
     build_page(home)

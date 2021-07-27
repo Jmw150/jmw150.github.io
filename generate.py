@@ -1,6 +1,5 @@
 # A python script to generate websites
 # Jordan Winkler
-# should only be 2 objects: Page, and location
 
 # algs
 #{{{
@@ -195,6 +194,8 @@ em.nav.append(Page('courses/summer_of_logic/summer_of_logic',nickname='SoL'))
 blog.cleanable=False
 #}}}
 
+# web data
+#{{{
 # navigation bar (nav_bar)
 #{{{
 def nav_bar (css, args) :
@@ -396,7 +397,6 @@ home.data = """
 """
 #}}}
 
-# web data
 #{{{
 ml.data = """
 <b>motivation:</b> Its one of the cooler parts of AI
@@ -665,7 +665,8 @@ https://softwarefoundations.cis.upenn.edu/
 <br>
 <a href="
 https://www.cs.cmu.edu/~rwh/pfpl/
-">
+"
+    target="_blank">
 Practical foundations to programming languages (type theory+PL)
 </a>
 <br>
@@ -1075,6 +1076,7 @@ link(se))+"""
 inlink(set_theory)+
 link(math_logic)+
 link(intro_compilers))
+#}}}
 #}}}
 
 # lots of regex generation

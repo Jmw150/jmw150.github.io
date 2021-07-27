@@ -157,9 +157,9 @@ def build_page(content,path='') :
 css = Page('bluestyle.css', cleanable=False)
 data = Page('data', cleanable=False)
 home = Page('index', nickname='Home', cleanable=False)
-#research = Page('research',nickname='Research')
-#courses = Page('courses', nickname='Courses')
-#blog = Page('blog', nickname='Blog')
+courses = Page('courses', nickname='Courses', cleanable=False)
+research = Page('research', nickname='Research', cleanable=False)
+blog = Page('blog', nickname='Blog', cleanable=False)
 
 summer_of_logic = Page('summer_of_logic',nickname='Summer of Logic',cleanable=False)
 pl = Page('programming_languages',nickname='Programming Language Theory')
@@ -186,9 +186,13 @@ intro_compilers = Page('intro_compilers',nickname='ECE 595 Intro to Compilers')
 
 # meta parameters
 #{{{
+# navigation bar needs another entry
 pl.nav.append(Page('courses/summer_of_logic/summer_of_logic',nickname='SoL'))
 tt.nav.append(Page('courses/summer_of_logic/summer_of_logic',nickname='SoL'))
 topology.nav.append(Page('courses/summer_of_logic/summer_of_logic',nickname='SoL'))
+em.nav.append(Page('courses/summer_of_logic/summer_of_logic',nickname='SoL'))
+
+blog.cleanable=False
 #}}}
 
 # navigation bar (nav_bar)
@@ -241,11 +245,11 @@ update = Page('update',"""
 # blog
 #{{{
 blogs = get_blogs(blogs_source) # started (Jul 12 2021)
-blog = Page('blog',"""
+blog.data = """ 
  <b>I drink and I know things</b>
 <br>
 <br>
-""")
+"""
 for i in range(len(blogs)) :
     blog.data += link_here(blogs[i])
 #}}}
@@ -392,6 +396,8 @@ home.data = """
 """
 #}}}
 
+# web data
+#{{{
 ml.data = """
 <b>motivation:</b> Its one of the cooler parts of AI
 
@@ -578,7 +584,6 @@ https://arxiv.org/about/reports/submission_category_by_year
 ">
 </a>
 """
-#}}}
 
 tt.data = """
 So far the major source of effort has been in using Coq with HoTT, and using Coq in general.
@@ -1044,8 +1049,7 @@ http://danfleisch.com/maxwell//
 """
 
 # courses
-#{{{
-courses = Page('courses',"""
+courses.data = """
 <p><b>Spring 2021</b></p>"""+(
 inlink(ml)+
 link(probability)+
@@ -1070,37 +1074,36 @@ link(se))+"""
 <p><b>Fall 2020</b></p>"""+(
 inlink(set_theory)+
 link(math_logic)+
-link(intro_compilers)))
+link(intro_compilers))
 #}}}
-courses.cleanable=False
-blog.cleanable=False
 
+# lots of regex generation
 def build_site() :
     build_page(home)
 
-    build_page(courses,'courses/')
+    build_page(courses, courses.name+'/')
     #========================================================#
-    build_page(ml,'courses/'+ml.name+'/')
-    build_page(probability,'courses/'+probability.name+'/')
-    build_page(stat_pattern,'courses/'+stat_pattern.name+'/')
-    build_page(ccl,'courses/'+ccl.name+'/')
-    build_page(algorithms,'courses/'+algorithms.name+'/')
-    build_page(compilers,'courses/'+compilers.name+'/')
-    build_page(summer_of_logic,'courses/summer_of_logic/')
+    build_page(ml, courses.name+'/'+ml.name+'/')
+    build_page(probability, courses.name+'/'+probability.name+'/')
+    build_page(stat_pattern, courses.name+'/'+stat_pattern.name+'/')
+    build_page(ccl, courses.name+'/'+ccl.name+'/')
+    build_page(algorithms, courses.name+'/'+algorithms.name+'/')
+    build_page(compilers, courses.name+'/'+compilers.name+'/')
+    build_page(summer_of_logic, courses.name+'/'+summer_of_logic.name+'/')
    
-    build_page(pl,'courses/summer_of_logic/'+pl.name+'/')
-    build_page(tt,'courses/summer_of_logic/'+tt.name+'/')
-    build_page(topology,'courses/summer_of_logic/'+topology.name+'/')
+    build_page(pl, courses.name+'/'+summer_of_logic.name+'/'+pl.name+'/')
+    build_page(tt, courses.name+'/'+summer_of_logic.name+'/'+tt.name+'/')
+    build_page(topology, courses.name+'/'+summer_of_logic.name+'/'+topology.name+'/')
 
-    build_page(adv_compilers,'courses/'+adv_compilers.name+'/')
-    build_page(se,'courses/'+se.name+'/')
+    build_page(adv_compilers, courses.name+'/'+adv_compilers.name+'/')
+    build_page(se, courses.name+'/'+se.name+'/')
 
-    build_page(set_theory,'courses/'+set_theory.name+'/')
-    build_page(math_logic,'courses/'+math_logic.name+'/')
-    build_page(intro_compilers,'courses/'+intro_compilers.name+'/')
+    build_page(set_theory, courses.name+'/'+set_theory.name+'/')
+    build_page(math_logic, courses.name+'/'+math_logic.name+'/')
+    build_page(intro_compilers, courses.name+'/'+intro_compilers.name+'/')
 
-    build_page(em,'courses/summer_of_logic/'+em.name+'/')
-    build_page(griffiths,'courses/summer_of_logic/'+em.name+'/'+griffiths.name+'/')
+    build_page(em, courses.name+'/'+summer_of_logic.name+'/'+em.name+'/')
+    build_page(griffiths, courses.name+'/'+summer_of_logic.name+'/'+em.name+'/'+griffiths.name+'/')
 
 
     build_page(blog,'blog/')

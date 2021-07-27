@@ -59,15 +59,42 @@ class Page (Tag):
         if nav == [] : 
             self.nav = [home,research,courses,blog]
         else :
-            self.nav = []
+            self.nav = nav
 
     # this is odd design, Python
     def __add__(self, y) :
-        return Page(str(self.name) + str(y), 
-                self.data , self.nickname, self.nav, self.cleanable)
+        if type(y) == Page :
+            return Page(self.name, str(self.data) + str(y.data), 
+                    self.nickname, self.nav, self.cleanable)
+        else :
+            return Page(self.name, str(self.data) + str(y), 
+                    self.nickname, self.nav, self.cleanable)
+
     def __radd__(self,y) :
-        return Page(str(y) + str(self.name), 
-                self.data , self.nickname, self.nav, self.cleanable)
+        if type(y) == Page :
+            return Page(self.name, str(self.data) + str(y.data), 
+                    self.nickname, self.nav, self.cleanable)
+        else :
+            return Page(self.name, str(self.data) + str(y), 
+                    self.nickname, self.nav, self.cleanable)
+
+    # looks like a path variable
+    def __truediv__(self, y) :
+        if type(y) == Page :
+            return Page(str(self.name) + '/' + str(y.name), 
+                self.data, self.nickname, self.nav, self.cleanable)
+        else :
+            return Page(str(self.name) + str(y), 
+                self.data, self.nickname, self.nav, self.cleanable)
+
+
+    def __rtruediv__(self, y) :
+        if type(y) == Page :
+            return Page(str(y.name) + '/' + str(self.name), 
+                self.data, self.nickname, self.nav, self.cleanable)
+        else :
+            return Page(str(y) + str(self.name), 
+                self.data, self.nickname, self.nav, self.cleanable)
     
     # get data, also process data
     def dat(page, size=2) : # size might be another property to add
@@ -103,8 +130,11 @@ def get_file(filename) :
 
     return File
 
-def get_blogs(path) -> List[Page]:
+def get_blogs(path:str) -> List[Page]:
+
+    # get blog list at location
     bloglist = os.popen('ls -t '+path).read().split('\n')[:-1]
+
     blogs = []
     # add title to work, and clump together
     for i in bloglist :
@@ -116,12 +146,12 @@ def get_blogs(path) -> List[Page]:
 
 def write_file(file, content):
     f = open(file+'.html', "w")
-    f.write(content.name) # poorly used class, should be data or nothing
+    f.write(content)
     f.close()
 
 def build_page(content,path='') :
 
-    ln = path.split('/')
+    ln = str(path).split('/')
     level = len(ln)-1
     file = content.name
 
@@ -142,8 +172,9 @@ def build_page(content,path='') :
     for i in range(len(content.nav)) :
         content.nav[i].name = ab+content.nav[i].name
 
+    print(ab/css)
     write_file(file,
-                nav_bar(ab+css, content.nav)
+                nav_bar(ab/css, content.nav)
                 +'<div id="content">'
                 +content.dat()
                 +'</div>'
@@ -151,7 +182,7 @@ def build_page(content,path='') :
 
 #}}}
 
-# forward declare web pages, so they can link to each other
+# forward declare web pages, so they can talk about each other
 #{{{
 css = Page('bluestyle.css', cleanable=False)
 data = Page('data', cleanable=False)
@@ -206,7 +237,7 @@ def nav_bar (css, args) :
    <meta name="viewport" content="width=device-width">
    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <title>Jordan Winkler</title>
-   <link rel="stylesheet" type="text/css" href="""+'"'+css+'"'+""">
+   <link rel="stylesheet" type="text/css" href="""+'"'+css.name+'"'+""">
  </head>
 
 <body>
@@ -1083,29 +1114,30 @@ link(intro_compilers))
 def build_site() :
     build_page(home)
 
-    build_page(courses, courses.name+'/')
+                                #... Byte me, python
+    build_page(courses, courses/'/')
     #========================================================#
-    build_page(ml, courses.name+'/'+ml.name+'/')
-    build_page(probability, courses.name+'/'+probability.name+'/')
-    build_page(stat_pattern, courses.name+'/'+stat_pattern.name+'/')
-    build_page(ccl, courses.name+'/'+ccl.name+'/')
-    build_page(algorithms, courses.name+'/'+algorithms.name+'/')
-    build_page(compilers, courses.name+'/'+compilers.name+'/')
-    build_page(summer_of_logic, courses.name+'/'+summer_of_logic.name+'/')
+    build_page(ml, courses/ml/'/')
+    build_page(probability, courses/probability/'/')
+    build_page(stat_pattern, courses/stat_pattern/'/')
+    build_page(ccl, courses/ccl/'/')
+    build_page(algorithms, courses/algorithms/'/')
+    build_page(compilers, courses/compilers/'/')
+    build_page(summer_of_logic, courses/summer_of_logic/'/')
    
-    build_page(pl, courses.name+'/'+summer_of_logic.name+'/'+pl.name+'/')
-    build_page(tt, courses.name+'/'+summer_of_logic.name+'/'+tt.name+'/')
-    build_page(topology, courses.name+'/'+summer_of_logic.name+'/'+topology.name+'/')
+    build_page(pl, courses/summer_of_logic/pl/'/')
+    build_page(tt, courses/summer_of_logic/tt/'/')
+    build_page(topology, courses/summer_of_logic/topology/'/')
 
-    build_page(adv_compilers, courses.name+'/'+adv_compilers.name+'/')
-    build_page(se, courses.name+'/'+se.name+'/')
+    build_page(adv_compilers, courses/adv_compilers/'/')
+    build_page(se, courses/se/'/')
 
-    build_page(set_theory, courses.name+'/'+set_theory.name+'/')
-    build_page(math_logic, courses.name+'/'+math_logic.name+'/')
-    build_page(intro_compilers, courses.name+'/'+intro_compilers.name+'/')
+    build_page(set_theory, courses/set_theory/'/')
+    build_page(math_logic, courses/math_logic/'/')
+    build_page(intro_compilers, courses/intro_compilers/'/')
 
-    build_page(em, courses.name+'/'+summer_of_logic.name+'/'+em.name+'/')
-    build_page(griffiths, courses.name+'/'+summer_of_logic.name+'/'+em.name+'/'+griffiths.name+'/')
+    build_page(em, courses/summer_of_logic/em/'/')
+    build_page(griffiths, courses/summer_of_logic/em/griffiths/'/')
 
 
     build_page(blog,'blog/')

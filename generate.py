@@ -211,7 +211,8 @@ ccl_book = Page('ccl_book', nickname='The Book')
 random_graphs = Page('random_graphs', nickname='Random Graphs')
 comp_intract = Page('comp_intract', nickname='Computers and Intractability')
 algorithms_book = Page('alg_book', nickname='Introduction to Algorithms')
-
+engineer_compiler = Page('eng_compiler', nickname='Engineering a Compiler')
+antlr_reference = Page('antlr', nickname='ANTLR Reference Book')
 
 adv_compilers = Page('adv_compilers',nickname='ECE 663 Advanced compilers')
 se = Page('software_engineering',nickname='ECE 595 Advanced Software Engineering')
@@ -289,7 +290,8 @@ update = Page('update',"""
 #{{{
 blogs = get_blogs(blogs_source) # started (Jul 12 2021)
 blog.data = """ 
- <b>I drink and I know things</b>
+<!-- <b>I drink and I know things</b> -->
+<b>He just keeps talking...</b>
 <br>
 <br>
 """
@@ -466,9 +468,12 @@ compilers.data = """
 <b>motivation:</b><br>
 - Optimization in compilers technology is where most practical use of algorithms is found. Algorithms is <br>
 - Code Generation in compiler tech leads into the far more impressive field of program synthesis
-
 """+bar()+"""
-
+The compiler I am making for this course is not really ethical to share. So sorry, can't share it. I might make something aside from C->asm to demonstrate stuff though, some custom C-like lang. <br>
+"""+(
+link(engineer_compiler)+
+link(antlr_reference)
+        )+"""
 """
 
 ccl.data = """
@@ -503,9 +508,19 @@ Mathematical Prerequisites <br>
 - The guy is a Python programmer. I guess that makes sense for being a deep learning guy.
 
 <b>Questions</b><br>
-I need some more evidence on some assertions made in this chapter. <br>
 - computability limitations versus type theory lack of limitations. (probably representation misnomer) <br>
-- Robot intelligence will not exceed human intelligence? <br>
+- Robot intelligence will not exceed human intelligence?
+
+Off of the top of my head, the last is a weak argument on 2 accounts: <br>
+(1.) Finite navigation over large infinite terrain is physical about the terrain,
+not the navigation method. Ex. Having a library on methods versus inventing
+from scratch. Deep learning is this on inherent topological structures in
+reality.
+
+(2.) Computable is smaller than representable. Infinite structures can be described
+and manipulated concretely with finite descriptions and morphisms. There are
+limits to representation as well. But this is an argument against Turing
+machines as a limitation on computation.  
 """
 
 ccl_book.data = """
@@ -520,7 +535,6 @@ random_graphs.data = """
 
 algorithms.data = """
 <b>motivation:</b><br>This class will cover less trivial algorithms to use analytical number theory on.
-
 """+bar()+"""
 I would like to get topology settled mentally, before doing this analytic number theory based song and dance.
 
@@ -1169,6 +1183,8 @@ def build_site() :
 
     build_page(algorithms, courses/algorithms/'/')
     build_page(compilers, courses/compilers/'/')
+    build_page(engineer_compiler, courses/compilers/compilers/'/')
+    build_page(antlr_reference, courses/compilers/compilers/'/')
     build_page(summer_of_logic, courses/summer_of_logic/'/')
    
     build_page(pl, courses/summer_of_logic/pl/'/')

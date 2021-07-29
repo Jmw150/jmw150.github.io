@@ -466,13 +466,13 @@ probability.data = """
 
 compilers.data = """
 <b>motivation:</b><br>
-- Optimization in compilers technology is where most practical use of algorithms is found. Algorithms is <br>
-- Code Generation in compiler tech leads into the far more impressive field of program synthesis
+- Optimization in compilers technology is where most practical use of algorithms is found. Algorithms analysis is used in an industrial setting for compiler engineers. Compiler engineering teams are tasked with doing all the clever thinking so regular programmers do not have to. <br>
+- Code Generation in compiler tech leads into the far more impressive field of program synthesis.
 """+bar()+"""
 """+(
 inlink(engineer_compiler)+
 link(antlr_reference)
-        )+"""
+)+"""
 """
 
 ccl.data = """

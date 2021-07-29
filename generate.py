@@ -469,9 +469,8 @@ compilers.data = """
 - Optimization in compilers technology is where most practical use of algorithms is found. Algorithms is <br>
 - Code Generation in compiler tech leads into the far more impressive field of program synthesis
 """+bar()+"""
-The compiler I am making for this course is not really ethical to share. So sorry, can't share it. I might make something aside from C->asm to demonstrate stuff though, some custom C-like lang. <br>
 """+(
-link(engineer_compiler)+
+inlink(engineer_compiler)+
 link(antlr_reference)
         )+"""
 """

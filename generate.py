@@ -184,7 +184,7 @@ def build_page(content,path='') :
 
 # forward declare web pages, so they can talk about each other
 #{{{
-css = Page('bluestyle.css', cleanable=False)
+css = Page('bluewhite.css', cleanable=False)
 data = Page('data', cleanable=False)
 home = Page('index', nickname='Home', cleanable=False)
 courses = Page('courses', nickname='Courses', cleanable=False)
@@ -270,7 +270,6 @@ def nav_bar (css, args) :
 """
     return bar
 #}}}
-
 # update (the time-stamp at the bottom of each web page)
 #{{{
 update = Page('update',"""
@@ -285,20 +284,18 @@ update = Page('update',"""
 </html>
 """)
 #}}}
-
 # blog
 #{{{
 blogs = get_blogs(blogs_source) # started (Jul 12 2021)
 blog.data = """ 
 <!-- <b>I drink and I know things</b> -->
-<b>He just keeps talking...</b>
+<b>What's new?</b>
 <br>
 <br>
 """
 for i in range(len(blogs)) :
     blog.data += link_here(blogs[i])
 #}}}
-
 # research
 #{{{
 research = Page('research',"""
@@ -413,7 +410,6 @@ BrainGan: A brain (deep neural net) that makes pictures of brains
 See <a href="https://github.com/jmw150" target="_blank" >github</a>.
 """, cleanable=False)
 #}}}
-
 # home (index)
 #{{{
 home.data = """
@@ -441,7 +437,7 @@ home.data = """
 """
 #}}}
 
-# other
+# spring 2022
 #{{{
 ml.data = """
 <b>motivation:</b> Its one of the cooler parts of AI
@@ -465,9 +461,15 @@ probability.data = """
 #}}}
 
 compilers.data = """
-<b>motivation:</b><br>
-- Optimization in compilers technology is where most practical use of algorithms is found. Algorithms analysis is used in an industrial setting for compiler engineers. Compiler engineering teams are tasked with doing all the clever thinking so regular programmers do not have to. <br>
-- Code Generation in compiler tech leads into the far more impressive field of program synthesis.
+<b>Motivation:</b><br>
+<ul>
+<li> Optimization in compilers technology is where most practical use of
+algorithms is found. Algorithms analysis is used in an industrial setting for
+compiler engineers. Compiler engineering teams are tasked with doing all the
+clever thinking so regular programmers do not have to. </li>
+<li> Code Generation in compiler tech leads into the far more impressive field
+of program synthesis.</li> 
+</ul>
 """+bar()+"""
 """+(
 inlink(engineer_compiler)+
@@ -478,12 +480,20 @@ link(antlr_reference)
 ccl.data = """
 <b>Motivation:</b> <br>
 <ul>
-    <li><b>Computability</b>: In this case naive computability. For computer scientists it is the limitations of Turing machines (f : Nat -> Nat), which is arguably not as useful as it sounds. For mathematicians it is called recursion theory and it is more about paradoxes.
- </li>
-    <li><b>Complexity</b>: In this case probably classical complexity. Complexity is about search spaces of (f : Nat -> Nat) phrased as problems. "Machine Learning" deals in functions on higher dimension, larger search spaces. So, despite what the professor for this class says, classical complexity is less relevant (if not incorrectly applied) on algorithms that handle larger spaces.
- </li>
-    <li><b>Languages</b>: An area of programming all CS people should learn, because it unlocks the real potential in programming.
- </li>
+        <li><b>Computability</b>: In this case naive computability. For computer
+    scientists it is the limitations of Turing machines (f : Nat -> Nat), which
+    is arguably not as useful as it sounds. For mathematicians it is called
+    recursion theory and it is more about paradoxes.  </li>
+
+        <li><b>Complexity</b>: In this case probably classical complexity.
+    Complexity is about search spaces of (f : Nat -> Nat) phrased as problems.
+    "Machine Learning" deals in functions on higher dimension, larger search
+    spaces. So, despite what the professor for this class says, classical
+    complexity is less relevant (if not incorrectly applied) on algorithms that
+    handle larger spaces.  </li>
+
+        <li><b>Languages</b>: An area of programming all CS people should learn,
+    because it unlocks the real potential in programming.  </li>
 </ul>
 """+bar()+"""
 <a href="
@@ -498,13 +508,118 @@ link(random_graphs)
         )+"""
 
 <b>Scrolls</b><br>
-Why Study Computability, Complexity, and Languages?
-<br>
-- This section is on motivating topics of the course. It is easy to sell me on most of his points, as I do not find being well-read to be a major crime against professional productivity.
+1. 	  Why Study Computability, Complexity, and Languages?
 
-Mathematical Prerequisites <br>
-- Beautiful stuff. The notation for first order logic is the familiar stuff from first semester Mendelson. <br>
-- The guy is a Python programmer. I guess that makes sense for being a deep learning guy.
+- This section is on motivating topics of the course. It is easy to sell me on
+  most of his points, as I do not find being well-read to be a major crime
+  against professional productivity.
+
+2. 	  Sets, Tuples, Cartesian Products, Partial and Total Functions,
+  Predicates, Quantifiers, Proofs   
+
+- Beautiful stuff. The notation for first order logic is the familiar stuff
+  from first semester Mendelson.  
+
+PART 1:   Computability
+
+3. 	  The Minimalist (but all powerful) Programming Language  S
+
+- Yeah, the three instructions are basically peano axioms. Any integer is reachable via this inference set.
+
+4. 	  Partially Computable Functions
+
+5. 	  Primitive Recursive Functions
+
+6. 	  Sixteen Building-Block PRC Functions
+
+7. 	  The Pairing Function and The Godel Numbers
+
+8. 	  Church's Thesis and the Unsolvability of the Halting Problem
+
+9. 	  A Universal Program that can Execute Any Program and the Concept of Recursive Enumerability
+
+10. 	  Calculations on Strings, and the Minimalist (but all powerful) Language Sn for String Processing
+
+11. 	  The Post-Turing Language T for String Processing and the Equivalence of S, Sn, and T
+
+12. 	  Turing Machines
+
+13. 	  What's Meant by a Turing Machine Accepting a Language 
+
+PART 2:   Grammars and Automata 
+
+14. 	  String Computations with Productions and Processes
+
+15. 	  Post's Correspondence Problem and Grammars
+
+16. 	  Phrase Structure Grammars and Context Sensitive Grammars
+
+17. 	  Finite Automata and Regular Languages
+
+18. 	  Properties of Regular Languages
+
+19. 	  Regular Expressions and the Pumping Lemma
+
+20. 	  Context-Free Languages   
+
+21. 	  Regular Grammars, Chomsky Normal Form, and Bar-Hillel's Pumping Lemma   
+
+22. 	  Properties of Context-Free Languages
+
+23. 	  Bracket Languages and the Pushdown Automata
+
+PART 3:   The Theory of NP-Completeness
+
+24. 	  Computational Complexity: Some Basic Definitions
+
+25. 	  Defining P and NP
+
+26. 	  A More Formal Definition of Class NP
+
+27. 	  Polynomial Transformability of Problems in Class NP
+
+28. 	  Definition of NP-Complete and the SATISFIABILITY Problem
+
+29. 	  The Six Basic NP-Complete Problems and the NP-Completeness Proof for 3SAT
+
+30. 	  NP-Completeness Proofs for 3DM, VC, CLIQUE, HC, and PARTITION
+
+31. 	  NP-Completeness Proofs by Restriction: Subgraph Isomorphism (SGI), KNAPSACK, Multiprocessor Scheduling (MS), and Bounded-Degree Spanning Tree (BDST)
+
+32. 	  NP-Completeness Proofs by Local Replacement: Sequencing within
+  Intervals (SQUINT), and Partition into Triangles (PIT)
+
+33. 	  NP-Completeness Proofs by Component Design: Minimum Tardiness
+  Sequencing (MINTARD)
+
+34. 	  Reasoning About the Complexity of the Subproblems of a Given
+  NP-Complete Problem (Example: Graph 3-Colorability)
+  
+35. 	  Strong-Sense and Weak-Sense NP-Completeness for Number
+  Problems
+
+36. 	  Extending the Complexity Theory to Search Problems
+
+37. 	  Generalizing Polynomial Transformability to Turing Reducibility and the Definition of NP-Hard
+
+38. 	  Complements and Optimization Versions of the NP-Complete
+  Decision Problems
+
+39. 	  Approximation Algorithms for Combinatorial Optimization: Bin Packing Optimization (BINPACKO), Traveling Salesman (Restricted) Optimization (TSRO), etc.
+
+40. 	  Nonapproximable and Easily Approximable NP-Hard Optimization Problems: Graph Coloring Optimization Problem (GRAPHCOLO), Knapsack Optimization Problem (KNAPSACKO), etc.
+
+41. 	  The Classes NPI, co-NP, PNP and NPNP of Problems and
+  the Class #P of Enumeration Problems
+
+42. 	  Storage Considerations: The Classes PSPACE, PSPACE-Complete, and PSPACE-hard
+
+PART 4:  Random Graphs
+
+43. 	  Random Graphs: An Introduction
+
+44. 	  The Degree Sequence and Polynomial-Time Graph Isomorphism for Random Graphs
+
 
 <b>Questions</b><br>
 - computability limitations versus type theory lack of limitations. (probably representation misnomer) <br>

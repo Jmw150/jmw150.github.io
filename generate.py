@@ -460,6 +460,8 @@ probability.data = """
 """
 #}}}
 
+# fall 2021
+#{{{
 compilers.data = """
 <b>Motivation:</b><br>
 <ul>
@@ -475,6 +477,27 @@ of program synthesis.</li>
 inlink(engineer_compiler)+
 link(antlr_reference)
 )+"""
+"""
+
+engineer_compiler.data = """
+This book is an introduction on the theory of compilers. It could be taken in the first semester of a CS program. But compilers, and programming language theory, is regrettably, considered too sophisticated for undergraduate students in many computer science or computer engineering programs.
+
+Chapter 1 (overview) <br>
+This chapter is a survey of book topics and motivation. Compilers are generally
+organized as a combination of scanner/parser/code-generation. But parsers are
+theoretically capable of doing the work of scanners. The existence of scanners is due to the 
+increased speed of parsing languages, that they provide at O(1) complexity.
+
+The compiler is more aptly segmented into 3 parts. The unambiguously called the front, middle, and back ends. The front end of a compiler is scanning and parsing a program to fit it into an intermediate relation. The middle optimizes this middle IR. The back produces code from this IR. The back handles tasks such as register allocation (if the target is an assembler).
+
+Chapter 2 (scanners) <br>
+Scanners recognize regular languages. Regular languages are recognized by
+finite automaton. Due to a few lemmas in this chapter, finite automaton are shown
+to be completely describable by regular languages. So, it is possible to
+generate a finite automaton with only a regular language description and
+translate one back into a regular language representation. There are also
+lemmas about compressing the finite automaton to represent 
+
 """
 
 ccl.data = """
@@ -663,6 +686,7 @@ link(comp_intract)
 )+"""
 
 """
+#}}}
 
 # summer
 #{{{

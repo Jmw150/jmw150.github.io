@@ -110,10 +110,10 @@ class Page (Tag):
             self.data = '\n<h'+s+'>'+self.nickname.replace('_',' ').title()+'</h'+s+'>\n'
             self.data += data
 
-            # recursive link
-            for node in self.subdata :
-                self.data += inlink(node)
-                self.data += '<br>'
+            # recursive link, (complains for some reason)
+            #for node in self.subdata :
+            #    self.data += inlink(node)
+            #    self.data += '<br>'
     
             self.preprocess = False
             # TODO: evaluate links in data
@@ -188,7 +188,6 @@ def build_page(content,path='') :
 
 #}}}
 
-
 # forward declare web pages, so they can talk about each other
 #{{{
 
@@ -209,7 +208,7 @@ stat_pattern = Page('stat_pattern', nickname='ECE 662 Pattern Recognition and De
 ccl = Page('ccl', nickname='ECE 664 Computability, Complexity, and Languages')
 algorithms = Page('algorithms', nickname='ECE 608 Computational Models and Methods')
 compilers = Page('compilers', nickname='ECE 595 Compilers: optimization, code generation')
-ccl_class = Page('ccl_class', nickname='Course Notes')
+ccl.subdata = Page('ccl_class', nickname='Course Notes')
 
 # summer 2021
 summer_of_logic = Page('summer_of_logic',nickname='Summer of Logic',preprocess=False)

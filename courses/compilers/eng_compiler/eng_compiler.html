@@ -1,0 +1,63 @@
+
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 5.0 transitional//en">
+<html>
+ <head>
+   <meta name="viewport" content="width=device-width">
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Jordan Winkler</title>
+   <link rel="stylesheet" type="text/css" href="../../../bluewhite.css">
+ </head>
+
+<body>
+ <div id="nav_bar">
+  <div id="nav_bar_ul">
+   <div id="nav_bar_li">
+    <div id="nav_bar_li_a">
+     <a href="../../../index.html">Home</a>
+    </div>
+   </div>
+   <div id="nav_bar_li">
+    <div id="nav_bar_li_a">
+     <a href="../../../research/research.html">Research</a>
+    </div>
+   </div>
+   <div id="nav_bar_li">
+    <div id="nav_bar_li_a">
+     <a href="../../../courses/courses.html">Courses</a>
+    </div>
+   </div>
+   <div id="nav_bar_li">
+    <div id="nav_bar_li_a">
+     <a href="../../../blog/blog.html">Blog</a>
+    </div>
+   </div>
+  </div>
+ </div>
+<div id="content">
+<h2>Engineering A Compiler</h2>
+
+This book is an introduction on the theory of compilers. It could be taken in the first semester of a CS program. But compilers, and programming language theory, is regrettably, considered too sophisticated for undergraduate students in many computer science or computer engineering programs.<br><br>
+Chapter 1 (overview) <br>
+This chapter is a survey of book topics and motivation. Compilers are generally
+organized as a combination of scanner/parser/code-generation. But parsers are
+theoretically capable of doing the work of scanners. The existence of scanners is due to the 
+increased speed of parsing languages, that they provide at O(1) complexity.<br><br>
+The compiler is more aptly segmented into 3 parts. The unambiguously called the front, middle, and back ends. The front end of a compiler is scanning and parsing a program to fit it into an intermediate relation. The middle optimizes this middle IR. The back produces code from this IR. The back handles tasks such as register allocation (if the target is an assembler).<br><br>
+Chapter 2 (scanners) <br>
+Scanners recognize regular languages. Regular languages are recognized by
+finite automaton. Due to a few lemmas in this chapter, finite automaton are shown
+to be completely describable by regular languages. So, it is possible to
+generate a finite automaton with only a regular language description and
+translate one back into a regular language representation. There are also
+lemmas about compressing the finite automaton to represent <br><br>
+</div>
+  <div id=update_bar> 
+   <p align="center">
+    <font size="-1">
+     Compiled: Sat 31 Jul 2021 09:59:05 PM EDT
+
+    </font>
+   </p>
+  </div>    
+ </body>
+</html>

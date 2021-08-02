@@ -27,6 +27,10 @@ a:visited {
 	max-width: 100%;
 	height: auto;
 }
+img {
+    
+	max-width: 100%;
+}
 #nav_bar {
     top: 0px;
     left: 0px;

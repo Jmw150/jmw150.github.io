@@ -1,6 +1,9 @@
 # A python script to generate websites
 # Jordan Winkler
 
+# NOTE: could set up data to be a list: [if not str, insert var]
+## but it would probably be better to hash address variables
+
 # algs
 #{{{
 import time 
@@ -235,8 +238,9 @@ ccl = Page('ccl', nickname='ECE 664 Computability, Complexity, and Languages')
 algorithms = Page('algorithms', nickname='ECE 608 Computational Models and Methods')
 compilers = Page('compilers', nickname='ECE 595 Compilers: optimization, code generation')
 
-#ccl.subdata.append(Page('ccl_class', nickname='Course Notes'))
-ccl.sub(Page('class', nickname='Course Notes'))
+ccl_n = Page('class', nickname='Course Notes')
+alg_n = Page('class', nickname='Course Notes')
+compilers_n = Page('class', nickname='Course Notes')
 
 # summer 2021
 summer_of_logic = Page('summer_of_logic',nickname='Summer of Logic',preprocess=False)
@@ -265,6 +269,16 @@ algorithms_book = Page('alg_book', nickname='Introduction to Algorithms')
 
 eng_compiler = Page('eng_compiler', nickname='Engineering a Compiler')
 antlr_reference = Page('antlr', nickname='ANTLR Reference Book')
+#}}}
+
+# connections
+#{{{
+ccl.sub(ccl_book)
+ccl.sub(comp_intract)
+ccl.sub(random_graphs)
+ccl.sub(ccl_n)
+
+algorithms.sub(alg_n)
 #}}}
 
 # web data
@@ -318,7 +332,10 @@ update = Page('update',"""
 #{{{
 blogs, timelist = get_blogs(blogs_source) # started (Jul 12 2021)
 blog.data = """ 
-<!-- <b>I drink and I know things</b> -->
+<!-- 
+    <b>I drink and I know things</b> 
+    <b>He just keeps talking</b>
+-->
 <b>What's new?</b>
 <br>
 <br>
@@ -530,34 +547,7 @@ lemmas about compressing the finite automaton to represent
 
 """
 
-ccl.data = """
-<b>Motivation:</b> <br>
-<ul>
-        <li><b>Computability</b>: In this case naive computability. For computer
-    scientists it is the limitations of Turing machines (f : Nat -> Nat), which
-    is arguably not as useful as it sounds. For mathematicians it is called
-    recursion theory and it is more about paradoxes.  </li><br>
-        <li><b>Complexity</b>: In this case probably classical complexity.
-    Complexity is about search spaces of (f : Nat -> Nat) phrased as problems.
-    "Machine Learning" deals in functions on higher dimension, larger search
-    spaces. So, despite what the professor for this class says, classical
-    complexity is less relevant (if not incorrectly applied) on algorithms that
-    handle larger spaces.  </li><br>
-        <li><b>Languages</b>: An area of programming all CS people should learn,
-    because it unlocks the real potential in programming.  </li><br>
-</ul>
-"""+bar()+"""
-<a href="
-https://engineering.purdue.edu/kak/ComputabilityComplexityLanguages/Index.html"
-   target="_blank"
->Course Content</a>
-
-"""+(
-inlink(ccl_book)+
-link(comp_intract)+
-link(random_graphs)
-        )+"""
-
+ccl_n.data = """
 <b>Scrolls</b><br>
 1. 	  Why Study Computability, Complexity, and Languages?
 
@@ -576,6 +566,21 @@ PART 1:   Computability
 3. 	  The Minimalist (but all powerful) Programming Language  S
 
 - Yeah, the three instructions are basically peano axioms. Any integer is reachable via this inference set.
+
+<b>Questions</b><br>
+- computability limitations versus type theory lack of limitations. (probably representation misnomer) <br>
+- Robot intelligence will not exceed human intelligence?
+
+Off of the top of my head, the last is a weak argument on 2 accounts: <br>
+(1.) Finite navigation over large infinite terrain is physical about the terrain,
+not the navigation method. Ex. Having a library on methods versus inventing
+from scratch. Deep learning is this on inherent topological structures in
+reality.
+
+(2.) Computable is smaller than representable. Infinite structures can be described
+and manipulated concretely with finite descriptions and morphisms. There are
+limits to representation as well. But this is an argument against Turing
+machines as a limitation on computation.  
 
 4. 	  Partially Computable Functions
 
@@ -671,21 +676,30 @@ PART 4:  Random Graphs
 
 44. 	  The Degree Sequence and Polynomial-Time Graph Isomorphism for Random Graphs
 
+"""
 
-<b>Questions</b><br>
-- computability limitations versus type theory lack of limitations. (probably representation misnomer) <br>
-- Robot intelligence will not exceed human intelligence?
+ccl.data = """
+<b>Motivation:</b> <br>
+<ul>
+        <li><b>Computability</b>: In this case naive computability. For computer
+    scientists it is the limitations of Turing machines (f : Nat -> Nat), which
+    is arguably not as useful as it sounds. For mathematicians it is called
+    recursion theory and it is more about paradoxes.  </li><br>
+        <li><b>Complexity</b>: In this case probably classical complexity.
+    Complexity is about search spaces of (f : Nat -> Nat) phrased as problems.
+    "Machine Learning" deals in functions on higher dimension, larger search
+    spaces. So, despite what the professor for this class says, classical
+    complexity is less relevant (if not incorrectly applied) on algorithms that
+    handle larger spaces.  </li><br>
+        <li><b>Languages</b>: An area of programming all CS people should learn,
+    because it unlocks the real potential in programming.  </li><br>
+</ul>
+"""+bar()+"""
+<a href="
+https://engineering.purdue.edu/kak/ComputabilityComplexityLanguages/Index.html"
+   target="_blank"
+>Course Content</a>
 
-Off of the top of my head, the last is a weak argument on 2 accounts: <br>
-(1.) Finite navigation over large infinite terrain is physical about the terrain,
-not the navigation method. Ex. Having a library on methods versus inventing
-from scratch. Deep learning is this on inherent topological structures in
-reality.
-
-(2.) Computable is smaller than representable. Infinite structures can be described
-and manipulated concretely with finite descriptions and morphisms. There are
-limits to representation as well. But this is an argument against Turing
-machines as a limitation on computation.  
 """
 
 ccl_book.data = """
@@ -1339,10 +1353,10 @@ def build_site() :
     build_page(home)
 
     # books
-    build_page(ccl_book, courses/ccl/ccl_book/'/')
-    build_page(comp_intract, courses/ccl/comp_intract/'/')
+    #build_page(ccl_book, courses/ccl/ccl_book/'/')
+    #build_page(comp_intract, courses/ccl/comp_intract/'/')
     build_page(comp_intract, courses/algorithms/comp_intract/'/')
-    build_page(random_graphs, courses/ccl/random_graphs/'/')
+    #build_page(random_graphs, courses/ccl/random_graphs/'/')
 
     # when the navigation bar needs another entry
     pl.nav.append(Page(str(courses/summer_of_logic/summer_of_logic), nickname='SoL'))

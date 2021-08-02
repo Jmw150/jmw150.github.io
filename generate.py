@@ -40,7 +40,7 @@ data = Tag('data')
 class Page (Tag):
     #{{{
     "A website page"
-    def __init__(self, name, data=' ', nickname= '', nav=[], preprocess=True, subdata=[]):
+    def __init__(self, name, data=' ', nickname= '', nav=[], preprocess=True) :
         self.name = name
         if nickname == '':
             self.nickname = name
@@ -48,7 +48,7 @@ class Page (Tag):
             self.nickname = nickname
         self.data = data
         self.preprocess = preprocess
-        self.subdata = subdata
+        self.subdata = [] # for some reason this assigned recursively
 
         # default stuff
         home = Tag('index', nickname='Home')
@@ -110,22 +110,26 @@ class Page (Tag):
             self.data = '\n<h'+s+'>'+self.nickname.replace('_',' ').title()+'</h'+s+'>\n'
             self.data += data
 
-            # recursive link, (complains for some reason)
-            #for node in self.subdata :
-            #    self.data += inlink(node)
-            #    self.data += '<br>'
+            # recursive link
+            for node in self.subdata :
+                self.data += inlink(node)
+                self.data += '<br>'
     
             self.preprocess = False
             # TODO: evaluate links in data
 
         return self.data
+
+    def sub(self, page) :
+        self.subdata.append(page)
 #}}}
 
 # html macros
-link = lambda page : '<br><a href='+page.name+'/'+page.name+'.html>'+page.nickname+'</a>'
-inlink = lambda page : '<a href='+page.name+'/'+page.name+'.html>'+page.nickname+'</a>'
+link = lambda page :   '<br><a href='+page.name+'/'+page.name+'.html>'+page.nickname+'</a>'
+inlink = lambda page :     '<a href='+page.name+'/'+page.name+'.html>'+page.nickname+'</a>'
 exlink = lambda page : '<br><a target="_blank" href='+page.name+'>'+page.nickname+'</a>'
 link_here = lambda page : '<br><a href='+page.name+'.html>'+page.nickname+'</a>'
+link_here_cap = lambda page : '<br><a href='+page.name+'.html>'+page.nickname.replace('_',' ').title()+'</a>'
 bar = lambda : '</td></tr></tbody></table></p></p></center><hr>'
 
 def get_file(filename) :
@@ -137,9 +141,22 @@ def get_file(filename) :
     return File
 
 def get_blogs(path:str) -> List[Page]:
+    "get a array of blog pages"
 
     # get blog list at location
     bloglist = os.popen('ls -t '+path).read().split('\n')[:-1]
+
+    # get those times
+    timelist = os.popen('ls -lt --time-style=long-iso '+path).read().split('\n')[:-1]
+    timelist = timelist[1:]
+    a = timelist[:]
+    timelist = []
+    for i in a:
+        timelist.append(i.replace('  ',' ').split(' '))
+    a = timelist[:]
+    timelist = []
+    for i in a:
+        timelist.append(i[5])
 
     blogs = []
     # add title to work, and clump together
@@ -148,13 +165,22 @@ def get_blogs(path:str) -> List[Page]:
         file = str(Page(i,file).dat())
         blogs.append(Page(i,file,preprocess=False))
     
-    return blogs
+    return blogs, timelist 
 
 def write_file(file, content):
     f = open(file+'.html', "w")
     f.write(content)
     f.close()
 
+def build_tree(content,path='') :
+
+    # base case
+    build_page(content,path)
+
+    # breadth first recursive case
+    if content.subdata != [] :
+        for sub_content in content.subdata :
+            build_tree(sub_content, path.name+sub_content.name+'/')
 
 def build_page(content,path='') :
 
@@ -208,7 +234,9 @@ stat_pattern = Page('stat_pattern', nickname='ECE 662 Pattern Recognition and De
 ccl = Page('ccl', nickname='ECE 664 Computability, Complexity, and Languages')
 algorithms = Page('algorithms', nickname='ECE 608 Computational Models and Methods')
 compilers = Page('compilers', nickname='ECE 595 Compilers: optimization, code generation')
-ccl.subdata = Page('ccl_class', nickname='Course Notes')
+
+#ccl.subdata.append(Page('ccl_class', nickname='Course Notes'))
+ccl.sub(Page('class', nickname='Course Notes'))
 
 # summer 2021
 summer_of_logic = Page('summer_of_logic',nickname='Summer of Logic',preprocess=False)
@@ -288,7 +316,7 @@ update = Page('update',"""
 #}}}
 # blog
 #{{{
-blogs = get_blogs(blogs_source) # started (Jul 12 2021)
+blogs, timelist = get_blogs(blogs_source) # started (Jul 12 2021)
 blog.data = """ 
 <!-- <b>I drink and I know things</b> -->
 <b>What's new?</b>
@@ -296,7 +324,7 @@ blog.data = """
 <br>
 """
 for i in range(len(blogs)) :
-    blog.data += link_here(blogs[i])
+    blog.data += link_here_cap(blogs[i]) + '<br> (updated: '+timelist[i]+')<br>'
 #}}}
 # research
 #{{{
@@ -508,17 +536,15 @@ ccl.data = """
         <li><b>Computability</b>: In this case naive computability. For computer
     scientists it is the limitations of Turing machines (f : Nat -> Nat), which
     is arguably not as useful as it sounds. For mathematicians it is called
-    recursion theory and it is more about paradoxes.  </li>
-
+    recursion theory and it is more about paradoxes.  </li><br>
         <li><b>Complexity</b>: In this case probably classical complexity.
     Complexity is about search spaces of (f : Nat -> Nat) phrased as problems.
     "Machine Learning" deals in functions on higher dimension, larger search
     spaces. So, despite what the professor for this class says, classical
     complexity is less relevant (if not incorrectly applied) on algorithms that
-    handle larger spaces.  </li>
-
+    handle larger spaces.  </li><br>
         <li><b>Languages</b>: An area of programming all CS people should learn,
-    because it unlocks the real potential in programming.  </li>
+    because it unlocks the real potential in programming.  </li><br>
 </ul>
 """+bar()+"""
 <a href="
@@ -1064,6 +1090,8 @@ and that realistically any set theory would be excessive if it were not large.
 """
 #}}}
 
+# other 
+#{{{
 griffiths.data = """
     <h3> Electrodynamics Griffiths 4th ed </h3>
     <a href="Griffiths/Preface.html"></a>
@@ -1275,6 +1303,7 @@ http://danfleisch.com/maxwell//
   Maxwell's equations, a guide by students
 </a>
 """
+#}}}
 
 # courses
 courses.data = """
@@ -1326,32 +1355,32 @@ def build_site() :
     comp_intract.nav.append(Page(str(courses/ccl/ccl),nickname='CCL'))
 
     # skeleton 
-    build_page(courses,         courses/'/')
+    build_tree(courses,         courses/'/')
     #course_stuff========================================================#
-    build_page(ml,              courses/ml/'/')
-    build_page(probability,     courses/probability/'/')
-    build_page(stat_pattern,    courses/stat_pattern/'/')
-    build_page(ccl,             courses/ccl/'/')
+    build_tree(ml,              courses/ml/'/')
+    build_tree(probability,     courses/probability/'/')
+    build_tree(stat_pattern,    courses/stat_pattern/'/')
+    build_tree(ccl,             courses/ccl/'/')
 
-    build_page(algorithms,      courses/algorithms/'/')
-    build_page(compilers,       courses/compilers/'/')
-    build_page(eng_compiler,    courses/compilers/eng_compiler/'/')
-    build_page(antlr_reference, courses/compilers/antlr_reference/'/')
-    build_page(summer_of_logic, courses/summer_of_logic/'/')
+    build_tree(algorithms,      courses/algorithms/'/')
+    build_tree(compilers,       courses/compilers/'/')
+    build_tree(eng_compiler,    courses/compilers/eng_compiler/'/')
+    build_tree(antlr_reference, courses/compilers/antlr_reference/'/')
+    build_tree(summer_of_logic, courses/summer_of_logic/'/')
    
-    build_page(pl,              courses/summer_of_logic/pl/'/')
-    build_page(tt,              courses/summer_of_logic/tt/'/')
-    build_page(topology,        courses/summer_of_logic/topology/'/')
+    build_tree(pl,              courses/summer_of_logic/pl/'/')
+    build_tree(tt,              courses/summer_of_logic/tt/'/')
+    build_tree(topology,        courses/summer_of_logic/topology/'/')
 
-    build_page(adv_compilers,   courses/adv_compilers/'/')
-    build_page(se,              courses/se/'/')
+    build_tree(adv_compilers,   courses/adv_compilers/'/')
+    build_tree(se,              courses/se/'/')
 
-    build_page(set_theory,      courses/set_theory/'/')
-    build_page(math_logic,      courses/math_logic/'/')
-    build_page(intro_compilers, courses/intro_compilers/'/')
+    build_tree(set_theory,      courses/set_theory/'/')
+    build_tree(math_logic,      courses/math_logic/'/')
+    build_tree(intro_compilers, courses/intro_compilers/'/')
 
-    build_page(em,              courses/summer_of_logic/em/'/')
-    build_page(griffiths,       courses/summer_of_logic/em/griffiths/'/')
+    build_tree(em,              courses/summer_of_logic/em/'/')
+    build_tree(griffiths,       courses/summer_of_logic/em/griffiths/'/')
 
     build_page(blog,'blog/')
     #========================================================#

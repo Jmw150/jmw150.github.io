@@ -228,6 +228,13 @@ courses = Page('courses', nickname='Courses', preprocess=False)
 research = Page('research', nickname='Research', preprocess=False)
 blog = Page('blog', nickname='Blog', preprocess=False)
 
+# books
+griffiths = Page('griffiths',nickname='Griffiths')
+set_theory_book = Page('st_book',nickname='Classic Set Theory')
+math_logic_book = Page('math_logic_book',nickname='Introduction to Mathematical Logic')
+software_foundations = Page('software_foundations', nickname='Software Foundations')
+practical_software_foundations = Page('software_foundations', nickname='Software Foundations')
+
 # spring 2022
 ml = Page('machine_learning',nickname='ECE 595 Machine Learning')
 probability = Page('probability',nickname="ECE 600 Random Variables and Signals")
@@ -258,8 +265,6 @@ set_theory = Page('set_theory',nickname='MA  598 Set Theory')
 math_logic = Page('mathemetical_logic',nickname='MA  585 Mathematical Logic')
 intro_compilers = Page('intro_compilers',nickname='ECE 595 Intro to Compilers')
 
-# books
-griffiths = Page('griffiths',nickname='Griffiths')
 
 ccl_book = Page('ccl_book', nickname='The Book')
 comp_intract = Page('comp_intract', nickname='Computers and Intractability')

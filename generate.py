@@ -482,7 +482,7 @@ home.data = """
  <p>
   <a href="https://github.com/jmw150" target="_blank" >github</a>,
   <a href=" https://qoto.org/web/accounts/373087 " target="_blank" >mastodon</a>,
-  <a href="https://twitter.com/JordanWinkler1" target="_blank" >twitter</a>,
+<!--  <a href="https://twitter.com/JordanWinkler1" target="_blank" >twitter</a>, -->
   <a href="https://www.linkedin.com/in/jordan-winkler-65254283/" target="_blank" >linkedin</a>,
   <a href="data/JW_resume.pdf">CV</a>
 </div>

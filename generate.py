@@ -61,7 +61,9 @@ class Page (Tag):
 
         # extra possible metadata
         if nav == [] : 
-            self.nav = [home,research,courses,blog]
+            self.nav = [home,research,courses,
+                    #blog
+                    ]
         else :
             self.nav = nav
 

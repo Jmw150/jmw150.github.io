@@ -243,6 +243,7 @@ probability = Page('probability',nickname="ECE 600 Random Variables and Signals"
 stat_pattern = Page('stat_pattern', nickname='ECE 662 Pattern Recognition and Decision Making')
 
 # fall 2021
+deep_learning = Page('dl', nickname='ECE 595 Deep Learning')
 ccl = Page('ccl', nickname='ECE 664 Computability, Complexity, and Languages')
 algorithms = Page('algorithms', nickname='ECE 608 Computational Models and Methods')
 compilers = Page('compilers', nickname='ECE 595 Compilers: optimization, code generation')
@@ -1337,6 +1338,7 @@ link(stat_pattern))+"""
 inlink(ccl)+
 link(algorithms)+
 link(compilers)+
+link(deep_learning)+
 
 bar())+"""
 
@@ -1384,6 +1386,7 @@ def build_site() :
     build_tree(ccl,             courses/ccl/'/')
 
     build_tree(algorithms,      courses/algorithms/'/')
+    build_tree(deep_learning,   courses/deep_learning/'/')
     build_tree(compilers,       courses/compilers/'/')
     build_tree(eng_compiler,    courses/compilers/eng_compiler/'/')
     build_tree(antlr_reference, courses/compilers/antlr_reference/'/')

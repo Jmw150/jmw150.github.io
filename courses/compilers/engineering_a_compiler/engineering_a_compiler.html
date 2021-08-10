@@ -1,0 +1,135 @@
+
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 5.0 transitional//en">
+<html>
+ <head>
+   <meta name="viewport" content="width=device-width">
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Jordan Winkler</title>
+   <link rel="stylesheet" type="text/css" href="../../../bluewhite.css">
+ </head>
+
+<body>
+ <div id="nav_bar">
+  <div id="nav_bar_ul">
+   <div id="nav_bar_li">
+    <div id="nav_bar_li_a">
+     <a href="../../../index.html">Home</a>
+    </div>
+   </div>
+   <div id="nav_bar_li">
+    <div id="nav_bar_li_a">
+     <a href="../../../research/research.html">Research</a>
+    </div>
+   </div>
+   <div id="nav_bar_li">
+    <div id="nav_bar_li_a">
+     <a href="../../../courses/courses.html">Courses</a>
+    </div>
+   </div>
+  </div>
+ </div>
+<div id="content">
+<h2>Engineering A Compiler</h2>
+
+Preface <br>
+This book is an introduction on the theory of compilers. It could be taken in
+the first semester of a CS program. But compilers, and programming language
+theory, is regrettably, considered too sophisticated for undergraduate students
+in many computer science or computer engineering programs.<br><br>
+Chapter 1 (overview) <br>
+1.1 introduction <br>
+1.2 compiler structure <br>
+1.3 Overview of Translation <br>
+1.3.1 front end <br>
+1.3.2 optimizer <br>
+1.3.3 back end <br>
+1.4 summary and perspective <br><br><br>
+This chapter is a survey of book topics and motivation. Compilers are generally
+organized as a combination of scanner/parser/code-generation. But parsers are
+theoretically capable of doing the work of scanners. The existence of scanners
+is due to the increased speed of parsing languages, that they provide at O(1)
+complexity.<br><br>
+The compiler is more aptly segmented into 3 parts. The unambiguously called the
+front, middle, and back ends. The front end of a compiler is scanning and
+parsing a program to fit it into an intermediate relation. The middle optimizes
+this middle IR. The back produces code from this IR. The back handles tasks
+such as register allocation (if the target is an assembler).<br><br>
+<br><br>
+Chapter 2 (scanners) <br>
+2.1 introduction
+2.2 recognizing words
+2.3 regular expressions
+2.4 from regular expression to scanner
+2.5 implementing scanners
+2.6 advanced topics
+2.7 summary and perspective<br><br>
+Scanners recognize regular languages. Regular languages are recognized by
+finite automaton. Due to a few lemmas in this chapter, finite automaton are shown
+to be completely describable by regular languages. So, it is possible to
+generate a finite automaton with only a regular language description and
+translate one back into a regular language representation. There are also
+lemmas about compressing the finite automaton to represent <br><br>
+Chapter 3 (parsers) <br>
+3.1 introduction
+3.2 expressing syntax
+3.2.1 why not regular expressions
+3.2.2 context free grammars
+3.2.3 more complex examples
+3.2.4 encoding meaning into structure
+3.2.5 discovering a derivation for an input string
+3.3 top down parsing
+3.4 bottom up parsing
+3.5 practical issues
+3.6 advanced topics
+3.7 summary and perspective
+Chapter 4 (context sensitive analysis) <br>
+4.1 introduction
+4.2 an introduction to type systems
+4.3 the attribute-grammar framework
+4.4 ad hoc syntax directed translations
+4.5 advances topics
+4.6 summary and perspective<br><br>
+Chapter 5 (intermediate representations) <br>
+5.1 introduction
+5.1.1 taxonomy of intermediate representations
+5.2 graphical IRs
+5.2.1 syntax related trees
+5.2.2 graphs
+5.3 linear IRs
+5.3.1 stack machine code
+5.3.2 three adress code
+5.3.3 representing linear codes
+5.3.4 building a control flow graph from a linear code
+5.4 mapping values to names
+5.4.1
+5.4.2
+5.4.3
+5.5 symbol tables
+5.6 summary and perspective
+Chapter 6 (procedure abstraction) <br>
+6.1 introduction
+6.2 procedure calls
+6.3 namespaces
+6.4 communicating values between procedures
+6.5 standardized linkages
+6.7 summary and perspective
+Chapter 7 (code shape) <br>
+Chapter 8 (introduction to optimization) <br>
+Chapter 9 (data-flow analysis) <br>
+Chapter 10 (scalar optimizations) <br>
+Chapter 11 (instruction selection) <br>
+Chapter 12 (instruction scheduling) <br>
+Chapter 13 (register allocation) <br>
+Appendix A (ILOC) <br>
+Appendix B (data structures) <br><br><br>
+</div>
+  <div id=update_bar> 
+   <p align="center">
+    <font size="-1">
+     Compiled: Tue 10 Aug 2021 02:08:50 AM EDT
+
+    </font>
+   </p>
+  </div>    
+ </body>
+</html>

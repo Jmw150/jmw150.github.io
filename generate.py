@@ -240,7 +240,8 @@ practical_software_foundations = Page('software_foundations', nickname='Software
 # spring 2022
 ml = Page('machine_learning',nickname='ECE 595 Machine Learning')
 probability = Page('probability',nickname="ECE 600 Random Variables and Signals")
-stat_pattern = Page('stat_pattern', nickname='ECE 662 Pattern Recognition and Decision Making')
+lumped_system_theory = Page('lumped_system_theory', 
+            nickname='ECE 602 Lumped System Theory')
 
 # fall 2021
 deep_learning = Page('dl', nickname='ECE 595 Deep Learning')
@@ -275,7 +276,7 @@ random_graphs = Page('random_graphs', nickname='Random Graphs')
 
 algorithms_book = Page('alg_book', nickname='Introduction to Algorithms')
 
-eng_compiler = Page('eng_compiler', nickname='Engineering a Compiler')
+engineering_a_compiler = Page('engineering_a_compiler', nickname='Engineering a Compiler')
 antlr_reference = Page('antlr', nickname='ANTLR Reference Book')
 #}}}
 
@@ -495,7 +496,7 @@ home.data = """
 # spring 2022
 #{{{
 ml.data = """
-<b>motivation:</b> Its one of the cooler parts of AI
+<b>Motivation:</b> Its one of the cooler parts of AI
 
 <b>personal note:</b> As of writing this, I am a machine learning scientist. (yay) 
 I hope I get Chan for this topic though. His course covers convex optimization
@@ -505,13 +506,12 @@ career in a topic means building a good foundation.
 https://engineering.purdue.edu/ChanGroup/ECE595/
 """
 
-stat_pattern.data = """
-<b>motivation:</b> Statistical patterns is a topic categorized along with
-computer vision in research 
+lumped_system_theory.data = """
+<b>Motivation:</b> System and control theory are used in robotics and other areas that require considering feedback loops. This is the mostly linear introductory course to these fields. This is also a set of methods that can be used to help make machine learning programs scalable.
 """
 
 probability.data = """
-<b>motivation:</b> Signals are an interesting aspect of system engineering. Combine it with electrodynamics, and you have physical computation on almost anything.
+<b>Motivation:</b> Signals are an interesting aspect of system engineering. Combine it with electrodynamics, and you have physical computation on almost anything.
 """
 #}}}
 
@@ -529,29 +529,111 @@ of program synthesis.</li>
 </ul>
 """+bar()+"""
 """+(
-inlink(eng_compiler)+
+inlink(engineering_a_compiler)+
 link(antlr_reference)
 )+"""
 """
 
-eng_compiler.data = """
-This book is an introduction on the theory of compilers. It could be taken in the first semester of a CS program. But compilers, and programming language theory, is regrettably, considered too sophisticated for undergraduate students in many computer science or computer engineering programs.
+engineering_a_compiler.data = """
+Preface <br>
+This book is an introduction on the theory of compilers. It could be taken in
+the first semester of a CS program. But compilers, and programming language
+theory, is regrettably, considered too sophisticated for undergraduate students
+in many computer science or computer engineering programs.
 
 Chapter 1 (overview) <br>
+1.1 introduction <br>
+1.2 compiler structure <br>
+1.3 Overview of Translation <br>
+1.3.1 front end <br>
+1.3.2 optimizer <br>
+1.3.3 back end <br>
+1.4 summary and perspective <br>
+
 This chapter is a survey of book topics and motivation. Compilers are generally
 organized as a combination of scanner/parser/code-generation. But parsers are
-theoretically capable of doing the work of scanners. The existence of scanners is due to the 
-increased speed of parsing languages, that they provide at O(1) complexity.
+theoretically capable of doing the work of scanners. The existence of scanners
+is due to the increased speed of parsing languages, that they provide at O(1)
+complexity.
 
-The compiler is more aptly segmented into 3 parts. The unambiguously called the front, middle, and back ends. The front end of a compiler is scanning and parsing a program to fit it into an intermediate relation. The middle optimizes this middle IR. The back produces code from this IR. The back handles tasks such as register allocation (if the target is an assembler).
+The compiler is more aptly segmented into 3 parts. The unambiguously called the
+front, middle, and back ends. The front end of a compiler is scanning and
+parsing a program to fit it into an intermediate relation. The middle optimizes
+this middle IR. The back produces code from this IR. The back handles tasks
+such as register allocation (if the target is an assembler).
+
+
 
 Chapter 2 (scanners) <br>
+2.1 introduction
+2.2 recognizing words
+2.3 regular expressions
+2.4 from regular expression to scanner
+2.5 implementing scanners
+2.6 advanced topics
+2.7 summary and perspective
+
 Scanners recognize regular languages. Regular languages are recognized by
 finite automaton. Due to a few lemmas in this chapter, finite automaton are shown
 to be completely describable by regular languages. So, it is possible to
 generate a finite automaton with only a regular language description and
 translate one back into a regular language representation. There are also
 lemmas about compressing the finite automaton to represent 
+
+Chapter 3 (parsers) <br>
+3.1 introduction
+3.2 expressing syntax
+3.2.1 why not regular expressions
+3.2.2 context free grammars
+3.2.3 more complex examples
+3.2.4 encoding meaning into structure
+3.2.5 discovering a derivation for an input string
+3.3 top down parsing
+3.4 bottom up parsing
+3.5 practical issues
+3.6 advanced topics
+3.7 summary and perspective
+Chapter 4 (context sensitive analysis) <br>
+4.1 introduction
+4.2 an introduction to type systems
+4.3 the attribute-grammar framework
+4.4 ad hoc syntax directed translations
+4.5 advances topics
+4.6 summary and perspective
+
+Chapter 5 (intermediate representations) <br>
+5.1 introduction
+5.1.1 taxonomy of intermediate representations
+5.2 graphical IRs
+5.2.1 syntax related trees
+5.2.2 graphs
+5.3 linear IRs
+5.3.1 stack machine code
+5.3.2 three adress code
+5.3.3 representing linear codes
+5.3.4 building a control flow graph from a linear code
+5.4 mapping values to names
+5.4.1
+5.4.2
+5.4.3
+5.5 symbol tables
+5.6 summary and perspective
+Chapter 6 (procedure abstraction) <br>
+6.1 introduction
+6.2 procedure calls
+6.3 namespaces
+6.4 communicating values between procedures
+6.5 standardized linkages
+6.7 summary and perspective
+Chapter 7 (code shape) <br>
+Chapter 8 (introduction to optimization) <br>
+Chapter 9 (data-flow analysis) <br>
+Chapter 10 (scalar optimizations) <br>
+Chapter 11 (instruction selection) <br>
+Chapter 12 (instruction scheduling) <br>
+Chapter 13 (register allocation) <br>
+Appendix A (ILOC) <br>
+Appendix B (data structures) <br>
 
 """
 
@@ -1332,19 +1414,18 @@ courses.data = """
 <p><b>Spring 2021</b></p>"""+(
 inlink(ml)+
 link(probability)+
-link(stat_pattern))+"""
+link(lumped_system_theory))+"""
 
 <p><b>Fall 2021</b></p>"""+(
-inlink(ccl)+
-link(algorithms)+
+#inlink(ccl)+
+inlink(deep_learning)+
 link(compilers)+
-link(deep_learning)+
+link(algorithms)+
 
 bar())+"""
 
 <p><b>Summer 2021</b></p>"""+(
 inlink(summer_of_logic)+
-
 bar())+"""
 
 <p><b>Spring 2021</b></p>"""+(
@@ -1382,13 +1463,13 @@ def build_site() :
     #course_stuff========================================================#
     build_tree(ml,              courses/ml/'/')
     build_tree(probability,     courses/probability/'/')
-    build_tree(stat_pattern,    courses/stat_pattern/'/')
+    build_tree(lumped_system_theory,    courses/lumped_system_theory/'/')
     build_tree(ccl,             courses/ccl/'/')
 
     build_tree(algorithms,      courses/algorithms/'/')
     build_tree(deep_learning,   courses/deep_learning/'/')
     build_tree(compilers,       courses/compilers/'/')
-    build_tree(eng_compiler,    courses/compilers/eng_compiler/'/')
+    build_tree(engineering_a_compiler,    courses/compilers/engineering_a_compiler/'/')
     build_tree(antlr_reference, courses/compilers/antlr_reference/'/')
     build_tree(summer_of_logic, courses/summer_of_logic/'/')
    

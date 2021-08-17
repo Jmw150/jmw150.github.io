@@ -36,7 +36,7 @@ class Tag:
 #{{{
 blogs_source = '../../blog'
 ## for defaults in Page
-css = Tag('blackwhite.css')
+css = Tag('greywhite.css')
 data = Tag('data')
 #}}}
 
@@ -227,7 +227,7 @@ def build_page(content,path='') :
 #{{{
 
 # main list
-css = Page('blackwhite.css', preprocess=False)
+css = Page('greywhite.css', preprocess=False)
 data = Page('data', preprocess=False)
 home = Page('index', nickname='Home', preprocess=False)
 courses = Page('courses', nickname='Courses', preprocess=False)
@@ -305,7 +305,7 @@ def nav_bar (css, args) :
  <head>
    <meta name="viewport" content="width=device-width">
    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-   <title>Jordan Winkler</title>
+   <title>Logic Sea</title>
    <link rel="stylesheet" type="text/css" href="""+'"'+css.name+'"'+""">
  </head>
 

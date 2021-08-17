@@ -4,7 +4,7 @@
 
 body {
     color:#EEEFFF ;
-    background-color:#000000;
+    background-color:#151515; /*000000;*/
 }
 a:link {
     /*color:#FFFFAA ; */
@@ -125,7 +125,7 @@ li a:hover {
     padding: 0px;
     position: fixed;
     color:#eeefff ;
-    background-color:#000000 ;
+    background-color:#151515; /*000000;*/
 }
 
 #sidenavigation {

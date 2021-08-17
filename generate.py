@@ -36,7 +36,7 @@ class Tag:
 #{{{
 blogs_source = '../../blog'
 ## for defaults in Page
-css = Tag('bluestyle.css')
+css = Tag('blackwhite.css')
 data = Tag('data')
 #}}}
 
@@ -58,11 +58,15 @@ class Page (Tag):
         research = Tag('research/research',nickname='Research')
         courses = Tag('courses/courses', nickname='Courses')
         blog = Tag('blog/blog', nickname='Blog')
+        about = Tag('about/about', nickname='About')
 
         # extra possible metadata
         if nav == [] : 
-            self.nav = [home,research,courses,
-                    #blog
+            self.nav = [
+                    home,
+                    research,
+                    courses,
+                    blog,
                     ]
         else :
             self.nav = nav
@@ -223,12 +227,13 @@ def build_page(content,path='') :
 #{{{
 
 # main list
-css = Page('bluewhite.css', preprocess=False)
+css = Page('blackwhite.css', preprocess=False)
 data = Page('data', preprocess=False)
 home = Page('index', nickname='Home', preprocess=False)
 courses = Page('courses', nickname='Courses', preprocess=False)
 research = Page('research', nickname='Research', preprocess=False)
 blog = Page('blog', nickname='Blog', preprocess=False)
+about = Page('about', nickname='About', preprocess=False)
 
 # books
 griffiths = Page('griffiths',nickname='Griffiths')
@@ -240,8 +245,7 @@ practical_software_foundations = Page('software_foundations', nickname='Software
 # spring 2022
 ml = Page('machine_learning',nickname='ECE 595 Machine Learning')
 probability = Page('probability',nickname="ECE 600 Random Variables and Signals")
-lumped_system_theory = Page('lumped_system_theory', 
-            nickname='ECE 602 Lumped System Theory')
+lumped_system_theory = Page('lumped_system_theory', nickname='ECE 602 Lumped System Theory')
 
 # fall 2021
 deep_learning = Page('dl', nickname='ECE 595 Deep Learning')
@@ -356,8 +360,11 @@ for i in range(len(blogs)) :
 research = Page('research', eval(get_file('../../research_goals')), preprocess=False)
 #}}}
 # home (index)
+## mildly better info-sec, name is not on main tree
+
+# about
 #{{{
-home.data = """
+about.data = """
 <div id="title">
  <font face="Albertus Medium">
   <h2><i>Jordan Winkler</i></h2>
@@ -368,7 +375,7 @@ home.data = """
 <div id="upper_square">
  <br>
  <center>
-  <img src="data/JordanWinkler.jpg" height="270" align="middle">
+  <img src="../data/JordanWinkler.jpg" height="270" align="middle">
  </center>
 </div>
 <div id="lower_square">
@@ -618,12 +625,8 @@ link(intro_compilers))
 
 # lots of regex generation
 def build_site() :
-    build_page(home)
-
-    # books
-    build_page(comp_intract, courses/algorithms/comp_intract/'/')
-
     # when the navigation bar needs another entry
+    #home.nav.append(Page(str(about/about), nickname='About'))
     pl.nav.append(Page(str(courses/summer_of_logic/summer_of_logic), nickname='SoL'))
     tt.nav.append(Page(str(courses/summer_of_logic/summer_of_logic), nickname='SoL'))
     topology.nav.append(Page(str(courses/summer_of_logic/summer_of_logic), nickname='SoL'))
@@ -632,6 +635,12 @@ def build_site() :
     ccl_book.nav.append(Page(str(courses/ccl/ccl),nickname='CCL'))
     random_graphs.nav.append(Page(str(courses/ccl/ccl),nickname='CCL'))
     comp_intract.nav.append(Page(str(courses/ccl/ccl),nickname='CCL'))
+
+    build_tree(home)
+    build_tree(about, about/'/')
+
+    # books
+    build_tree(comp_intract, courses/algorithms/comp_intract/'/')
 
     # skeleton 
     build_tree(courses,         courses/'/')

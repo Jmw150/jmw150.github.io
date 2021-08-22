@@ -296,6 +296,10 @@ algorithms.sub(alg_n)
 
 # web data
 #{{{
+home.data = """
+    <h2>Welcome to my logic space</h2>
+"""
+
 # navigation bar (nav_bar)
 #{{{
 def nav_bar (css, args) :
@@ -350,7 +354,8 @@ blog.data = """
     <b>He just keeps talking</b>
 -->
 <b>What's new?</b>
-
+<br>
+<br>
 """
 for i in range(len(blogs)) :
     blog.data += link_here_cap(blogs[i]) + '<br> (updated: '+timelist[i]+')<br>'

@@ -613,7 +613,7 @@ link(lumped_system_theory))+"""
 inlink(deep_learning)+
 link(compilers)+
 link(algorithms)+
-inlink(ccl)+
+link(ccl)+
 link(fall_research)+
 
 bar())+"""

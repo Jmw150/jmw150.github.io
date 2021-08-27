@@ -252,6 +252,7 @@ deep_learning = Page('dl', nickname='ECE 595 Deep Learning')
 ccl = Page('ccl', nickname='ECE 664 Computability, Complexity, and Languages')
 algorithms = Page('algorithms', nickname='ECE 608 Computational Models and Methods')
 compilers = Page('compilers', nickname='ECE 595 Compilers: optimization, code generation')
+fall_research = Page('research', nickname='Research')
 
 ccl_n = Page('class', nickname='Course Notes')
 alg_n = Page('class', nickname='Course Notes')
@@ -418,9 +419,11 @@ probability.data = """
 
 # fall 2021
 #{{{
+ccl.data = eval(get_file('../../fall2021/ccl/note_intro')) 
 compilers.data = eval(get_file('../../fall2021/compilers/note_intro')) 
 engineering_a_compiler.data =eval(get_file('../../fall2021/compilers/engineering_a_compiler_notes')) 
 algorithms.data = eval(get_file('../../fall2021/algorithms/intro_note'))
+fall_research.data = eval(get_file('../../fall2021/research/intro_note'))
 #}}}
 
 # summer 2021
@@ -607,10 +610,11 @@ link(probability)+
 link(lumped_system_theory))+"""
 
 <p><b>Fall 2021</b></p>"""+(
-#inlink(ccl)+
 inlink(deep_learning)+
 link(compilers)+
 link(algorithms)+
+inlink(ccl)+
+link(fall_research)+
 
 bar())+"""
 
@@ -658,6 +662,9 @@ def build_site() :
     build_tree(algorithms,      courses/algorithms/'/')
     build_tree(deep_learning,   courses/deep_learning/'/')
     build_tree(compilers,       courses/compilers/'/')
+    build_tree(ccl,             courses/ccl/'/')
+    build_tree(fall_research,             courses/fall_research/'/')
+
     build_tree(engineering_a_compiler,    courses/compilers/engineering_a_compiler/'/')
     build_tree(antlr_reference, courses/compilers/antlr_reference/'/')
     build_tree(summer_of_logic, courses/summer_of_logic/'/')

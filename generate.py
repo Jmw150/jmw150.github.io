@@ -297,7 +297,7 @@ algorithms.sub(alg_n)
 # web data
 #{{{
 home.data = """
-    <h2>Welcome to my logic space</h2>
+    <h2>Welcome to my website</h2>
 """
 
 # navigation bar (nav_bar)

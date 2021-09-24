@@ -66,7 +66,7 @@ class Page (Tag):
                     home,
                     research,
                     courses,
-                    blog,
+                    #blog,
                     ]
         else :
             self.nav = nav

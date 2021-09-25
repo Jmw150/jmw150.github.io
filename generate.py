@@ -249,10 +249,10 @@ lumped_system_theory = Page('lumped_system_theory', nickname='ECE 602 Lumped Sys
 
 # fall 2021
 deep_learning = Page('dl', nickname='ECE 595 Deep Learning')
-ccl = Page('ccl', nickname='ECE 664 Computability, Complexity, and Languages')
+#ccl = Page('ccl', nickname='ECE 664 Computability, Complexity, and Languages')
 algorithms = Page('algorithms', nickname='ECE 608 Computational Models and Methods')
 compilers = Page('compilers', nickname='ECE 595 Compilers: optimization, code generation')
-fall_research = Page('research', nickname='Research')
+fall_research = Page('research', nickname='ECE 696 Active Program synthesis (Research)')
 
 ccl_n = Page('class', nickname='Course Notes')
 alg_n = Page('class', nickname='Course Notes')
@@ -287,10 +287,10 @@ antlr_reference = Page('antlr', nickname='ANTLR Reference Book')
 
 # connections
 #{{{
-ccl.sub(ccl_book)
-ccl.sub(comp_intract)
-ccl.sub(random_graphs)
-ccl.sub(ccl_n)
+#ccl.sub(ccl_book)
+#ccl.sub(comp_intract)
+#ccl.sub(random_graphs)
+#ccl.sub(ccl_n)
 
 algorithms.sub(alg_n)
 #}}}
@@ -419,7 +419,7 @@ probability.data = """
 
 # fall 2021
 #{{{
-ccl.data = eval(get_file('../../fall2021/ccl/note_intro')) 
+#ccl.data = eval(get_file('../../fall2021/ccl/note_intro')) 
 compilers.data = eval(get_file('../../fall2021/compilers/note_intro')) 
 engineering_a_compiler.data =eval(get_file('../../fall2021/compilers/engineering_a_compiler_notes')) 
 algorithms.data = eval(get_file('../../fall2021/algorithms/intro_note'))
@@ -607,13 +607,13 @@ courses.data = """
 <p><b>Spring 2021</b></p>"""+(
 inlink(ml)+
 link(probability)+
+link(algorithms)+
 link(lumped_system_theory))+"""
 
 <p><b>Fall 2021</b></p>"""+(
 inlink(deep_learning)+
 link(compilers)+
-link(algorithms)+
-link(ccl)+
+#link(ccl)+
 link(fall_research)+
 
 bar())+"""
@@ -641,9 +641,9 @@ def build_site() :
     topology.nav.append(Page(str(courses/summer_of_logic/summer_of_logic), nickname='SoL'))
     em.nav.append(Page(str(courses/summer_of_logic/summer_of_logic), nickname='SoL'))
     
-    ccl_book.nav.append(Page(str(courses/ccl/ccl),nickname='CCL'))
-    random_graphs.nav.append(Page(str(courses/ccl/ccl),nickname='CCL'))
-    comp_intract.nav.append(Page(str(courses/ccl/ccl),nickname='CCL'))
+    #ccl_book.nav.append(Page(str(courses/ccl/ccl),nickname='CCL'))
+    #random_graphs.nav.append(Page(str(courses/ccl/ccl),nickname='CCL'))
+    #comp_intract.nav.append(Page(str(courses/ccl/ccl),nickname='CCL'))
 
     build_tree(home)
     build_tree(about, about/'/')
@@ -657,12 +657,12 @@ def build_site() :
     build_tree(ml,              courses/ml/'/')
     build_tree(probability,     courses/probability/'/')
     build_tree(lumped_system_theory,    courses/lumped_system_theory/'/')
-    build_tree(ccl,             courses/ccl/'/')
+    #build_tree(ccl,             courses/ccl/'/')
 
     build_tree(algorithms,      courses/algorithms/'/')
     build_tree(deep_learning,   courses/deep_learning/'/')
     build_tree(compilers,       courses/compilers/'/')
-    build_tree(ccl,             courses/ccl/'/')
+    #build_tree(ccl,             courses/ccl/'/')
     build_tree(fall_research,             courses/fall_research/'/')
 
     build_tree(engineering_a_compiler,    courses/compilers/engineering_a_compiler/'/')

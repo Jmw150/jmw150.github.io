@@ -252,7 +252,7 @@ deep_learning = Page('dl', nickname='ECE 595 Deep Learning')
 #ccl = Page('ccl', nickname='ECE 664 Computability, Complexity, and Languages')
 algorithms = Page('algorithms', nickname='ECE 608 Computational Models and Methods')
 compilers = Page('compilers', nickname='ECE 595 Compilers: optimization, code generation')
-fall_research = Page('research', nickname='ECE 696 Active Program synthesis (Research)')
+fall_research = Page('research', nickname='ECE 696 Active Program Synthesis (Research)')
 
 ccl_n = Page('class', nickname='Course Notes')
 alg_n = Page('class', nickname='Course Notes')

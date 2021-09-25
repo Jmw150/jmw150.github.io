@@ -66,7 +66,7 @@ class Page (Tag):
                     home,
                     research,
                     courses,
-                    #blog,
+                    blog,
                     ]
         else :
             self.nav = nav
@@ -683,7 +683,7 @@ def build_site() :
     build_tree(em,              courses/summer_of_logic/em/'/')
     build_tree(griffiths,       courses/summer_of_logic/em/griffiths/'/')
 
-    build_page(blog,'blog/')
+    #build_page(blog,'blog/')
     #========================================================#
     for i in range(len(blogs)) :
         build_page(blogs[i],'blog/')

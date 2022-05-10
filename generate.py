@@ -5,163 +5,247 @@
 ## but it would probably be better to hash address variables
 
 # algs
-#{{{
-import time 
+# {{{
+import time
 import os
-from typing import * # List, etc..
+from typing import *  # List, etc..
 
 # subclass of Page
 class Tag:
-    def __init__(self, name, nickname='') :
+    def __init__(self, name, nickname=""):
 
         # name is the location
         self.name = name
-        if nickname == '':
+        if nickname == "":
             self.nickname = name
         else:
             self.nickname = nickname
 
     # for adding path elements (../) and file types (.html)
-    def __add__(self, y) :
+    def __add__(self, y):
         return Tag(str(self.name) + str(y), self.nickname)
-    def __radd__(self,y) :
+
+    def __radd__(self, y):
         return Tag(str(y) + str(self.name), self.nickname)
 
     def __str__(self):
         return str(self.name)
+
     def __repr__(self):
         return str(self.name)
 
-# Paths
-#{{{
-blogs_source = '../../blog'
-## for defaults in Page
-css = Tag('greywhite.css')
-data = Tag('data')
-#}}}
 
-class Page (Tag):
-    #{{{
+# Paths
+# {{{
+blogs_source = "../../blog"
+## for defaults in Page
+css = Tag("greywhite.css")
+data = Tag("data")
+# }}}
+
+
+class Page(Tag):
+    # {{{
     "A website page"
-    def __init__(self, name, data=' ', nickname= '', nav=[], preprocess=True) :
+
+    def __init__(self, name, data=" ", nickname="", nav=[], preprocess=True):
         self.name = name
-        if nickname == '':
+        if nickname == "":
             self.nickname = name
         else:
             self.nickname = nickname
         self.data = data
         self.preprocess = preprocess
-        self.subdata = [] # for some reason this assigned recursively
+        self.subdata = []  # for some reason this assigned recursively
 
         # default stuff
-        home = Tag('index', nickname='Home')
-        research = Tag('research/research',nickname='Research')
-        courses = Tag('courses/courses', nickname='Courses')
-        #blog = Tag('blog/blog', nickname='Blog')
-        about = Tag('about/about', nickname='About')
+        home = Tag("index", nickname="Home")
+        research = Tag("research/research", nickname="About")
+        courses = Tag("courses/courses", nickname="Course Notes")
+        # blog = Tag('blog/blog', nickname='Blog')
+        #about = Tag("about/about", nickname="About")
 
         # extra possible metadata
-        if nav == [] : 
+        if nav == []:
             self.nav = [
-                    home,
-                    research,
-                    courses,
-                    #blog,
-                    ]
-        else :
+                home,
+                research,
+                courses,
+                # blog,
+            ]
+        else:
             self.nav = nav
 
     # this is odd design, Python
-    def __add__(self, y) :
-        if type(y) == Page :
-            return Page(self.name, str(self.data) + str(y.data), 
-                    self.nickname, self.nav, self.preprocess)
-        else :
-            return Page(self.name, str(self.data) + str(y), 
-                    self.nickname, self.nav, self.preprocess)
+    def __add__(self, y):
+        if type(y) == Page:
+            return Page(
+                self.name,
+                str(self.data) + str(y.data),
+                self.nickname,
+                self.nav,
+                self.preprocess,
+            )
+        else:
+            return Page(
+                self.name,
+                str(self.data) + str(y),
+                self.nickname,
+                self.nav,
+                self.preprocess,
+            )
 
-    def __radd__(self,y) :
-        if type(y) == Page :
-            return Page(self.name, str(self.data) + str(y.data), 
-                    self.nickname, self.nav, self.preprocess)
-        else :
-            return Page(self.name, str(self.data) + str(y), 
-                    self.nickname, self.nav, self.preprocess)
+    def __radd__(self, y):
+        if type(y) == Page:
+            return Page(
+                self.name,
+                str(self.data) + str(y.data),
+                self.nickname,
+                self.nav,
+                self.preprocess,
+            )
+        else:
+            return Page(
+                self.name,
+                str(self.data) + str(y),
+                self.nickname,
+                self.nav,
+                self.preprocess,
+            )
 
     # looks like a path variable
-    def __truediv__(self, y='/') : # doesn't matter, a/ is still a syntax error
-        if type(y) == Page :
-            return Page(str(self.name) + '/' + str(y.name), 
-                self.data, self.nickname, self.nav, self.preprocess)
-        else :
-            return Page(str(self.name) + str(y), 
-                self.data, self.nickname, self.nav, self.preprocess)
+    def __truediv__(self, y="/"):  # doesn't matter, a/ is still a syntax error
+        if type(y) == Page:
+            return Page(
+                str(self.name) + "/" + str(y.name),
+                self.data,
+                self.nickname,
+                self.nav,
+                self.preprocess,
+            )
+        else:
+            return Page(
+                str(self.name) + str(y),
+                self.data,
+                self.nickname,
+                self.nav,
+                self.preprocess,
+            )
 
+    def __rtruediv__(self, y):
+        if type(y) == Page:
+            return Page(
+                str(y.name) + "/" + str(self.name),
+                self.data,
+                self.nickname,
+                self.nav,
+                self.preprocess,
+            )
+        else:
+            return Page(
+                str(y) + str(self.name),
+                self.data,
+                self.nickname,
+                self.nav,
+                self.preprocess,
+            )
 
-    def __rtruediv__(self, y) :
-        if type(y) == Page :
-            return Page(str(y.name) + '/' + str(self.name), 
-                self.data, self.nickname, self.nav, self.preprocess)
-        else :
-            return Page(str(y) + str(self.name), 
-                self.data, self.nickname, self.nav, self.preprocess)
-    
     # get data, also process data
-    def dat(self, size=2) : # size might be another property to add
-        
-        if self.preprocess == True :
-            # double enter -> html 
-            data = self.data.replace('\n\n','<br><br>\n') 
-        
+    def dat(self, size=2):  # size might be another property to add
+
+        if self.preprocess == True:
+            # double enter -> html
+            data = self.data.replace("\n\n", "<br><br>\n")
+
             s = str(size)
-    
+
             # add title
-            self.data = '\n<h'+s+'>'+self.nickname.replace('_',' ').title()+'</h'+s+'>\n'
+            self.data = (
+                "\n<h"
+                + s
+                + ">"
+                + self.nickname.replace("_", " ").title()
+                + "</h"
+                + s
+                + ">\n"
+            )
             self.data += data
 
             # recursive link
-            for node in self.subdata :
+            for node in self.subdata:
                 self.data += inlink(node)
-                self.data += '<br>'
-    
+                self.data += "<br>"
+
             self.preprocess = False
             # TODO: evaluate links in data
 
         return self.data
 
-    def sub(self, page) :
+    def sub(self, page):
         self.subdata.append(page)
-#}}}
+
+
+# }}}
 
 # html macros
-link = lambda page :   '<br><a href='+page.name+'/'+page.name+'.html>'+page.nickname+'</a>'
-inlink = lambda page :     '<a href='+page.name+'/'+page.name+'.html>'+page.nickname+'</a>'
-exlink = lambda page : '<br><a target="_blank" href='+page.name+'>'+page.nickname+'</a>'
-link_here = lambda page : '<br><a href='+page.name+'.html>'+page.nickname+'</a>'
-link_here_cap = lambda page : '<br><a href='+page.name+'.html>'+page.nickname.replace('_',' ').title()+'</a>'
-bar = lambda : '</td></tr></tbody></table></p></p></center><hr>'
+link = (
+    lambda page: "<br><a href="
+    + page.name
+    + "/"
+    + page.name
+    + ".html>"
+    + page.nickname
+    + "</a>"
+)
+inlink = (
+    lambda page: "<a href="
+    + page.name
+    + "/"
+    + page.name
+    + ".html>"
+    + page.nickname
+    + "</a>"
+)
+exlink = (
+    lambda page: '<br><a target="_blank" href='
+    + page.name
+    + ">"
+    + page.nickname
+    + "</a>"
+)
+link_here = lambda page: "<br><a href=" + page.name + ".html>" + page.nickname + "</a>"
+link_here_cap = (
+    lambda page: "<br><a href="
+    + page.name
+    + ".html>"
+    + page.nickname.replace("_", " ").title()
+    + "</a>"
+)
+bar = lambda: "</td></tr></tbody></table></p></p></center><hr>"
 
-def get_file(filename) :
+
+def get_file(filename):
     File = ""
     with open(filename) as f:
-        for l in f.readlines() :
+        for l in f.readlines():
             File += l
 
     return File
 
-def get_blogs(path:str) -> List[Page]:
+
+def get_blogs(path: str) -> List[Page]:
     "get a array of blog pages"
 
     # get blog list at location
-    bloglist = os.popen('ls -t '+path).read().split('\n')[:-1]
+    bloglist = os.popen("ls -t " + path).read().split("\n")[:-1]
 
     # get those times
-    timelist = os.popen('ls -lt --time-style=long-iso '+path).read().split('\n')[:-1]
+    timelist = os.popen("ls -lt --time-style=long-iso " + path).read().split("\n")[:-1]
     timelist = timelist[1:]
     a = timelist[:]
     timelist = []
     for i in a:
-        timelist.append(i.replace('  ',' ').split(' '))
+        timelist.append(i.replace("  ", " ").split(" "))
     a = timelist[:]
     timelist = []
     for i in a:
@@ -169,186 +253,229 @@ def get_blogs(path:str) -> List[Page]:
 
     blogs = []
     # add title to work, and clump together
-    for i in bloglist :
-        file = get_file(path+'/'+i)
-        file = str(Page(i,file).dat())
-        blogs.append(Page(i,file,preprocess=False))
-    
-    return blogs, timelist 
+    for i in bloglist:
+        file = get_file(path + "/" + i)
+        file = str(Page(i, file).dat())
+        blogs.append(Page(i, file, preprocess=False))
+
+    return blogs, timelist
+
 
 def write_file(file, content):
-    f = open(file+'.html', "w")
+    f = open(file + ".html", "w")
     f.write(content)
     f.close()
 
-def build_tree(content,path='') :
+
+def build_tree(content, path=""):
 
     # base case
-    build_page(content,path)
+    build_page(content, path)
 
     # breadth first recursive case
-    if content.subdata != [] :
-        for sub_content in content.subdata :
-            build_tree(sub_content, path.name+sub_content.name+'/')
+    if content.subdata != []:
+        for sub_content in content.subdata:
+            build_tree(sub_content, path.name + sub_content.name + "/")
 
-def build_page(content,path='') :
 
-    ln = str(path).split('/')
-    level = len(ln)-1
+def build_page(content, path=""):
+
+    ln = str(path).split("/")
+    level = len(ln) - 1
     file = content.name
 
     # handle file generation of content
-    if level > 0 :
+    if level > 0:
         ls = ln[0]
-        if not os.path.exists(ls) :
+        if not os.path.exists(ls):
             os.mkdir(ls)
-        for i in range(1,level) : # skip last 
-            ls += '/'+ln[i]
-            if not os.path.exists(ls) :
+        for i in range(1, level):  # skip last
+            ls += "/" + ln[i]
+            if not os.path.exists(ls):
                 os.mkdir(ls)
-        file = ls +'/'+ content.name
+        file = ls + "/" + content.name
 
-    ab = '../'*level
+    ab = "../" * level
 
     # set absolute path to nav
-    for i in range(len(content.nav)) :
-        content.nav[i].name = ab+content.nav[i].name
+    for i in range(len(content.nav)):
+        content.nav[i].name = ab + content.nav[i].name
 
-    write_file(file,
-                nav_bar(ab/css, content.nav)
-                +'<div id="content">'
-                +content.dat()
-                +'</div>'
-                +update.data)
+    write_file(
+        file,
+        nav_bar(ab / css, content.nav)
+        + '<div id="content">'
+        + content.dat()
+        + "</div>"
+        + update.data,
+    )
 
-#}}}
+
+# }}}
 
 # forward declare web pages, so they can talk about each other
-#{{{
+# {{{
 
 # main list
-css = Page('greywhite.css', preprocess=False)
-data = Page('data', preprocess=False)
-home = Page('index', nickname='Home', preprocess=False)
-courses = Page('courses', nickname='Courses', preprocess=False)
-research = Page('research', nickname='Research', preprocess=False)
-blog = Page('blog', nickname='Blog', preprocess=False)
-about = Page('about', nickname='About', preprocess=False)
+css = Page("greywhite.css", preprocess=False)
+data = Page("data", preprocess=False) # data?
+home = Page("index", nickname="Home", preprocess=False)
+courses = Page("courses", nickname="Courses", preprocess=False)
+research = Page("research", nickname="Research", preprocess=False)
+blog = Page("blog", nickname="Blog", preprocess=False)
+about = Page("about", nickname="About", preprocess=False)
 
 # books
-griffiths = Page('griffiths',nickname='Griffiths')
-set_theory_book = Page('st_book',nickname='Classic Set Theory')
-math_logic_book = Page('math_logic_book',nickname='Introduction to Mathematical Logic')
-software_foundations = Page('software_foundations', nickname='Software Foundations')
-practical_software_foundations = Page('software_foundations', nickname='Software Foundations')
+griffiths = Page("griffiths", nickname="Griffiths")
+set_theory_book = Page("st_book", nickname="Classic Set Theory")
+math_logic_book = Page("math_logic_book", nickname="Introduction to Mathematical Logic")
+software_foundations = Page("software_foundations", nickname="Software Foundations")
+practical_software_foundations = Page(
+    "software_foundations", nickname="Software Foundations"
+)
 
-# spring 2022
-ml = Page('machine_learning',nickname='ECE 595 Machine Learning')
-probability = Page('probability',nickname="ECE 600 Random Variables and Signals")
-lumped_system_theory = Page('lumped_system_theory', nickname='ECE 602 Lumped System Theory')
+# Fall 2022
+compilers = Page("compilers", nickname="ECE 573 Compilers And Translator Writing Systems")
+algorithms = Page("algorithms", nickname="ECE 608 Computational Models and Methods")
+algebra = Page("abstract_algebra", nickname="MA  553 Abstract Algebra")
+commutative_algebra = Page("commutative_algebra", nickname = "MA  557 Commutative Algebra")
+research_fall_2022 = Page('research_fall_2022', nickname='ECE 699 PhD Research') 
+
+# Summer 2022
+summer_of_algebra = Page("summer_of_algebra", nickname="Summer of Algebra")
+
+# Spring 2022
+seminars = Page('ece_seminar_class', nickname = "ECE 694 Seminar course")
+research_spring_2022 = Page('research_spring_2022', nickname='ECE 699 PhD Research') 
+
+#ml = Page("machine_learning", nickname="ECE 595 Machine Learning")
+#probability = Page("probability", nickname="ECE 600 Random Variables and Signals")
+#lumped_system_theory = Page( "lumped_system_theory", nickname="ECE 602 Lumped System Theory")
 
 # fall 2021
-deep_learning = Page('dl', nickname='ECE 595 Deep Learning')
-#ccl = Page('ccl', nickname='ECE 664 Computability, Complexity, and Languages')
-algorithms = Page('algorithms', nickname='ECE 608 Computational Models and Methods')
-compilers = Page('compilers', nickname='ECE 595 Compilers: optimization, code generation')
-fall_research = Page('research', nickname='ECE 696 Active Program Synthesis (Research)')
+deep_learning = Page("dl", nickname="ECE 595 Deep Learning")
+# ccl = Page('ccl', nickname='ECE 664 Computability, Complexity, and Languages')
 
-ccl_n = Page('class', nickname='Course Notes')
-alg_n = Page('class', nickname='Course Notes')
-compilers_n = Page('class', nickname='Course Notes')
+research_fall_2021 = Page("research_fall_2021", nickname="ECE 696 Active Program Synthesis (Masters Research)")
+
+ccl_n = Page("class", nickname="Course Notes")
+alg_n = Page("class", nickname="Course Notes")
+compilers_n = Page("class", nickname="Course Notes")
 
 # summer 2021
-summer_of_logic = Page('summer_of_logic',nickname='Summer of Logic',preprocess=False)
-pl = Page('programming_languages',nickname='Programming Language Theory')
-tt = Page('type_theory',nickname='Type Theory')
-topology = Page('topology',nickname='Topology')
-em = Page('Electromagnetism',nickname='Electromagnetic Force')
+summer_of_logic = Page("summer_of_logic", nickname="Summer of Logic", preprocess=False)
+pl = Page("programming_languages", nickname="Programming Language Theory")
+tt = Page("type_theory", nickname="Type Theory")
+topology = Page("topology", nickname="Topology")
+em = Page("Electromagnetism", nickname="Electromagnetic Force")
 
 # spring 2021
-adv_compilers = Page('adv_compilers',nickname='ECE 663 Advanced compilers')
-se = Page('software_engineering',nickname='ECE 595 Advanced Software Engineering')
+adv_compilers = Page("adv_compilers", nickname="ECE 663 Advanced compilers")
+se = Page("software_engineering", nickname="ECE 595 Advanced Software Engineering")
 
 # fall 2020
-set_theory = Page('set_theory',nickname='MA  598 Set Theory')
-math_logic = Page('mathemetical_logic',nickname='MA  585 Mathematical Logic')
-intro_compilers = Page('intro_compilers',nickname='ECE 595 Intro to Compilers')
+set_theory = Page("set_theory", nickname="MA  598 Set Theory")
+math_logic = Page("mathemetical_logic", nickname="MA  585 Mathematical Logic")
+intro_compilers = Page("intro_compilers", nickname="ECE 595 Intro to Compilers")
 
 
-ccl_book = Page('ccl_book', nickname='The Book')
-comp_intract = Page('comp_intract', nickname='Computers and Intractability')
-random_graphs = Page('random_graphs', nickname='Random Graphs')
+ccl_book = Page("ccl_book", nickname="The Book")
+comp_intract = Page("comp_intract", nickname="Computers and Intractability")
+random_graphs = Page("random_graphs", nickname="Random Graphs")
 
-algorithms_book = Page('alg_book', nickname='Introduction to Algorithms')
+algorithms_book = Page("alg_book", nickname="Introduction to Algorithms")
 
-engineering_a_compiler = Page('engineering_a_compiler', nickname='Engineering a Compiler')
-antlr_reference = Page('antlr', nickname='ANTLR Reference Book')
-#}}}
+engineering_a_compiler = Page(
+    "engineering_a_compiler", nickname="Engineering a Compiler"
+)
+antlr_reference = Page("antlr", nickname="ANTLR Reference Book")
+# }}}
 
 # connections
-#{{{
-#ccl.sub(ccl_book)
-#ccl.sub(comp_intract)
-#ccl.sub(random_graphs)
-#ccl.sub(ccl_n)
+# {{{
+# ccl.sub(ccl_book)
+# ccl.sub(comp_intract)
+# ccl.sub(random_graphs)
+# ccl.sub(ccl_n)
 
 algorithms.sub(alg_n)
-#}}}
+# }}}
 
 # web data
-#{{{
+# {{{
 home.data = """
     <h2>Welcome to my website</h2>
 """
 
 # navigation bar (nav_bar)
-#{{{
-def nav_bar (css, args) :
-    bar = """
+# {{{
+def nav_bar(css, args):
+    bar = (
+        """
 <!DOCTYPE html PUBLIC "-//w3c//dtd html 5.0 transitional//en">
 <html>
  <head>
    <meta name="viewport" content="width=device-width">
    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <title>Logic Sea</title>
-   <link rel="stylesheet" type="text/css" href="""+'"'+css.name+'"'+""">
+   <link rel="stylesheet" type="text/css" href="""
+        + '"'
+        + css.name
+        + '"'
+        + """>
  </head>
 
 <body>
  <div id="nav_bar">
   <div id="nav_bar_ul">"""
-    for i in args :
-        if type(i) == str :
+    )
+    for i in args:
+        if type(i) == str:
             i = Page(i)
-        bar += """
+        bar += (
+            """
    <div id="nav_bar_li">
     <div id="nav_bar_li_a">
-     <a href="""+'"'+i.name+'.html"'+""">"""+i.nickname+"""</a>
+     <a href="""
+            + '"'
+            + i.name
+            + '.html"'
+            + """>"""
+            + i.nickname
+            + """</a>
     </div>
    </div>"""
+        )
     bar += """
   </div>
  </div>
 """
     return bar
-#}}}
+
+
+# }}}
 # update (the time-stamp at the bottom of each web page)
-#{{{
-update = Page('update',"""
+# {{{
+update = Page(
+    "update",
+    """
   <div id=update_bar> 
    <p align="center">
     <font size="-1">
-     Compiled: """ + os.popen('date').read() + """
+     Compiled: """
+    + os.popen("date").read()
+    + """
     </font>
    </p>
   </div>    
  </body>
 </html>
-""")
-#}}}
+""",
+)
+# }}}
 # blog
-#{{{
-blogs, timelist = get_blogs(blogs_source) # started (Jul 12 2021)
+# {{{
+blogs, timelist = get_blogs(blogs_source)  # started (Jul 12 2021)
 blog.data = """ 
 <!-- 
     <b>I drink and I know things</b> 
@@ -358,18 +485,18 @@ blog.data = """
 <br>
 <br>
 """
-for i in range(len(blogs)) :
-    blog.data += link_here_cap(blogs[i]) + '<br> (updated: '+timelist[i]+')<br>'
-#}}}
+for i in range(len(blogs)):
+    blog.data += link_here_cap(blogs[i]) + "<br> (updated: " + timelist[i] + ")<br>"
+# }}}
 # research
-#{{{
-research = Page('research', eval(get_file('../../research_goals')), preprocess=False)
-#}}}
+# {{{
+research = Page("research", eval(get_file("../../research_goals")), preprocess=False)
+# }}}
 # home (index)
 ## mildly better info-sec, name is not on main tree
 
 # about
-#{{{
+# {{{
 about.data = """
 <div id="title">
  <font face="Albertus Medium">
@@ -393,11 +520,12 @@ about.data = """
   <a href="data/JW_resume.pdf">CV</a>
 </div>
 """
-#}}}
+# }}}
 
 # spring 2022
-#{{{
-ml.data = """
+# {{{
+#ml.data = 
+"""
 <b>Motivation:</b> Its one of the cooler parts of AI
 
 <b>personal note:</b> As of writing this, I am a machine learning scientist. (yay) 
@@ -408,32 +536,36 @@ career in a topic means building a good foundation.
 https://engineering.purdue.edu/ChanGroup/ECE595/
 """
 
-lumped_system_theory.data = """
+#lumped_system_theory.data = 
+"""
 <b>Motivation:</b> System and control theory are used in robotics and other areas that require considering feedback loops. This is the mostly linear introductory course to these fields. This is also a set of methods that can be used to help make machine learning programs scalable.
 """
 
-probability.data = """
+#probability.data = 
+"""
 <b>Motivation:</b> Signals are an interesting aspect of system engineering. Combine it with electrodynamics, and you have physical computation on almost anything.
 """
-#}}}
+# }}}
 
 # fall 2021
-#{{{
-#ccl.data = eval(get_file('../../fall2021/ccl/note_intro')) 
-compilers.data = eval(get_file('../../fall2021/compilers/note_intro')) 
-engineering_a_compiler.data =eval(get_file('../../fall2021/compilers/engineering_a_compiler_notes')) 
-algorithms.data = eval(get_file('../../fall2021/algorithms/intro_note'))
-fall_research.data = eval(get_file('../../fall2021/research/intro_note'))
-#}}}
+# {{{
+# ccl.data = eval(get_file('../../fall2021/ccl/note_intro'))
+compilers.data = eval(get_file("../../fall2021/compilers/note_intro"))
+engineering_a_compiler.data = eval(
+    get_file("../../fall2021/compilers/engineering_a_compiler_notes")
+)
+algorithms.data = eval(get_file("../../fall2021/algorithms/intro_note"))
+research_fall_2021.data = eval(get_file("../../fall2021/research/intro_note"))
+# }}}
 
 # summer 2021
-#{{{
-summer_of_logic.data = eval(get_file('../../summer2021/summer_of_logic_intro'))
+# {{{
+summer_of_logic.data = eval(get_file("../../summer2021/summer_of_logic_intro"))
 
-tt.data = eval(get_file('../../summer2021/type_theory_notes'))
-pl.data = eval(get_file('../../summer2021/programming_languages_notes'))
-topology.data = eval(get_file('../../summer2021/topology_notes'))
-#}}}
+tt.data = eval(get_file("../../summer2021/type_theory_notes"))
+pl.data = eval(get_file("../../summer2021/programming_languages_notes"))
+topology.data = eval(get_file("../../summer2021/topology_notes"))
+# }}}
 
 # past
 # {{{
@@ -531,11 +663,11 @@ almost always some high level infinity. It was proven that at least with ZF
 sets, not doing so would end up with elements that work like regular numbers,
 and that realistically any set theory would be excessive if it were not large.
 """
-#}}}
+# }}}
 
-# other 
-#{{{
-griffiths.data = eval(get_file('../../summer2021/griffiths_notes'))
+# other
+# {{{
+griffiths.data = eval(get_file("../../summer2021/griffiths_notes"))
 
 intro_compilers.data = """
 <b>Note</b>: Admittedly, my notes for this entire year are terrible. Everything was online. So I just rewatched parts of lectures if I forgot about something. And the course materials are copyrighted. So I am not allowed to share the main content of what was said or done. Sorry.
@@ -559,10 +691,12 @@ My enthusiasm for C programming kind of died in this class. C is old and
 standard. Embedded systems are messy. 
 """
 
-em.data = """
+em.data = (
+    """
 <br>
-<b>Books</b>"""+(
-link(griffiths))+"""
+<b>Books</b>"""
+    + (link(griffiths))
+    + """
  <br>
  <br>
  <br>
@@ -600,98 +734,125 @@ http://danfleisch.com/maxwell//
   Maxwell's equations, a guide by students
 </a>
 """
-#}}}
+)
+# }}}
 
 # courses
-courses.data = """
-<p><b>Spring 2021</b></p>"""+(
-inlink(ml)+
-link(probability)+
-link(algorithms)+
-link(lumped_system_theory))+"""
+courses.data = (
+    """
+<p><b>Fall 2022</b></p>"""
+    + (inlink(algebra)
+    + link(commutative_algebra)
+    + link(compilers)
+    + link(algorithms)
+    + link(research_fall_2022)
+    + bar())+ """
+<p><b>Summer 2022</b></p>""" + (
+      inlink(summer_of_algebra)
+    + bar()) + """
+<p><b>Spring 2022</b></p>"""
+    + (inlink(seminars)
+    + link(research_spring_2022)) + """
 
-<p><b>Fall 2021</b></p>"""+(
-inlink(deep_learning)+
-link(compilers)+
-#link(ccl)+
-link(fall_research)+
+<p><b>Fall 2021</b></p>"""
+    + (
+        inlink(deep_learning)
+        + # link(ccl)+
+        link(research_fall_2021)
+        + bar()
+    )
+    + """
 
-bar())+"""
+<p><b>Summer 2021</b></p>"""
+    + (inlink(summer_of_logic) + bar())
+    + """
 
-<p><b>Summer 2021</b></p>"""+(
-inlink(summer_of_logic)+
-bar())+"""
+<p><b>Spring 2021</b></p>"""
+    + (inlink(adv_compilers) + " (applied mathematical logic)" + link(se))
+    + """
 
-<p><b>Spring 2021</b></p>"""+(
-inlink(adv_compilers)+' (applied mathematical logic)'+
-link(se))+"""
-
-<p><b>Fall 2020</b></p>"""+(
-inlink(set_theory)+
-link(math_logic)+
-link(intro_compilers))
-#}}}
+<p><b>Fall 2020</b></p>"""
+    + (inlink(set_theory) + link(math_logic) + link(intro_compilers))
+)
+# }}}
 
 # lots of regex generation
-def build_site() :
+def build_site():
     # when the navigation bar needs another entry
-    #home.nav.append(Page(str(about/about), nickname='About'))
-    pl.nav.append(Page(str(courses/summer_of_logic/summer_of_logic), nickname='SoL'))
-    tt.nav.append(Page(str(courses/summer_of_logic/summer_of_logic), nickname='SoL'))
-    topology.nav.append(Page(str(courses/summer_of_logic/summer_of_logic), nickname='SoL'))
-    em.nav.append(Page(str(courses/summer_of_logic/summer_of_logic), nickname='SoL'))
-    
-    #ccl_book.nav.append(Page(str(courses/ccl/ccl),nickname='CCL'))
-    #random_graphs.nav.append(Page(str(courses/ccl/ccl),nickname='CCL'))
-    #comp_intract.nav.append(Page(str(courses/ccl/ccl),nickname='CCL'))
+    # home.nav.append(Page(str(about/about), nickname='About'))
+    pl.nav.append(
+        Page(str(courses / summer_of_logic / summer_of_logic), nickname="SoL")
+    )
+    tt.nav.append(
+        Page(str(courses / summer_of_logic / summer_of_logic), nickname="SoL")
+    )
+    topology.nav.append(
+        Page(str(courses / summer_of_logic / summer_of_logic), nickname="SoL")
+    )
+    em.nav.append(
+        Page(str(courses / summer_of_logic / summer_of_logic), nickname="SoL")
+    )
+
+    # ccl_book.nav.append(Page(str(courses/ccl/ccl),nickname='CCL'))
+    # random_graphs.nav.append(Page(str(courses/ccl/ccl),nickname='CCL'))
+    # comp_intract.nav.append(Page(str(courses/ccl/ccl),nickname='CCL'))
 
     build_tree(home)
-    build_tree(about, about/'/')
+    build_tree(about, about / "/")
 
     # books
-    build_tree(comp_intract, courses/algorithms/comp_intract/'/')
+    build_tree(comp_intract, courses / algorithms / comp_intract / "/")
 
-    # skeleton 
-    build_tree(courses,         courses/'/')
-    #course_stuff========================================================#
-    build_tree(ml,              courses/ml/'/')
-    build_tree(probability,     courses/probability/'/')
-    build_tree(lumped_system_theory,    courses/lumped_system_theory/'/')
-    #build_tree(ccl,             courses/ccl/'/')
+    # skeleton
+    build_tree(courses, courses / "/")
+    # course_stuff========================================================#
+    build_tree(algebra, courses / algebra / "/")
+    build_tree(commutative_algebra, courses / commutative_algebra / "/")
 
-    build_tree(algorithms,      courses/algorithms/'/')
-    build_tree(deep_learning,   courses/deep_learning/'/')
-    build_tree(compilers,       courses/compilers/'/')
-    #build_tree(ccl,             courses/ccl/'/')
-    build_tree(fall_research,             courses/fall_research/'/')
+    build_tree(seminars, courses / seminars/ "/")
 
-    build_tree(engineering_a_compiler,    courses/compilers/engineering_a_compiler/'/')
-    build_tree(antlr_reference, courses/compilers/antlr_reference/'/')
-    build_tree(summer_of_logic, courses/summer_of_logic/'/')
-   
-    build_tree(pl,              courses/summer_of_logic/pl/'/')
-    build_tree(tt,              courses/summer_of_logic/tt/'/')
-    build_tree(topology,        courses/summer_of_logic/topology/'/')
+    build_tree(algorithms, courses / algorithms / "/")
+    build_tree(deep_learning, courses / deep_learning / "/")
+    build_tree(compilers, courses / compilers / "/")
 
-    build_tree(adv_compilers,   courses/adv_compilers/'/')
-    build_tree(se,              courses/se/'/')
+    build_tree(research_fall_2022, courses / research_fall_2022 / "/")
+    build_tree(research_spring_2022, courses / research_spring_2022 / "/")
+    build_tree(research_fall_2021, courses / research_fall_2021 / "/")
 
-    build_tree(set_theory,      courses/set_theory/'/')
-    build_tree(math_logic,      courses/math_logic/'/')
-    build_tree(intro_compilers, courses/intro_compilers/'/')
+    build_tree(summer_of_algebra, courses / summer_of_algebra / "/")
+    build_tree(summer_of_logic, courses / summer_of_logic / "/")
 
-    build_tree(em,              courses/summer_of_logic/em/'/')
-    build_tree(griffiths,       courses/summer_of_logic/em/griffiths/'/')
+    # books
+    build_tree(
+        engineering_a_compiler, courses / compilers / engineering_a_compiler / "/"
+    )
+    build_tree(antlr_reference, courses / compilers / antlr_reference / "/")
 
-    build_page(blog,'blog/')
-    #========================================================#
-    for i in range(len(blogs)) :
-        build_page(blogs[i],'blog/')
 
-    build_page(research,'research/')
+    build_tree(pl, courses / summer_of_logic / pl / "/")
+    build_tree(tt, courses / summer_of_logic / tt / "/")
+    build_tree(topology, courses / summer_of_logic / topology / "/")
 
-def main() :
+    build_tree(adv_compilers, courses / adv_compilers / "/")
+    build_tree(se, courses / se / "/")
+
+    build_tree(set_theory, courses / set_theory / "/")
+    build_tree(math_logic, courses / math_logic / "/")
+    build_tree(intro_compilers, courses / intro_compilers / "/")
+
+    build_tree(em, courses / summer_of_logic / em / "/")
+    build_tree(griffiths, courses / summer_of_logic / em / griffiths / "/")
+
+    build_page(blog, "blog/")
+    # ========================================================#
+    for i in range(len(blogs)):
+        build_page(blogs[i], "blog/")
+
+    build_page(research, "research/")
+
+
+def main():
     build_site()
 
-main()
 
+main()

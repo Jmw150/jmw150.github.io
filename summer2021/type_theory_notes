@@ -1,0 +1,40 @@
+"""
+So far the major source of effort has been in using Coq with HoTT, and using Coq in general.
+
+I found some stuff
+
+ <a href="
+https://ncatlab.org/nlab/show/type+theory
+         "
+    target="_blank">
+         nlab type theory
+ </a>
+<br>
+ <a href= "
+Programming-in-Martin-Löfs-Type-Theory.pdf
+    "
+    target="_blank">
+        Classic intuinistic type theory (free book)
+ </a>
+<br>
+ <a href= "
+    https://www.youtube.com/playlist?list=PL1-2D_rCQBarjdqnM21sOsx09CtFSVO6Z
+    "
+    target="_blank">
+        Homotopy Type Theory (course)
+ </a>
+<br>
+ <a href= "
+hott-online-1287-g1ac9408.pdf
+    "
+    target="_blank">
+        Homotopy Type Theory (free book)
+ </a>
+<br>
+ <a href="
+https://favonia.org/courses/hdtt2020/
+         "
+    target="_blank">
+         Cubical Type Theory (course)
+ </a>
+"""

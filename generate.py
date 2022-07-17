@@ -37,7 +37,7 @@ class Tag:
 
 # Paths
 # {{{
-blogs_source = "../../blog"
+blogs_source = "blog"
 ## for defaults in Page
 css = Tag("greywhite.css")
 data = Tag("data")
@@ -490,7 +490,7 @@ for i in range(len(blogs)):
 # }}}
 # research
 # {{{
-research = Page("research", eval(get_file("../../research_goals")), preprocess=False)
+research = Page("research", eval(get_file("research_goals")), preprocess=False)
 # }}}
 # home (index)
 ## mildly better info-sec, name is not on main tree
@@ -549,22 +549,22 @@ https://engineering.purdue.edu/ChanGroup/ECE595/
 
 # fall 2021
 # {{{
-# ccl.data = eval(get_file('../../fall2021/ccl/note_intro'))
-compilers.data = eval(get_file("../../fall2021/compilers/note_intro"))
+# ccl.data = eval(get_file('fall2021/ccl/note_intro'))
+compilers.data = eval(get_file("fall2021/compilers/note_intro"))
 engineering_a_compiler.data = eval(
-    get_file("../../fall2021/compilers/engineering_a_compiler_notes")
+    get_file("fall2021/compilers/engineering_a_compiler_notes")
 )
-algorithms.data = eval(get_file("../../fall2021/algorithms/intro_note"))
-research_fall_2021.data = eval(get_file("../../fall2021/research/intro_note"))
+algorithms.data = eval(get_file("fall2021/algorithms/intro_note"))
+research_fall_2021.data = eval(get_file("fall2021/research/intro_note"))
 # }}}
 
 # summer 2021
 # {{{
-summer_of_logic.data = eval(get_file("../../summer2021/summer_of_logic_intro"))
+summer_of_logic.data = eval(get_file("summer2021/summer_of_logic_intro"))
 
-tt.data = eval(get_file("../../summer2021/type_theory_notes"))
-pl.data = eval(get_file("../../summer2021/programming_languages_notes"))
-topology.data = eval(get_file("../../summer2021/topology_notes"))
+tt.data = eval(get_file("summer2021/type_theory_notes"))
+pl.data = eval(get_file("summer2021/programming_languages_notes"))
+topology.data = eval(get_file("summer2021/topology_notes"))
 # }}}
 
 # past
@@ -667,7 +667,7 @@ and that realistically any set theory would be excessive if it were not large.
 
 # other
 # {{{
-griffiths.data = eval(get_file("../../summer2021/griffiths_notes"))
+griffiths.data = eval(get_file("summer2021/griffiths_notes"))
 
 intro_compilers.data = """
 <b>Note</b>: Admittedly, my notes for this entire year are terrible. Everything was online. So I just rewatched parts of lectures if I forgot about something. And the course materials are copyrighted. So I am not allowed to share the main content of what was said or done. Sorry.

@@ -1,0 +1,15 @@
+"""
+<b>motivation:</b><br>This class will cover less trivial algorithms to use analytical number theory on. 
+"""+bar()+"""
+
+
+<a href="
+https://engineering.purdue.edu/~pomeranz/ECE608/ECE608_distance.pdf"
+   target="_blank"
+>Syllabus</a>. 
+"""+(
+link(algorithms_book)+
+link(comp_intract)
+)+"""
+
+"""

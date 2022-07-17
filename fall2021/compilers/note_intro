@@ -1,0 +1,16 @@
+"""
+<b>Motivation:</b><br>
+<ul>
+<li> Optimization in compilers technology is where most practical use of
+algorithms is found. Algorithms analysis is used in an industrial setting for
+compiler engineers. Compiler engineering teams are tasked with doing all the
+clever thinking so regular programmers do not have to. </li>
+<li> Code Generation in compiler tech leads into the far more impressive field
+of program synthesis.</li> 
+</ul>
+"""+bar()+"""
+"""+(
+inlink(engineering_a_compiler)+
+link(antlr_reference)
+)+"""
+"""

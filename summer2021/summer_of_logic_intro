@@ -1,0 +1,115 @@
+"""
+<p><b>Summer of Logic</b></p>
+
+<a href="
+https://www.cambridge.org/core/journals/journal-of-symbolic-logic/listing?q=&searchWithinIds=56ED3BA46977662562A26BC04DD604FD&aggs[productTypes][filters]=JOURNAL_ARTICLE
+"
+   target="_blank">
+<img src="../../data/ASL_logo.png" height="50">
+</a>
+<br>
+<br>
+"All things logic 10 hours a day for 100 days."
+
+Reading research papers, coding in dependent type theories, and reviewing logic books.
+<br>
+<br>
+I also took some time doing random things: trying to start a workshop on
+symbolic AI, learning about the electromagnetic force, trying to get my fairly
+derivative research published, and making this website.
+
+"""+bar()+"""
+Notes:
+<br>"""+(
+link(pl) +
+link(tt) +
+link(topology) +
+link(em)) + """
+
+"""+bar()+"""
+
+Stuff I found:
+<br>
+<br>
+<b> Mathematical Logic </b>
+<br>
+ <a href="
+https://www.amazon.com/Introduction-Mathematical-Discrete-Mathematics-Applications/dp/1482237725/
+         "
+    target="_blank">
+Mathematical Logic (book)
+ </a>
+<br>
+ <a href="
+https://www.amazon.com/Philosophy-Model-Theory-Tim-Button/dp/0198790406/
+         "
+    target="_blank">
+         philosophy of model theory (book)
+ </a>
+<br>
+ <a href="
+https://www.amazon.com/Combinatorial-Set-Theory-Introduction-Mathematics/dp/1447121724
+         "
+    target="_blank">
+Combinatorial Set Theory (book)
+ </a>
+        <br>
+        <br>
+<b>How it all combines</b>
+        <br>
+        <a href="
+        https://ncatlab.org/nlab/show/computational+trilogy
+        "> proofs = programs = spaces </a>
+<br>
+<br>
+<b>
+Journals and other
+</b>
+<br>
+ <a href="
+https://engineering.purdue.edu/~xqiu/ece663/references/References.html
+         "
+    target="_blank">
+formal methods books and papers
+ </a>
+<br> 
+<a href=" http://csrankings.org/#/index?&plan&log&world "
+   target="_blank"
+        >source of research papers (CS: language+logic)</a>
+<br> 
+<a href="
+https://www.cambridge.org/core/journals/journal-of-symbolic-logic/listing?q=&searchWithinIds=56ED3BA46977662562A26BC04DD604FD&aggs[productTypes][filters]=JOURNAL_ARTICLE
+"
+   target="_blank"
+   >Journal of Symbolic Logic
+</a>
+
+<br>
+<br>
+<b>
+Cool logic groups
+</b>
+<br>
+<a href="
+http://www.logic.cmu.edu/index.html
+">
+        pure and applied logic (CMU)
+</a>
+<br>
+<a href="
+https://www.cs.purdue.edu/homes/roopsha/purform/projects.html
+">
+        Purdue formal methods (PurForm)
+</a>
+
+<br>
+<a href="
+https://github.com/coq-community/manifesto
+">
+Coq community
+</a>
+<a href="
+https://arxiv.org/about/reports/submission_category_by_year
+">
+</a>
+"""

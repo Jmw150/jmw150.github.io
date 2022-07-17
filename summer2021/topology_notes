@@ -1,0 +1,46 @@
+"""
+I found a bunch of books on the subject. But what really stands out is this formalization in calculus of inductive constructions.
+
+<a href="../../../data/topology">coq topology</a>
+
+Aside from that, the meat of topology that is interesting from a logic
+perspective is algebraic logic. So this is what I found.  
+
+<b> Algebraic Topology </b><br>
+ <a href="
+          https://ncatlab.org/nlab/show/Introduction+to+Topology
+         "
+    target="_blank">
+algebraic topology (nlab book)
+ </a>
+<br>
+ <a href="
+https://www.amazon.com/dp/0521795400/
+         "
+    target="_blank">
+algebraic topology (book)
+ </a>
+<br>
+ <a href="
+https://youtube.com/playlist?list=PLpRLWqLFLVTCL15U6N3o35g4uhMSBVA2b
+         "
+    target="_blank">
+         algebraic topology (course lectures)
+ </a>
+<br>
+ <a href="
+ https://math.ucr.edu/home/baez/algebraic_blankology/
+         "
+    target="_blank">
+         algebraic topology (course notes)
+ </a>
+<br>
+ <a href="
+          https://www.youtube.com/channel/UCLJWRcHW-mjDSbpkIX6B-cw
+         "
+    target="_blank">
+         Purdue Topology (research lectures)
+ </a>
+
+
+        """

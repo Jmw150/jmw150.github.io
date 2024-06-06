@@ -1,5 +1,4 @@
 # A python script to generate websites
-# Jordan Winkler
 
 # NOTE: could set up data to be a list: [if not str, insert var]
 ## but it would probably be better to hash address variables

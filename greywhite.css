@@ -8,6 +8,10 @@
   --accent: #8d4b2c;
   --accent-soft: #efe1d7;
   --shadow: 0 18px 38px rgba(57, 45, 32, 0.12);
+  --nav-bg: rgba(25, 27, 34, 0.94);
+  --nav-text: #f3f4f6;
+  --nav-muted: rgba(243, 244, 246, 0.78);
+  --nav-line: rgba(255, 255, 255, 0.14);
 }
 
 * {
@@ -43,19 +47,28 @@ a:hover {
 .page-shell {
   width: min(1040px, calc(100% - 2rem));
   margin: 0 auto;
-  padding: 1.2rem 0 2.5rem;
+  padding: 5.8rem 0 2.5rem;
 }
 
 .site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
-  padding: 0.7rem 0 1.4rem;
+  padding: 0.95rem 1.2rem;
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--nav-line);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
 }
 
 .site-brand {
-  color: var(--ink);
+  color: var(--nav-text);
   text-decoration: none;
   text-transform: uppercase;
   letter-spacing: 0.16em;
@@ -70,15 +83,15 @@ a:hover {
 
 .site-nav a {
   text-decoration: none;
-  color: var(--muted);
-  padding-bottom: 0.15rem;
+  color: var(--nav-muted);
+  padding: 0.18rem 0 0.22rem;
   border-bottom: 1px solid transparent;
 }
 
 .site-nav a.current,
 .site-nav a:hover {
-  color: var(--ink);
-  border-color: var(--accent);
+  color: var(--nav-text);
+  border-color: var(--nav-text);
 }
 
 #content {
@@ -214,9 +227,14 @@ img {
 }
 
 @media (max-width: 760px) {
+  .page-shell {
+    padding-top: 7.4rem;
+  }
+
   .site-header {
     flex-direction: column;
     align-items: flex-start;
+    padding-bottom: 0.8rem;
   }
 
   .hero,
